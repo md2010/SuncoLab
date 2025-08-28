@@ -14,9 +14,7 @@ export class RegisterComponent {
    username = '';
    password = '';
    repeatPassword = '';
-   loginFailed = false;
-   registrationFailed = false;
-   registrationSuccess = false;
+   registrationSuccess: boolean|undefined = undefined;
    showPassword = false;
    showUnmatchedPasswordMessage = false;
 
@@ -45,23 +43,25 @@ export class RegisterComponent {
     this.loginService.register(credentials)
     .pipe(
       catchError(error => {
-        this.registrationFailed = true;
+        this.registrationSuccess = false;
         this.spinner.hide();
         return of(undefined);
       }) 
     )
     .subscribe(async response => {
+      if (response) {
         this.registrationSuccess = true;
         await this.delay();
 
-        if (response && response.token) {
+        if (response.token) {
           this.loginService.storeData(response);
           this.spinner.hide();
           this.router.navigate(['/'])
           .then(() => {
               window.location.reload();
             });
-        }  
+        } 
+      } 
     })   
   }
 

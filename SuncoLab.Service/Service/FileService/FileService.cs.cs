@@ -14,11 +14,11 @@ namespace SuncoLab.Service
         {
             Repository = repository;
 #if !DEBUG
-            rootPath = environment.WebRootPath;
+            rootPath = Path.Combine(environment.WebRootPath, "images");
 #else
             var currentPath = Directory.GetCurrentDirectory();
             string projectRoot = Path.GetFullPath(Path.Combine(currentPath, @"..\"));
-            rootPath = Path.Combine(projectRoot, "SuncoLab.Frontend", "SuncoLab", "public", "images");
+            rootPath = Path.Combine(projectRoot, "SuncoLab.Frontend", "public", "images");
 #endif
         }
 

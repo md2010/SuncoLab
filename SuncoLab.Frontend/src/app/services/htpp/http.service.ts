@@ -64,8 +64,8 @@ export class HttpService {
     .set('Accept', 'application/json');
 
     var token = sessionStorage.getItem("token");
-    if (token!= null) {
-      headers.set('Authorization', `Bearer ${sessionStorage.getItem("token")}`);
+    if (token) {
+      headers.set('Authorization', `Bearer ${token}`);
     }
 
     return headers;

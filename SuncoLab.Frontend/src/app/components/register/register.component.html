@@ -22,9 +22,9 @@
         <p class="error-message">Password do not match.</p>
     </div>
     <div *ngIf="registrationSuccess">
-        <p class="success-message">You've successfully registered! Redirecting to home page...</p>
+        <p class="success-message">You've successfully registered new user!</p>
     </div>
-    <div *ngIf="registrationFailed">
-        <p class="error-message">Wrong username or password.</p>
+    <div *ngIf="registrationSuccess == false">
+        <p class="error-message">Registration failed.</p>
     </div>
 </form>  

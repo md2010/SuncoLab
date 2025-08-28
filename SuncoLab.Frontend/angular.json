@@ -19,6 +19,7 @@
             "polyfills": [
               "zone.js"
             ],
+            "sourceMap": true,
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
@@ -51,12 +52,19 @@
                   "maximumError": "50kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "sourceMap": true           
             },
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/app/environments/environment.ts",
+                  "with": "src/app/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
