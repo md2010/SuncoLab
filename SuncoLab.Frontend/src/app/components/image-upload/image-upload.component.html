@@ -1,0 +1,25 @@
+<h2>Images</h2>
+
+<form class="spc-bottom">
+    <p>Upload Images</p>
+    <div class="container">
+        <app-file-upload (filesChanged)="onFilesChanged($event)"></app-file-upload>          
+
+        <div>
+            <mat-form-field *ngIf="files.length > 0">
+                <mat-label>Choose album</mat-label>
+                <mat-select [(ngModel)]="selectedAlbum" name="album" required>
+                    @for (album of albums; track album) {
+                        <mat-option [value]="album.id">{{album.name}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="spc-top">
+        <button class="btn green-button-sml" (click)="saveFiles()" [disabled]="files.length == 0 || selectedAlbum == null">
+            Save
+        </button>
+    </div>
+</form>

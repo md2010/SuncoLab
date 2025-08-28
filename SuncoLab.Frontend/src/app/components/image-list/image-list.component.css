@@ -1,0 +1,8 @@
+.center {
+    align-items: center;
+    text-align: center;
+}
+
+.fit-image {
+    object-fit: contain;
+}

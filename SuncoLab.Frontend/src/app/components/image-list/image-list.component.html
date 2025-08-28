@@ -1,0 +1,13 @@
+<div class="spc-top spc-bottom">
+    <div *ngFor="let image of images" class="spc-bottom center">
+        <img [src]="image.file.relativePath" alt="Cinque Terre" width="{{width}}" height="{{height}}" class="fit-image">
+        
+        <div *ngIf="edit">
+            <mat-icon (click)="deleteFile(image.file.id)">delete_forever</mat-icon>
+            <button class="btn green-button-sml" href="javascript:void(0)" (click)="setCoverImage(image.albumId, image.id)">Set As Cover Image</button>
+            <button class="btn green-button-sml" href="javascript:void(0)" (click)="showOnHomePage(image)">
+                {{image.showInMosaic ? 'Hide' : 'Show'}} on Home Page
+            </button>
+        </div>
+    </div>
+</div>

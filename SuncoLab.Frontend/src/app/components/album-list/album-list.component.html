@@ -1,0 +1,12 @@
+<div *ngFor="let album of albums" class="spc-bottom">
+    <div class="gallery">
+        <h3>{{album.name}}</h3>
+        <a href="javascript:void(0);" (click)="openImageModal(album.id)">
+            <img [src]="album.coverImage?.file?.relativePath" alt="Album_Cover" width="800" height="400">
+        </a>
+        <div class="desc">{{album.description}}</div>
+         <div *ngIf="edit">
+            <p><mat-slide-toggle [(ngModel)]="album.show" (change)="changeVisibility(album)">Show Album</mat-slide-toggle></p>
+        </div>
+    </div>
+</div>

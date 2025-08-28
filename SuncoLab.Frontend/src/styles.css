@@ -1,0 +1,73 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* spacing */
+.spc-bottom {
+    margin-bottom: 50px;
+}
+
+.spc-top {
+    margin-top: 50px;
+}
+
+.spc-med-top {
+    margin-top: 30px;
+}
+
+.active {
+    background-color: rgb(245, 245, 184);
+}
+
+/* TOAST */
+
+.toast {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background-color:  rgb(245, 245, 184);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(223, 161, 81, 0.2);
+    transition: opacity 0.3s ease-in-out;
+    color: #3c4250;
+}
+
+.toast.success {
+  background-color: #47c464;
+}
+.toast.error {
+  background-color: #dc3545;
+}
+.toast.warning {
+  background-color: #ecc244;
+}
+
+/* BUTTON */
+.green-button-big {
+  background-color: #04AA6D; 
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.green-button-sml {
+  background-color: #04AA6D; 
+  border: none;
+  color: white;
+  padding: 12px 25px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  margin: 5px;
+}
+
+/* LAYOUT */
+
+.row {
+  display: flex;
+  flex-direction: column; 
+  gap: 16px; 
+}
