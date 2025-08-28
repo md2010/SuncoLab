@@ -1,0 +1,9 @@
+.fit-image {
+    object-fit: contain;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

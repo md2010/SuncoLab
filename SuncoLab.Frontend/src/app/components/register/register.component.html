@@ -1,0 +1,30 @@
+<form id="register_form" class="form_class">
+    <div class="form_div">
+
+        <label>Username:</label>
+        <input class="field_class" name="login_txt" type="text" [(ngModel)]="username" autofocus>
+        
+        <label>Password:</label>
+        <div class="password-input-wrapper">
+            <input id="pass" class="field_class" name="password_txt" type="{{showPassword ? 'text' : 'password'}}" [(ngModel)]="password">
+            <span class="fa" [ngClass]="{'fa-eye-slash' : !showPassword, 'fa-eye' : showPassword}" (click)="togglePasswordVisibility()"></span>
+        </div>
+
+        <label>Repeat Password:</label>
+        <div class="password-input-wrapper">
+            <input id="pass_repeat" class="field_class" name="password_txt_repeat" type="{{showPassword ? 'text' : 'password'}}" [(ngModel)]="repeatPassword">
+            <span class="fa" [ngClass]="{'fa-eye-slash' : !showPassword, 'fa-eye' : showPassword}" (click)="togglePasswordVisibility()"></span>
+        </div>
+
+        <button class="submit_class" type="submit" form="login_form" (click)="register()">Register</button>
+    </div>
+    <div *ngIf="showUnmatchedPasswordMessage">
+        <p class="error-message">Password do not match.</p>
+    </div>
+    <div *ngIf="registrationSuccess">
+        <p class="success-message">You've successfully registered! Redirecting to home page...</p>
+    </div>
+    <div *ngIf="registrationFailed">
+        <p class="error-message">Wrong username or password.</p>
+    </div>
+</form>  

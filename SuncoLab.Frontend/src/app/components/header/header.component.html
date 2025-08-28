@@ -1,0 +1,21 @@
+<header>
+  <img src="/images/banner-black.png" width="100%" height="300px">
+</header>
+
+<nav class="navbar">
+    <div class="container">
+  
+      <div class="navbar-header">
+      </div>
+  
+      <div class="navbar-menu" id="open-navbar1">
+        <ul class="navbar-nav">
+          <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]={exact:true}>Home</a></li>      
+          <li><a routerLink="/gallery" routerLinkActive="active">Gallery</a></li>
+          <li><a routerLink="/blog" routerLinkActive="active">Blog</a></li>
+          <li *ngIf="authorized"><a routerLink="/admin" routerLinkActive="active">Admin</a></li>
+          <li *ngIf="authorized"><a href="javascript:void(0);" (click)="logout()">Log out</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>            

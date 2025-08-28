@@ -1,0 +1,32 @@
+<h2>Albums</h2>
+
+<div class="row">
+    <app-album-list [albums]="albums" [edit]="true"></app-album-list>
+</div>
+
+<button class="btn green-button-sml" (click)="addAlbumClicked = !addAlbumClicked;">Add new album</button>
+
+<div class="row" *ngIf="addAlbumClicked === true">    
+    <h3>Add new album</h3>
+    <form [formGroup]="addAlbumForm" (ngSubmit)="saveAlbum()">
+        <div>
+            <label for="name">
+            Name
+            </label>
+            <input class="field" id="name" type="text" formControlName="name" required>
+        </div>
+
+        <div>
+            <label for="description">
+            Description
+            </label>
+            <input class="field" id="description" type="text" formControlName="description">
+        </div>
+
+        <div>
+            <p><mat-slide-toggle id="show" formControlName="show">Show Album</mat-slide-toggle></p>
+        </div>
+
+        <button class="btn green-button-sml" type="submit">Save</button>
+    </form>   
+</div>
