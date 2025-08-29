@@ -73,6 +73,8 @@ namespace SuncoLab.API.Controllers
                 return BadRequest();
             }
 
+            bool error = false;
+
             foreach (var file in model.Files)
             {
                 try
@@ -82,10 +84,11 @@ namespace SuncoLab.API.Controllers
                 catch (Exception ex)
                 {
                     logger.LogError($"Error on UploadFiles: {ex.Message}\n{ex.StackTrace}");
+                    error = true;
                 }
             }
 
-            return Ok(true);
+            return error ? Conflict() : Ok(true);
         }
 
         [HttpPost]
@@ -93,7 +96,7 @@ namespace SuncoLab.API.Controllers
         [Route("insert-album")]
         public async Task<IActionResult> CreateAlbum(CreateAlbumModel model)
         {
-            var result = await service.CreateAlbum(model.Name, model.Description);
+            var result = await service.CreateAlbum(model.Name, model.Show, model.Description);
 
             if (result)
             {
@@ -118,6 +121,7 @@ namespace SuncoLab.API.Controllers
         {
             public string Name {  get; set; }
             public string? Description { get; set; }
+            public bool Show {  get; set; }
         }
 
         public class SetCoverImageRequest

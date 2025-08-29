@@ -12,6 +12,7 @@ using SuncoLab.Repository;
 using SuncoLab.Common;
 using System.Text.Json.Serialization;
 using Serilog;
+using Azure.Storage.Blobs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,7 +33,6 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacModule()));
 
 // Add services to the container.
-
 builder.Services.AddControllers().AddJsonOptions(options =>
                     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
@@ -59,15 +59,38 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
+var allowedOrigins = builder.Environment.IsDevelopment()
+    ? [builder.Configuration["LocalUrl"]]  // Angular dev server
+    : new[] { builder.Configuration["ProductionUrl"] };  // Your deployed frontend
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.WithOrigins(allowedOrigins)
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials();
+    });
+});
+
 builder.Services.AddSingleton<PasswordGenerator>(new PasswordGenerator());
+builder.Services.AddSingleton(x => new BlobServiceClient(builder.Configuration.GetConnectionString("StorageAccount")));
 
-var logger = new LoggerConfiguration()
-  .ReadFrom.Configuration(builder.Configuration)
-  .Enrich.FromLogContext()
-  .CreateLogger();
+//var logger = new LoggerConfiguration()
+//  .ReadFrom.Configuration(builder.Configuration)
+//  .Enrich.FromLogContext()
+//  .CreateLogger();
+//
+//builder.Logging.ClearProviders();
+//builder.Logging.AddSerilog(logger);
 
-builder.Logging.ClearProviders();
-builder.Logging.AddSerilog(logger);
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .CreateLogger();
+
+builder.Host.UseSerilog(Log.Logger);
 
 var app = builder.Build();
 
@@ -78,13 +101,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(x => 
-        x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+app.UseCors("CorsPolicy");
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
-app.UseAuthentication();
 
 app.MapControllers();
 

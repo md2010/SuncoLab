@@ -11,7 +11,9 @@ namespace SuncoLab.Service
     {
         public async Task<bool> SaveImageIntoAlbum(IFormFile formFile, Guid albumId)
         {
-            var fileId = await fileService.SaveFile(formFile);
+            var album = await albumRepository.GetByIdAsync(albumId);
+
+            var fileId = await fileService.SaveFile(formFile, album.Name);
 
             if (fileId == null)
             {
@@ -32,7 +34,7 @@ namespace SuncoLab.Service
             return false;
         }
 
-        public async Task<bool> CreateAlbum(string name, string? description)
+        public async Task<bool> CreateAlbum(string name, bool show, string? description)
         {
             if (await albumRepository.GetByNameAsync(name) != null)
             {
@@ -42,7 +44,8 @@ namespace SuncoLab.Service
             var entity = new Album
             {
                 Name = name,
-                Description = description
+                Description = description,
+                Show = show
             };
 
             return await albumRepository.InsertAsync(entity) != null;

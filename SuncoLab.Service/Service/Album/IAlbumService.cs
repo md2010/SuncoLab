@@ -7,7 +7,7 @@ namespace SuncoLab.Service
     {
         Task<bool> SaveImageIntoAlbum(IFormFile formFile, Guid albumId);
 
-        Task<bool> CreateAlbum(string name, string? description);
+        Task<bool> CreateAlbum(string name, bool show, string? description);
 
         Task<bool> SetCoverImage(Guid albumId, Guid imageId);
 
