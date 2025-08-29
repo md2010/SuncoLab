@@ -54,6 +54,7 @@ export class ImageUploadComponent implements OnInit {
         else {
           this.toast.create('Error happend while uploading file(s).', 'error');
         }
+        this.spinner.hide();
       })
     }
 

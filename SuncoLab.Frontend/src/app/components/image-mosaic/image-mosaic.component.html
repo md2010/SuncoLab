@@ -14,51 +14,51 @@
     <div class="responsive-container-block Container" *ngFor="let j of [].constructor(chunks)">
         <div *ngFor="let image of images; index as i">
             <div class="project project1">
-                <img class="smallImage" [src]="images[0].file.relativePath">
+                <img class="smallImage" [src]="images[0].file.path">
                 <div class="btn-box">
-                <button class="btn" (click)="openImage(images[0].file.relativePath)">      
+                <button class="btn" (click)="openImage(images[0].file.path)">      
                     View              
                 </button>
                 </div>
             </div>
             <div class="project project2">
-                <img class="smallImage" [src]="images[1].file.relativePath">
+                <img class="smallImage" [src]="images[1].file.path">
                 <div class="overlay">
                 </div>
                 <div class="btn-box">
-                <button class="btn" (click)="openImage(images[1].file.relativePath)">
+                <button class="btn" (click)="openImage(images[1].file.path)">
                     View
                 </button>
                 </div>
             </div>
             <div class="project project3">
-                <img class="smallImage" [src]="images[2].file.relativePath">
+                <img class="smallImage" [src]="images[2].file.path">
                 <div class="btn-box">
-                <button class="btn" (click)="openImage(images[2].file.relativePath)">
+                <button class="btn" (click)="openImage(images[2].file.path)">
                     View
                 </button>
                 </div>
             </div>
             <div class="project project4">
-                <img class="smallImage" [src]="images[3].file.relativePath">
+                <img class="smallImage" [src]="images[3].file.path">
                 <div class="btn-box">
-                <button class="btn" (click)="openImage(images[3].file.relativePath)">
+                <button class="btn" (click)="openImage(images[3].file.path)">
                     View
                 </button>
                 </div>
             </div>
             <div class="project project5">
-                <img class="smallImage" [src]="images[4].file.relativePath">                
+                <img class="smallImage" [src]="images[4].file.path">                
                 <div class="btn-box">
-                <button class="btn" (click)="openImage(images[4].file.relativePath)">
+                <button class="btn" (click)="openImage(images[4].file.path)">
                     View
                 </button>
                 </div>
             </div>
             <div class="project project6">
-                <img class="smallImage" [src]="images[5].file.relativePath">               
+                <img class="smallImage" [src]="images[5].file.path">               
                 <div class="btn-box">
-                    <button class="btn" (click)="openImage(images[5].file.relativePath)">
+                    <button class="btn" (click)="openImage(images[5].file.path)">
                         View
                     </button>
                 </div>

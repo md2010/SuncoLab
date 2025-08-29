@@ -60,12 +60,12 @@ export class HttpService {
   }
 
   generateHttpHeaders() {
-    const headers = new HttpHeaders()
+    let headers = new HttpHeaders()
     .set('Accept', 'application/json');
 
     var token = sessionStorage.getItem("token");
     if (token) {
-      headers.set('Authorization', `Bearer ${token}`);
+      headers = headers.set('Authorization', `Bearer ${token}`);
     }
 
     return headers;

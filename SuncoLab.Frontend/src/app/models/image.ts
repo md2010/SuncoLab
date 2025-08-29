@@ -17,13 +17,13 @@ export class Image {
 
 export class ImageFile {
     id: string;
-    relativePath: string;
+    path: string;
     fileName: string
     fileExtension: string;
 
-    constructor(id: string, relativePath: string, fileName: string, fileExtension: string) {
+    constructor(id: string, path: string, fileName: string, fileExtension: string) {
     this.id = id;
-    this.relativePath = relativePath;
+    this.path = path;
     this.fileExtension = fileExtension;
     this.fileName = fileName;
   }
