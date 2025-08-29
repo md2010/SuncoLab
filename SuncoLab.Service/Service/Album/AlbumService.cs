@@ -11,27 +11,34 @@ namespace SuncoLab.Service
     {
         public async Task<bool> SaveImageIntoAlbum(IFormFile formFile, Guid albumId)
         {
-            var album = await albumRepository.GetByIdAsync(albumId);
-
-            var fileId = await fileService.SaveFile(formFile, album.Name);
-
-            if (fileId == null)
+            try
             {
+                var album = await albumRepository.GetByIdAsync(albumId);
+
+                var fileId = await fileService.SaveFile(formFile, album.Name);
+
+                if (fileId == null)
+                {
+                    return false;
+                }
+
+                var image = new Image
+                {
+                    FileId = fileId.Value,
+                    AlbumId = albumId
+                };
+
+                if (await imageRepository.InsertAsync(image) != null)
+                {
+                    return true;
+                }
+
                 return false;
-            } 
-
-            var image = new Image
-            {
-                FileId = fileId.Value,
-                AlbumId = albumId
-            };
-
-            if (await imageRepository.InsertAsync(image) != null)
-            {
-                return true;
             }
-
-            return false;
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
         }
 
         public async Task<bool> CreateAlbum(string name, bool show, string? description)
