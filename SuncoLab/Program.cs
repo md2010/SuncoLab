@@ -59,9 +59,11 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
-var allowedOrigins = builder.Environment.IsDevelopment()
-    ? [builder.Configuration["LocalUrl"]]  // Angular dev server
-    : new[] { builder.Configuration["ProductionUrl"] };  // Your deployed frontend
+var allowedOrigins = new[] 
+{
+    builder.Configuration["LocalUrl"], 
+    builder.Configuration["ProductionUrl"] 
+};
 
 builder.Services.AddCors(options =>
 {
@@ -91,6 +93,7 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 builder.Host.UseSerilog(Log.Logger);
+builder.Logging.AddConsole();
 
 var app = builder.Build();
 
