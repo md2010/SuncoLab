@@ -72,10 +72,6 @@ namespace SuncoLab.Service
                 {
                     return entity.Id;
                 }
-                else
-                {
-                    return null;
-                }
             }
 
             return null;

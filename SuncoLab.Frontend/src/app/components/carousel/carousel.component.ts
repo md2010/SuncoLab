@@ -25,15 +25,15 @@ export class SlideComponent implements OnInit {
   ngOnInit(): void {
     this.slides[0] = {
       id: 1,
-      src: '/images/forest.jpg'
+      src: 'https://suncolabstorage.blob.core.windows.net/images/Magic Forest/forest.jpg'
     };
     this.slides[1] = {
       id: 2,
-      src: '/images/forest.jpg'
+      src: 'https://suncolabstorage.blob.core.windows.net/images/black-sand.jpg'
     };
     this.slides[2] = {
       id: 3,
-      src: '/images/northern-lights.jpg'
+      src: 'https://suncolabstorage.blob.core.windows.net/images/black-sand.jpg'
     };
   }
 

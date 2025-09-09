@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using SuncoLab.Model;
 using SuncoLab.Repository;
 
@@ -7,7 +8,8 @@ namespace SuncoLab.Service
     public class AlbumService(
         IImageRepository imageRepository, 
         IAlbumRepository albumRepository, 
-        IFileService fileService) : IAlbumService
+        IFileService fileService,
+        ILogger<AlbumService> logger) : IAlbumService
     {
         public async Task<bool> SaveImageIntoAlbum(IFormFile formFile, Guid albumId)
         {
@@ -37,7 +39,8 @@ namespace SuncoLab.Service
             }
             catch (Exception ex)
             {
-                throw new Exception();
+                logger.LogError($"Error happend on SaveImageIntoAlbum: {ex.Message}");
+                throw new Exception(ex.Message);
             }
         }
 
