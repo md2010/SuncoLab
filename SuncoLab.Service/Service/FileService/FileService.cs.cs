@@ -38,9 +38,9 @@ namespace SuncoLab.Service
 #if !DEBUG
             var blobName = formFile.FileName;
 
-            if (!String.IsNullOrEmpty(albumName))
+            if (!String.IsNullOrEmpty(folderName))
             {
-                blobName = String.Format("{0}/{1}", albumName, formFile.FileName);
+                blobName = String.Format("{0}/{1}", folderName, formFile.FileName);
             }
 
             var fileUrl = await UploadFileToBloblStorage(formFile, blobName);
