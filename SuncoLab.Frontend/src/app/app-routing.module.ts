@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'gallery', component: GalleryComponent },
   { path: 'blog', component: BlogListComponent },
-  { path: 'blog/:id', component: BlogPreviewComponent },
+  { path: 'blog-preview/:id', component: BlogPreviewComponent },
   { path: 'admin', component: AdminComponent, canActivate: [authGuard] },
   { path: 'unauthorized', component: UnauthorizedComponent},
 ];

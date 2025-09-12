@@ -48,7 +48,7 @@ export class BlogListComponent {
     }
 
     openBlog(id: string) {
-      const url = `${window.location.origin}/blog/${id}`;
+      const url = `${window.location.origin}/blog-preview/${id}`;
       window.open(url, '_blank');
     }
 
