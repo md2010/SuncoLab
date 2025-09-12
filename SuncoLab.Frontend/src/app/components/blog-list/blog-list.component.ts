@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { BlogService } from '../../services/blog/blog.service';
+import { Blog } from '../../models/blog';
 
 @Component({
   selector: 'app-blog-list',
@@ -8,7 +10,8 @@ import { Component } from '@angular/core';
 })
 export class BlogListComponent {
 
-  slides: any[] = new Array(3).fill({ id: -1, src: '', title: '', subtitle: '' });
+    blogs: Array<Blog> | undefined;
+    slides: any[] = new Array(3).fill({ id: -1, src: '', title: '', subtitle: '' });
 
     customOptions = {
       loop: true,
@@ -22,18 +25,31 @@ export class BlogListComponent {
       items: 1
     };
 
-  ngOnInit(): void {
-    this.slides[0] = {
-      id: 1,
-      src: '/images/forest.jpg'
-    };
-    this.slides[1] = {
-      id: 2,
-      src: '/images/forest.jpg'
-    };
-    this.slides[2] = {
-      id: 3,
-      src: '/images/northern-lights.jpg'
-    };
-  }
+    constructor(private blogService: BlogService) {}
+
+    ngOnInit(): void {
+      this.slides[0] = {
+        id: 1,
+        src: '/images/forest.jpg'
+      };
+      this.slides[1] = {
+        id: 2,
+        src: '/images/forest.jpg'
+      };
+      this.slides[2] = {
+        id: 3,
+        src: '/images/northern-lights.jpg'
+      };
+
+      this.blogService.getAll()
+        .subscribe((response) => {
+          this.blogs = response;
+        })
+    }
+
+    openBlog(id: string) {
+      const url = `${window.location.origin}/blog/${id}`;
+      window.open(url, '_blank');
+    }
+
 }

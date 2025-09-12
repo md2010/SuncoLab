@@ -40,6 +40,10 @@ export class GalleryService {
     return this.httpService.post<boolean>(this.baseUrl + 'show-on-home-page', { "show": show, "imageId": imageId})
   }
 
+  changeAlbumVisibility(albumId: string, show: boolean) {
+    return this.httpService.post<boolean>(this.baseUrl + 'change-album-visibility', { "show": show, "albumId": albumId})
+  }
+
   deleteImage(fileId: string) : Observable<boolean> {
     return this.httpService.delete(this.baseUrl + 'delete-image/' + fileId)
   }

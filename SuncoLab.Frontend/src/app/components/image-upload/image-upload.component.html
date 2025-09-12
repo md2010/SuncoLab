@@ -8,9 +8,18 @@
         <div>
             <mat-form-field *ngIf="files.length > 0">
                 <mat-label>Choose album</mat-label>
-                <mat-select [(ngModel)]="selectedAlbum" name="album" required>
+                <mat-select [(ngModel)]="selectedAlbum" name="album">
                     @for (album of albums; track album) {
                         <mat-option [value]="album.id">{{album.name}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="files.length > 0">
+                <mat-label>Choose blog</mat-label>
+                <mat-select [(ngModel)]="selectedBlog" name="blog">
+                    @for (blog of blogs; track blog) {
+                        <mat-option [value]="blog.id">{{blog.name}}</mat-option>
                     }
                 </mat-select>
             </mat-form-field>
@@ -18,7 +27,7 @@
     </div>
 
     <div class="spc-top">
-        <button class="btn green-button-sml" (click)="saveFiles()" [disabled]="files.length == 0 || selectedAlbum == null">
+        <button class="btn green-button-sml" (click)="saveFiles()" [disabled]="files.length == 0 || (selectedAlbum == null && selectedBlog == null)">
             Save
         </button>
     </div>

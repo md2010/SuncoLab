@@ -11,7 +11,7 @@ import { Authorized } from '../../models/authorization';
 export class AdminComponent {
     authorized: Authorized | undefined;
     showEditAlbum = false;
-    showEditMagazine = false;
+    showEditBlog = false;
     showRegister = false;
   
     constructor(private authService: AuthService) {
@@ -23,17 +23,17 @@ export class AdminComponent {
     }
 
     hideCurrentEditScreen(optionName: string) {
-      if (optionName == 'magazine') {
+      if (optionName == 'blog') {
         this.showEditAlbum = false;
         this.showRegister = false;   
       }
       if (optionName == 'album') {
-        this.showEditMagazine = false;
+        this.showEditBlog = false;
         this.showRegister = false;
       }
       if (optionName == 'register') {
         this.showEditAlbum = false;
-        this.showEditMagazine = false;
+        this.showEditBlog = false;
       }
     }
 }

@@ -6,16 +6,25 @@ using SuncoLab.Repository;
 namespace SuncoLab.Service
 {
     public class AlbumService(
-        IImageRepository imageRepository, 
-        IAlbumRepository albumRepository, 
+        IImageRepository imageRepository,
+        IAlbumRepository albumRepository,
         IFileService fileService,
         ILogger<AlbumService> logger) : IAlbumService
     {
+
+        #region Image
+
         public async Task<bool> SaveImageIntoAlbum(IFormFile formFile, Guid albumId)
         {
             try
             {
                 var album = await albumRepository.GetByIdAsync(albumId);
+
+                if (album == null)
+                {
+                    logger.LogError($"Error happend on SaveImageIntoAlbum, Album doesn't exist: {albumId}");
+                    throw new Exception("Album does not exist.");
+                }
 
                 var fileId = await fileService.SaveFile(formFile, album.Name);
 
@@ -44,6 +53,32 @@ namespace SuncoLab.Service
             }
         }
 
+        public async Task<bool> DeleteImage(Guid fileId)
+        {
+            var result = await imageRepository.DeleteImage(fileId);
+
+            if (result)
+            {
+                return await fileService.DeleteFile(fileId);
+            }
+
+            return false;
+        }
+
+        public async Task<List<Image>> GetImagesForMosaic()
+        {
+            return await imageRepository.GetImagesForMosaic();
+        }
+
+        public async Task<List<Image>> FindImagesForAlbumAsync(Guid albumId)
+        {
+            return await imageRepository.GetImagesForAlbum(albumId);
+        }
+
+        #endregion
+
+        #region Album
+
         public async Task<bool> CreateAlbum(string name, bool show, string? description)
         {
             if (await albumRepository.GetByNameAsync(name) != null)
@@ -61,6 +96,16 @@ namespace SuncoLab.Service
             return await albumRepository.InsertAsync(entity) != null;
         }
 
+        public async Task<List<Album>> FindAlbumAsync()
+        {
+            return await albumRepository.FindAlbumAsync();
+        }
+
+        public async Task<bool> ChangeAlbumVisibility(Guid albumId, bool show)
+        {
+            return await albumRepository.ChangeAlbumVisibility(albumId, show);
+        }
+
         public async Task<bool> SetCoverImage(Guid albumId, Guid imageId)
         {
             if (await albumRepository.GetByIdAsync(albumId) == null)
@@ -73,34 +118,9 @@ namespace SuncoLab.Service
 
         public async Task<bool> ShowImageOnHomePage(Guid imageId, bool show)
         {
-            return await imageRepository.ShowImageOnHomePage(imageId, show);         
+            return await imageRepository.ShowImageOnHomePage(imageId, show);
         }
 
-        public async Task<bool> DeleteImage(Guid fileId)
-        {
-            var result = await imageRepository.DeleteImage(fileId);
-
-            if (result)
-            {
-                return await fileService.DeleteFile(fileId);
-            }
-
-            return false;
-        }
-
-        public async Task<List<Album>> FindAlbumAsync()
-        {
-            return await albumRepository.FindAlbumAsync();
-        }
-
-        public async Task<List<Image>> FindImagesForAlbumAsync(Guid albumId)
-        {
-            return await imageRepository.GetImagesForAlbum(albumId);
-        }
-
-        public async Task<List<Image>> GetImagesForMosaic()
-        {
-            return await imageRepository.GetImagesForMosaic();
-        }
+        #endregion
     }
 }

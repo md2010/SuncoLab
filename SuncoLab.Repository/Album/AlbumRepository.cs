@@ -20,12 +20,7 @@ namespace SuncoLab.Repository
             model.Initialize();
             Entities.Add(model);
 
-            if (await DbContext.SaveChangesAsync() > 0)
-            {
-                return model;
-            }
-
-            return null;
+            return await DbContext.SaveChangesAsync() > 0 ? model : null;
         }
 
         public async Task<Album?> GetByIdAsync(Guid id)
@@ -48,9 +43,7 @@ namespace SuncoLab.Repository
 
         public async Task<Album?> GetByNameAsync(string name)
         {
-            var album = await Entities.FirstOrDefaultAsync(a => a.Name == name);
-
-            return album ?? null;
+            return await Entities.FirstOrDefaultAsync(a => a.Name == name);
         }
 
         public async Task<bool> SetCoverImage(Guid albumId, Guid imageId)
@@ -60,6 +53,15 @@ namespace SuncoLab.Repository
             album!.CoverImageId = imageId;
 
             return await DbContext.SaveChangesAsync() > 0; 
+        }
+
+        public async Task<bool> ChangeAlbumVisibility(Guid albumId, bool show)
+        {
+            var album = await GetByIdAsync(albumId);
+
+            album!.Show = show;
+
+            return await DbContext.SaveChangesAsync() > 0;
         }
     }
 }

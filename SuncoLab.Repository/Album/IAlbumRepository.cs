@@ -13,5 +13,7 @@ namespace SuncoLab.Repository
         Task<List<Album>> FindAlbumAsync();
 
         Task<bool> SetCoverImage(Guid albumId, Guid imageId);
+
+        Task<bool> ChangeAlbumVisibility(Guid albumId, bool show);
     }
 }

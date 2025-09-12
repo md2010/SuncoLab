@@ -4,6 +4,8 @@ import { ImageListComponent } from '../image-list/image-list.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Authorized } from '../../models/authorization';
 import { AuthService } from '../../services/auth/auth.service';
+import { GalleryService } from '../../services/gallery/gallery.service';
+import { ToastService } from '../../services/toast/toast.service';
 
 @Component({
   selector: 'app-album-list',
@@ -21,7 +23,7 @@ export class AlbumListComponent {
   readonly dialog = inject(MatDialog);
   authorized: Authorized | undefined;
     
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private galleryService: GalleryService, private toast: ToastService) {
     this.authService.authorizedSubject.subscribe(user => {
         if (user && user.isAuth) {
           this.authorized = user;
@@ -41,6 +43,11 @@ export class AlbumListComponent {
   }
 
   changeVisibility(album: Album) {
-    //TO DO
+    this.galleryService.changeAlbumVisibility(album.id, album.show)
+    .subscribe((response) => {
+      if (response) {
+         this.toast.create('Album visibility changed.');
+      }
+    })
   }
 }

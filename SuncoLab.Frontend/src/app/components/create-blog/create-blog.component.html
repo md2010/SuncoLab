@@ -1,0 +1,37 @@
+<form [formGroup]="createBlogForm" (ngSubmit)="createBlog();">
+    <div>
+        <label for="name">
+        Name
+        </label>
+        <input class="field" id="name" type="text" formControlName="name" required>
+    </div>
+
+    <div>
+        <label for="description">
+        Description
+        </label>
+        <input class="field" id="description" type="text" formControlName="description">
+    </div>
+
+    <div>
+        <p><mat-slide-toggle id="show" formControlName="show">Show Blog</mat-slide-toggle></p>
+    </div>
+
+    <div class="NgxEditor__Wrapper spc-top">
+        <ngx-editor-menu 
+            [editor]="editor">
+        </ngx-editor-menu> 
+        <ngx-editor
+            [editor]="editor"
+            formControlName="html"
+        ></ngx-editor>
+    </div>
+
+    <div class="spc-top">
+        <app-file-upload (filesChanged)="onFileChanged($event)"></app-file-upload>
+    </div>       
+
+    <div class="spc-top">
+        <button class="btn green-button-sml" type="submit">Save New Blog</button>
+    </div>
+</form>   

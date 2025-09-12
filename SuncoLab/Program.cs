@@ -79,14 +79,6 @@ builder.Services.AddCors(options =>
 builder.Services.AddSingleton<PasswordGenerator>(new PasswordGenerator());
 builder.Services.AddSingleton(x => new BlobServiceClient(builder.Configuration.GetConnectionString("StorageAccount")));
 
-//var logger = new LoggerConfiguration()
-//  .ReadFrom.Configuration(builder.Configuration)
-//  .Enrich.FromLogContext()
-//  .CreateLogger();
-//
-//builder.Logging.ClearProviders();
-//builder.Logging.AddSerilog(logger);
-
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.FromLogContext()
@@ -96,7 +88,6 @@ builder.Host.UseSerilog(Log.Logger);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -125,11 +116,13 @@ public class AutofacModule : Module
         builder.RegisterType<AuthService>().As<IAuthService>();
         builder.RegisterType<FileService>().As<IFileService>();
         builder.RegisterType<AlbumService>().As<IAlbumService>();
+        builder.RegisterType<BlogService>().As<IBlogService>();
       
         //repository
         builder.RegisterType<CoreUserRepository>().As<ICoreUserRepository>();
         builder.RegisterType<CoreFileRepository>().As<ICoreFileRepository>();
         builder.RegisterType<ImageRepository>().As<IImageRepository>();
         builder.RegisterType<AlbumRepository>().As<IAlbumRepository>();
+        builder.RegisterType<BlogRepository>().As<IBlogRepository>();
     }
 }
