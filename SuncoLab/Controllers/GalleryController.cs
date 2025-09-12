@@ -7,7 +7,7 @@ namespace SuncoLab.API.Controllers
 {
     [Route("gallery")]
     [ApiController]
-    public class GalleryController(IAlbumService service, ILogger<GalleryController> logger) : ControllerBase
+    public class GalleryController(IAlbumService service, ILogger<GalleryController> logger, IBlogService blogService) : ControllerBase
     {
         #region Methods
 
@@ -48,6 +48,15 @@ namespace SuncoLab.API.Controllers
         }
 
         [HttpPost]
+        [Route("change-album-visibility")]
+        public async Task<IActionResult> ChangeAlbumVisibility(ChangeAlbumVisibilityRequest request)
+        {
+            var result = await service.ChangeAlbumVisibility(request.AlbumId, request.Show);
+
+            return result ? Ok(true) : Conflict();
+        }
+
+        [HttpPost]
         [Route("show-on-home-page")]
         public async Task<IActionResult> ShowImageOnHomePage(ShowImageOnHomePageRequest request)
         {
@@ -79,7 +88,18 @@ namespace SuncoLab.API.Controllers
             {
                 try
                 {
-                    await service.SaveImageIntoAlbum(file, model.AlbumId);
+                    if (model.AlbumId.HasValue)
+                    {
+                        await service.SaveImageIntoAlbum(file, model.AlbumId.Value);
+                    }
+                    else if (model.BlogId.HasValue)
+                    {
+                        await blogService.SaveBlogImage(file, model.BlogId.Value);
+                    }
+                    else
+                    {
+                        // TO DO
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -114,7 +134,8 @@ namespace SuncoLab.API.Controllers
         public class UploadFilesModel
         {
             public IFormFileCollection Files { get; set; }
-            public Guid AlbumId { get; set; }
+            public Guid? AlbumId { get; set; }
+            public Guid? BlogId { get; set; }
         }
 
         public class CreateAlbumModel
@@ -129,6 +150,13 @@ namespace SuncoLab.API.Controllers
             public Guid AlbumId { get; set; }
 
             public Guid ImageId { get; set; }
+        }
+
+        public class ChangeAlbumVisibilityRequest
+        {
+            public Guid AlbumId { get; set; }
+
+            public bool Show { get; set; }
         }
 
         public class ShowImageOnHomePageRequest

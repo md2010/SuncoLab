@@ -31,6 +31,9 @@ import { ImageListComponent } from './components/image-list/image-list.component
 import { RegisterComponent } from './components/register/register.component';
 import { ImageMosaicComponent } from './components/image-mosaic/image-mosaic.component';
 import { BlogListComponent } from './components/blog-list/blog-list.component';
+import { CreateBlogComponent } from './components/create-blog/create-blog.component';
+import { NgxEditorComponent, NgxEditorMenuComponent, NgxEditorModule } from "ngx-editor";
+import { BlogPreviewComponent } from './components/blog-preview/blog-preview.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,9 @@ import { BlogListComponent } from './components/blog-list/blog-list.component';
     ImageListComponent,
     RegisterComponent,
     ImageMosaicComponent,
-    BlogListComponent
+    BlogListComponent,
+    CreateBlogComponent,
+    BlogPreviewComponent
   ],
   imports: [
     SpinnerComponent,
@@ -66,7 +71,10 @@ import { BlogListComponent } from './components/blog-list/blog-list.component';
     CarouselModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    NgxEditorModule,
+    NgxEditorMenuComponent,
+    NgxEditorComponent
   ],
   providers: [
     provideHttpClient()

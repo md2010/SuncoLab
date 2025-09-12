@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class FileUploadComponent {
      @Output() filesChanged = new EventEmitter<Array<File>>();
+     @Input() multiple: boolean = true;
 
       formData: FormData = new FormData();
       files: Array<File> = [];

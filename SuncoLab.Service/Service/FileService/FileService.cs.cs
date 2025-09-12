@@ -32,7 +32,7 @@ namespace SuncoLab.Service
 #endif
         }
 
-        public async Task<Guid?> SaveFile(IFormFile formFile, string albumName)
+        public async Task<Guid?> SaveFile(IFormFile formFile, string? folderName)
         {
 
 #if !DEBUG
@@ -48,12 +48,12 @@ namespace SuncoLab.Service
 #else
             var blobName = formFile.FileName;
 
-            if (!String.IsNullOrEmpty(albumName))
+            if (!String.IsNullOrEmpty(folderName))
             {
-                blobName = Path.Combine(albumName, formFile.FileName);
+                blobName = Path.Combine(folderName, formFile.FileName);
             }
 
-            var fileUrl = await UploadFileToLocalStorage(formFile, blobName,  albumName);
+            var fileUrl = await UploadFileToLocalStorage(formFile, blobName,  folderName);
             var relativePath = Path.Combine("images", blobName);
 #endif
             if (!String.IsNullOrEmpty(fileUrl))

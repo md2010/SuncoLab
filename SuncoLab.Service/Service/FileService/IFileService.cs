@@ -9,8 +9,9 @@ namespace SuncoLab.Service
         /// Save file into blob storage: container name: images, fileName: albumName/fileName
         /// </summary>
         /// <param name="formFile"></param>
+        /// <param name="folderName">Album or Blog name</param>
         /// <returns></returns>
-        Task<Guid?> SaveFile(IFormFile formFile, string albumName);
+        Task<Guid?> SaveFile(IFormFile formFile, string? folderName);
 
         Task<bool> DeleteFile(Guid fileId);
     }

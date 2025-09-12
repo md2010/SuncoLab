@@ -10,5 +10,6 @@ namespace SuncoLab.DAL
         public DbSet<CoreUser> CoreUsers { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
     }
 }

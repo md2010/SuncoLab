@@ -41,8 +41,8 @@ export class HttpService {
       });
   }
 
-  getById<T>(id: string): Observable<T> {
-    return this.http.get<T>(`${this.baseUrl}/${id}`);
+  getById<T>(url: string, id: string): Observable<T> {
+    return this.http.get<T>(`${this.baseUrl}${url}/${id}`);
   }
 
   delete(url: string): Observable<boolean> {

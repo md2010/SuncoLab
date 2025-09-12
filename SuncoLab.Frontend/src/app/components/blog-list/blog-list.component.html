@@ -2,4 +2,12 @@
 
 <div>
     Blog list
+
+    <div *ngFor="let blog of blogs">
+        <div class="spc-top">
+            <a href="javascript:void(0)" (click)="openBlog(blog.id)">{{blog.name}}</a>
+            <p>{{blog.description}}</p>
+            <img [src]="blog.coverImage?.file?.path" widht="600px" width="700px">
+        </div>
+    </div>
 </div>

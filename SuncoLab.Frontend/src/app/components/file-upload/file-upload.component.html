@@ -5,8 +5,10 @@
         </div>
         <div class="text">
             <span>Click to upload image</span>
-            </div>
-            <input type="file" id="file" class="file-input" (change)="onFileSelected($event)" #fileUpload multiple>
+        </div>
+
+            <input *ngIf="multiple" type="file" id="file" class="file-input" (change)="onFileSelected($event)" #fileUpload multiple>
+            <input *ngIf="!multiple" type="file" id="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
     </label>
 </div>  
 
