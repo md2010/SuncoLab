@@ -1,3 +1,11 @@
-<div class="center">
-    <img [src]="path" alt="Cinque Terre" class="fit-image">    
+<div class="image-preview-container">
+  <a (click)="closeDialog()">
+    <img
+        #previewImage
+        [src]="path"
+        alt="Preview"
+        (load)="onImageLoad()"
+        class="fit-image"
+    />
+  </a>
 </div>

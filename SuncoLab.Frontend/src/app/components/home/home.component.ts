@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
-import { ArticleService } from '../../services/article/article.service';
-import { SearchRequest } from '../../models/search';
-import { Article } from '../../models/article';
+import { Component, OnInit } from '@angular/core';
+import { BlogService } from '../../services/blog/blog.service';
+import { CarouselItem } from '../../models/carouselItem';
 
 @Component({
   selector: 'app-home',
@@ -9,9 +8,12 @@ import { Article } from '../../models/article';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+    carouselBlogs : CarouselItem[] | undefined;
 
-   public items: Array<any> = [];
-  
-   constructor(private articleService: ArticleService) {}
+   constructor(private blogService: BlogService) {}
+
+   ngOnInit() {
+    
+   }
 }

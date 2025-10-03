@@ -53,6 +53,36 @@ namespace SuncoLab.Service
             }
         }
 
+        public async Task<bool> SaveImage(IFormFile formFile)
+        {
+            try
+            {
+                var fileId = await fileService.SaveFile(formFile);
+
+                if (fileId == null)
+                {
+                    return false;
+                }
+
+                var image = new Image
+                {
+                    FileId = fileId.Value
+                };
+
+                if (await imageRepository.InsertAsync(image) != null)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Error happend on SaveImage: {ex.Message}");
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<bool> DeleteImage(Guid fileId)
         {
             var result = await imageRepository.DeleteImage(fileId);
@@ -63,11 +93,6 @@ namespace SuncoLab.Service
             }
 
             return false;
-        }
-
-        public async Task<List<Image>> GetImagesForMosaic()
-        {
-            return await imageRepository.GetImagesForMosaic();
         }
 
         public async Task<List<Image>> FindImagesForAlbumAsync(Guid albumId)
@@ -96,9 +121,9 @@ namespace SuncoLab.Service
             return await albumRepository.InsertAsync(entity) != null;
         }
 
-        public async Task<List<Album>> FindAlbumAsync()
+        public async Task<List<Album>> FindAlbumAsync(bool all)
         {
-            return await albumRepository.FindAlbumAsync();
+            return await albumRepository.FindAlbumAsync(all);
         }
 
         public async Task<bool> ChangeAlbumVisibility(Guid albumId, bool show)
@@ -114,11 +139,6 @@ namespace SuncoLab.Service
             }
 
             return await albumRepository.SetCoverImage(albumId, imageId);
-        }
-
-        public async Task<bool> ShowImageOnHomePage(Guid imageId, bool show)
-        {
-            return await imageRepository.ShowImageOnHomePage(imageId, show);
         }
 
         #endregion

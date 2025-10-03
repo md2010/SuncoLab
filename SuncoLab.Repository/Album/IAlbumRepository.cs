@@ -10,7 +10,7 @@ namespace SuncoLab.Repository
 
         Task<Album?> GetByNameAsync(string name);
 
-        Task<List<Album>> FindAlbumAsync();
+        Task<List<Album>> FindAlbumAsync(bool all);
 
         Task<bool> SetCoverImage(Guid albumId, Guid imageId);
 

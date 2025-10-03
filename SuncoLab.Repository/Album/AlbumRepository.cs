@@ -30,15 +30,34 @@ namespace SuncoLab.Repository
             return album ?? null;
         }
 
-        public async Task<List<Album>> FindAlbumAsync()
+        public async Task<List<Album>> FindAlbumAsync(bool all)
         {
-            var albums = await Entities
-                .Where(a => a.Show == true)
-                .Include(a => a.CoverImage)
-                    .ThenInclude(c => c.File)
-                .ToListAsync();
+            try
+            {
+                IQueryable<Album> albums;
 
-            return albums;
+                if (!all)
+                {
+                    albums = Entities
+                        .Where(a => a.Show == true)
+                        .Include(a => a.CoverImage)
+                            .ThenInclude(c => c.File);
+                }
+                else
+                {
+                    albums = Entities
+                        .Include(a => a.CoverImage)
+                            .ThenInclude(c => c.File);
+                }
+
+                return await albums.ToListAsync();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+
         }
 
         public async Task<Album?> GetByNameAsync(string name)

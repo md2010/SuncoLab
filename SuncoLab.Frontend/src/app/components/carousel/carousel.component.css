@@ -2,6 +2,7 @@
   text-align: center;
   width: 70%;
   height: 500px;
+  object-fit: contain;
 }
 
 .carousel .owl-theme .owl-nav {
@@ -14,11 +15,18 @@
 .carousel {
   width: 70%;
   margin-top:50px;
-  padding:0 50px;
 }
 
 .center {
   display: flex;
   justify-content: center;  
   align-items: center;
+}
+
+.scroll-container {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 1rem; 
+  padding: 1rem 0;
 }

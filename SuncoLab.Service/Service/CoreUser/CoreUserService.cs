@@ -4,7 +4,7 @@ using SuncoLab.Repository;
 
 namespace SuncoLab.Service
 {
-    public class CoreUserService(ICoreUserRepository repository, PasswordGenerator passwordGenerator) : ICoreUserService
+    public class CoreUserService(ICoreUserRepository repository, PasswordGenerator passwordGenerator, IRoleRepository roleRepository) : ICoreUserService
     {
         public async Task<bool> Create(string username, string password)
         {
@@ -19,7 +19,7 @@ namespace SuncoLab.Service
             {
                 Id = Guid.NewGuid(),
                 UserName = username,
-                RoleId = new Guid("3BB7CE5F-DD6A-4AFC-90F2-D909EFD07A40"), // TO DO
+                RoleId = await roleRepository.GetAdminRoleId(),
                 DateCreated = DateTime.Now,
                 DateModified = DateTime.Now,
                 PasswordHash = hashedPasword,

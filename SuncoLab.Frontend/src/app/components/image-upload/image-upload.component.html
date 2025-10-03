@@ -5,8 +5,8 @@
     <div class="container">
         <app-file-upload (filesChanged)="onFilesChanged($event)"></app-file-upload>          
 
-        <div>
-            <mat-form-field *ngIf="files.length > 0">
+        <div *ngIf="files.length > 0">
+            <mat-form-field class="spc-bottom">
                 <mat-label>Choose album</mat-label>
                 <mat-select [(ngModel)]="selectedAlbum" name="album">
                     @for (album of albums; track album) {
@@ -14,8 +14,8 @@
                     }
                 </mat-select>
             </mat-form-field>
-
-            <mat-form-field *ngIf="files.length > 0">
+            OR 
+            <mat-form-field class="spc-top">
                 <mat-label>Choose blog</mat-label>
                 <mat-select [(ngModel)]="selectedBlog" name="blog">
                     @for (blog of blogs; track blog) {

@@ -4,8 +4,6 @@ namespace SuncoLab.Model
 {
     public class Image : BaseEntity
     {
-        public bool ShowInMosaic { get; set; }
-
         [ForeignKey("Album")]
         public Guid? AlbumId { get; set; }
         public virtual Album? Album { get; set; }

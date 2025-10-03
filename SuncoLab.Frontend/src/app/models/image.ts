@@ -4,14 +4,12 @@ export class Image {
     description: string | undefined;
     albumId: string;
     file: ImageFile;
-    showInMosaic: boolean;
 
-    constructor(id: string, name: string, fileId: string, file: ImageFile, albumId: string, showInMosaic: boolean) {
+    constructor(id: string, name: string, fileId: string, file: ImageFile, albumId: string) {
     this.id = id;
     this.fileId = fileId;
     this.file = file;
     this.albumId = albumId;
-    this.showInMosaic = showInMosaic;
   }
 }
 

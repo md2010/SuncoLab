@@ -30,7 +30,7 @@ export class EditAlbumComponent implements OnInit {
 
   getAlbums() {
     this.spinner.show();  
-    this.galleryService.getAllAlbums()
+    this.galleryService.getAllAlbums(true)
     .subscribe(response => {
       if (response) {
         this.albums = response;

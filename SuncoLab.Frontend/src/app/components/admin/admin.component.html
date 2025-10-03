@@ -4,23 +4,33 @@
 
 <div *ngIf="authorized" class="container spc-top">
     <div class="options">
+        <button class="green-button-big" (click)="showUploadImages=true; hideCurrentEditScreen('image')" [ngClass]="{ 'option-button-active' : showUploadImages == true}">
+            Upload images
+        </button>
         <button class="green-button-big" (click)="showEditAlbum=true; hideCurrentEditScreen('album')" [ngClass]="{ 'option-button-active' : showEditAlbum == true}">
-            Manage images and albums
+            Manage albums
         </button>
         <button class="green-button-big" (click)="showEditBlog=true; hideCurrentEditScreen('blog')" [ngClass]="{ 'option-button-active' : showEditBlog == true}">
             Manage blogs
+        </button>
+        <button class="green-button-big" (click)="showEditCarousel=true; hideCurrentEditScreen('carousel')" [ngClass]="{ 'option-button-active' : showEditCarousel == true}">
+            Manage carousel
+        </button>
+        <button class="green-button-big" (click)="showEditMosaic=true; hideCurrentEditScreen('mosaic')" [ngClass]="{ 'option-button-active' : showEditMosaic == true}">
+            Manage mosaic
         </button>
         <button class="green-button-big" (click)="showRegister=true; hideCurrentEditScreen('register')" [ngClass]="{ 'option-button-active' : showRegister == true}">
             Register new user
         </button>
     </div>
 
+    <div class="edit row" *ngIf=showUploadImages>
+        <app-image-upload></app-image-upload>
+    </div>
+
     <div class="edit row" *ngIf=showEditAlbum>
         <div class="spc-bottom">
             <app-edit-album></app-edit-album>
-        </div>
-        <div>
-            <app-image-upload></app-image-upload>
         </div>
     </div>
 

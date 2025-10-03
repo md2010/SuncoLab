@@ -124,5 +124,6 @@ public class AutofacModule : Module
         builder.RegisterType<ImageRepository>().As<IImageRepository>();
         builder.RegisterType<AlbumRepository>().As<IAlbumRepository>();
         builder.RegisterType<BlogRepository>().As<IBlogRepository>();
+        builder.RegisterType<RoleRepository>().As<IRoleRepository>();
     }
 }

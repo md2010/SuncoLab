@@ -1,8 +1,9 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, inject, Inject, Input } from '@angular/core';
 import { Image } from '../../models/image';
 import { GalleryService } from '../../services/gallery/gallery.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ToastService } from '../../services/toast/toast.service';
+import { ImagePreviewComponent } from '../image-preview/image-preview.component';
 
 @Component({
   selector: 'app-image-list',
@@ -20,7 +21,8 @@ export class ImageListComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: {albumId?: string, height?: number, width?: number, edit? : boolean}, 
     private galleryService: GalleryService,
-    private toast: ToastService) {
+    private toast: ToastService,
+    private dialog: MatDialog) {
 
     if (!this.images && data.albumId !== null) {
       this.albumId = data.albumId;
@@ -45,6 +47,16 @@ export class ImageListComponent {
     })
   }
 
+  openImage(imagePath: string) {
+      this.dialog.open(ImagePreviewComponent, {
+          height: '700px',
+          width: '700px',
+          data: { 
+            path: imagePath
+        }
+      });
+    }
+
   deleteFile(fileId: string) {
     this.galleryService.deleteImage(fileId)
     .subscribe(result => {
@@ -65,18 +77,6 @@ export class ImageListComponent {
         setTimeout(() => {
            window.location.reload() 
         8000});       
-      }
-    })
-  }
-
-  showOnHomePage(image: Image) {
-    this.galleryService.showOnHomePage(image.id, !image.showInMosaic)
-    .subscribe(result => {
-      if (result) {
-        this.toast.create('You have successfuly changed visibility of this image on home page.') 
-        setTimeout(() => {
-           window.location.reload() 
-        8000});      
       }
     })
   }

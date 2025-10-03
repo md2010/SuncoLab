@@ -15,12 +15,11 @@ import { HomeComponent } from './components/home/home.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { GalleryComponent } from './components/gallery/gallery.component';
 import { HeaderComponent } from './components/header/header.component';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { AdminComponent } from './components/admin/admin.component';
-import { SlideComponent } from './components/carousel/carousel.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditAlbumComponent } from './components/edit-album/edit-album.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -29,11 +28,13 @@ import { UnauthorizedComponent } from './components/unauthorized/unauthorized.co
 import { ImageUploadComponent } from './components/image-upload/image-upload.component';
 import { ImageListComponent } from './components/image-list/image-list.component';
 import { RegisterComponent } from './components/register/register.component';
-import { ImageMosaicComponent } from './components/image-mosaic/image-mosaic.component';
+import { MosaicComponent } from './components/mosaic/mosaic.component';
 import { BlogListComponent } from './components/blog-list/blog-list.component';
 import { CreateBlogComponent } from './components/create-blog/create-blog.component';
 import { NgxEditorComponent, NgxEditorMenuComponent, NgxEditorModule } from "ngx-editor";
 import { BlogPreviewComponent } from './components/blog-preview/blog-preview.component';
+import { CarouselComponent } from './components/carousel/carousel.component';
+import { MosaicEditComponent } from './components/mosaic-edit/mosaic-edit.component';
 
 @NgModule({
   declarations: [
@@ -44,16 +45,17 @@ import { BlogPreviewComponent } from './components/blog-preview/blog-preview.com
     HeaderComponent,
     FileUploadComponent,
     AdminComponent,
-    SlideComponent,
+    CarouselComponent,
     EditAlbumComponent,
     AlbumListComponent,
     ImageUploadComponent,
     ImageListComponent,
     RegisterComponent,
-    ImageMosaicComponent,
+    MosaicComponent,
     BlogListComponent,
     CreateBlogComponent,
-    BlogPreviewComponent
+    BlogPreviewComponent,
+    MosaicEditComponent
   ],
   imports: [
     SpinnerComponent,

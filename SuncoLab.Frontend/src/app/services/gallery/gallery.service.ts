@@ -20,16 +20,12 @@ export class GalleryService {
     return this.httpService.post<boolean>(this.baseUrl + 'insert-album', data);
   }
 
-  getAllAlbums() : Observable<Album[] | undefined> {
-    return this.httpService.getAll(this.baseUrl + 'albums')
+  getAllAlbums(all: boolean) : Observable<Album[] | undefined> {
+    return this.httpService.getAll(this.baseUrl + 'albums/' + all)
   }
 
   getImagesForAlbum(albumId: string) : Observable<Image[] | undefined> {
     return this.httpService.getAll(this.baseUrl + 'images/' + albumId)
-  }
-
-  getImagesForMosaic() : Observable<Image[] | undefined> {
-    return this.httpService.getAll(this.baseUrl + 'mosaic-images')
   }
 
   setCoverImage(albumId: string, imageId: string) {

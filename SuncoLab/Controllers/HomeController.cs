@@ -1,18 +1,11 @@
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SuncoLab.Model;
 
-namespace SuncoLab.Controllers
+namespace SuncoLab.API.Controllers
 {
-    [ApiController]
     [Route("home")]
-    public class HomeController(ILogger<HomeController> logger) : ControllerBase
+    [ApiController]
+    public class HomeController : ControllerBase
     {
-        [HttpGet]
-        [Route("items")]
-        public IActionResult Get([FromQuery] SearchRequest request)
-        {
-            List<string> items = ["first", "second", "third"];
-            return Ok(items.Take(request.PageSize));
-        }
     }
 }

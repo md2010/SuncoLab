@@ -13,6 +13,9 @@ export class AdminComponent {
     showEditAlbum = false;
     showEditBlog = false;
     showRegister = false;
+    showUploadImages = false;
+    showEditCarousel = false;
+    showEditMosaic = false;
   
     constructor(private authService: AuthService) {
       this.authService.authorizedSubject.subscribe(user => {
@@ -25,15 +28,45 @@ export class AdminComponent {
     hideCurrentEditScreen(optionName: string) {
       if (optionName == 'blog') {
         this.showEditAlbum = false;
-        this.showRegister = false;   
+        this.showRegister = false;  
+        this.showUploadImages = false; 
+        this.showEditCarousel = false;
+        this.showEditMosaic = false;
       }
       if (optionName == 'album') {
         this.showEditBlog = false;
         this.showRegister = false;
+        this.showUploadImages = false; 
+        this.showEditCarousel = false;
+        this.showEditMosaic = false;
       }
       if (optionName == 'register') {
         this.showEditAlbum = false;
         this.showEditBlog = false;
+        this.showUploadImages = false; 
+        this.showEditCarousel = false;
+        this.showEditMosaic = false;
+      }
+      if (optionName == 'image') {
+        this.showEditAlbum = false;
+        this.showRegister = false;
+        this.showEditBlog = false;
+        this.showEditCarousel = false;
+        this.showEditMosaic = false;
+      }
+      if (optionName == 'mosaic') {
+        this.showEditAlbum = false;
+        this.showRegister = false;
+        this.showEditBlog = false;
+        this.showEditCarousel = false;
+        this.showUploadImages = false; 
+      }
+      if (optionName == 'carousel') {
+        this.showEditAlbum = false;
+        this.showRegister = false;
+        this.showEditBlog = false;
+        this.showEditMosaic = false;
+        this.showUploadImages = false; 
       }
     }
 }

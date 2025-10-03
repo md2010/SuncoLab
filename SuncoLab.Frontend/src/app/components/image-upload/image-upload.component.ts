@@ -35,7 +35,7 @@ export class ImageUploadComponent implements OnInit {
     }         
 
     getAlbums() {
-      this.galleryService.getAllAlbums()
+      this.galleryService.getAllAlbums(true)
       .subscribe(response => {
         if (response) {
           this.albums = response;

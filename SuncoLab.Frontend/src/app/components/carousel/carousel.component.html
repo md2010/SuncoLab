@@ -1,13 +1,13 @@
-<div class="spc-top">
+<div class="spc-top scroll-container center">
   <div class="carousel">
-      <owl-carousel-o [options]="customOptions">
+      <owl-carousel-o [options]="customOptions" class="owl-theme">
           @for (slide of slides; track slide.id) {
           <ng-template carouselSlide [id]="slide.id">
-              <div>
-                  <img [src]="slide.src" class="item">
+              <div> 
+                <img [src]="slide.path" class="item"/>
               </div>
           </ng-template>
-      }
+        }
       </owl-carousel-o>
   </div>
 </div>

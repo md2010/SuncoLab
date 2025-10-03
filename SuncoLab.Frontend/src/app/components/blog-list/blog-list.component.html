@@ -1,13 +1,11 @@
-<app-slide></app-slide>
-
-<div>
-    Blog list
-
+<div class="center">
     <div *ngFor="let blog of blogs">
         <div class="spc-top">
-            <a href="javascript:void(0)" (click)="openBlog(blog.id)">{{blog.name}}</a>
+            <p>{{blog.name}}</p>
             <p>{{blog.description}}</p>
-            <img [src]="blog.coverImage?.file?.path" widht="600px" width="700px">
+            <a href="javascript:void(0)" (click)="openBlog(blog.id)">
+                <img [src]="blog.coverImage?.file?.path" widht="600px" width="700px">
+            </a>
         </div>
     </div>
 </div>

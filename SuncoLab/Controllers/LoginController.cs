@@ -27,9 +27,7 @@ namespace SuncoLab.API.Controllers
                 return Ok(new AuthResponse
                 {
                     UserId = user.Id,
-                    Token = accessToken,
-                    RoleId = user.Role.Id.ToString(),
-                    RoleName = user.Role.Name
+                    Token = accessToken
                 });
             }
             else

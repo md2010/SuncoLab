@@ -8,10 +8,6 @@ namespace SuncoLab.Repository
 
         Task<List<Image>> GetImagesForAlbum(Guid albumId);
 
-        Task<List<Image>> GetImagesForMosaic();
-
         Task<bool> DeleteImage(Guid fileId);
-
-        Task<bool> ShowImageOnHomePage(Guid imageId, bool show);
     }
 }

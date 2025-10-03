@@ -26,15 +26,15 @@ export class GalleryComponent implements OnInit {
   ngOnInit(): void {
     this.spinner.show();
     this.getAlbums();
+    this.spinner.hide();
   }
 
   getAlbums() {  
-    this.galleryService.getAllAlbums()
+    this.galleryService.getAllAlbums(false)
     .subscribe(response => {
       if (response) {
         this.albums = response;
-      }
-      this.spinner.hide();  
+      }  
     })
   }
   

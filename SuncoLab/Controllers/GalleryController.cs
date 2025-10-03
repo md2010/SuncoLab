@@ -12,10 +12,10 @@ namespace SuncoLab.API.Controllers
         #region Methods
 
         [HttpGet]
-        [Route("albums")]
-        public async Task<ActionResult<List<Album>>> FindAlbum()
+        [Route("albums/{all}")]
+        public async Task<ActionResult<List<Album>>> FindAlbum(bool all = false)
         {
-            var result = await service.FindAlbumAsync();
+            var result = await service.FindAlbumAsync(all);
 
             return Ok(result);
         }
@@ -25,15 +25,6 @@ namespace SuncoLab.API.Controllers
         public async Task<ActionResult<List<Image>>> GetImagesForAlbum(Guid albumId)
         {
             var result = await service.FindImagesForAlbumAsync(albumId);
-
-            return Ok(result);
-        }
-
-        [HttpGet]
-        [Route("mosaic-images")]
-        public async Task<ActionResult<List<Image>>> GetImagesForMosaic()
-        {
-            var result = await service.GetImagesForMosaic();
 
             return Ok(result);
         }
@@ -54,15 +45,6 @@ namespace SuncoLab.API.Controllers
             var result = await service.ChangeAlbumVisibility(request.AlbumId, request.Show);
 
             return result ? Ok(true) : Conflict();
-        }
-
-        [HttpPost]
-        [Route("show-on-home-page")]
-        public async Task<IActionResult> ShowImageOnHomePage(ShowImageOnHomePageRequest request)
-        {
-            var result = await service.ShowImageOnHomePage(request.ImageId, request.Show);
-
-            return result ? Ok(true) : NotFound();
         }
 
         [HttpDelete("delete-image/{fileId}")]
@@ -98,7 +80,7 @@ namespace SuncoLab.API.Controllers
                     }
                     else
                     {
-                        // TO DO
+                        await service.SaveImage(file);
                     }
                 }
                 catch (Exception ex)

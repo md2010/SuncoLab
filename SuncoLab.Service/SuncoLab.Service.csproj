@@ -7,12 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SuncoLab.Model\SuncoLab.Model.csproj" />
-    <ProjectReference Include="..\SuncoLab.Repository\SuncoLab.Repository.csproj" />
+    <Compile Remove="Lookup\**" />
+    <EmbeddedResource Remove="Lookup\**" />
+    <None Remove="Lookup\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Lookup\" />
+    <ProjectReference Include="..\SuncoLab.Model\SuncoLab.Model.csproj" />
+    <ProjectReference Include="..\SuncoLab.Repository\SuncoLab.Repository.csproj" />
   </ItemGroup>
 
   <ItemGroup>

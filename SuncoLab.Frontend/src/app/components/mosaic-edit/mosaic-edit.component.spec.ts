@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ImageMosaicComponent } from './image-mosaic.component';
+import { MosaicEditComponent } from './mosaic-edit.component';
 
-describe('ImageMosaicComponent', () => {
-  let component: ImageMosaicComponent;
-  let fixture: ComponentFixture<ImageMosaicComponent>;
+describe('MosaicEditComponent', () => {
+  let component: MosaicEditComponent;
+  let fixture: ComponentFixture<MosaicEditComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ImageMosaicComponent]
+      imports: [MosaicEditComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ImageMosaicComponent);
+    fixture = TestBed.createComponent(MosaicEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

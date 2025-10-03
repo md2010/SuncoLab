@@ -6,3 +6,17 @@
 .fit-image {
     object-fit: contain;
 }
+
+.image-scroll-container {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 1rem; 
+  padding: 1rem 0;
+}
+
+.image-item {
+  flex: 0 0 auto; 
+  width: fit-content;
+  text-align: center;
+}

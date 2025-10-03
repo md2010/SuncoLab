@@ -36,14 +36,6 @@ namespace SuncoLab.Repository
                 .ToListAsync();
         }
 
-        public async Task<List<Image>> GetImagesForMosaic()
-        {
-            return await Entities
-                .Where(i => i.ShowInMosaic)
-                .Include(i => i.File)
-                .ToListAsync();
-        }
-
         public async Task<bool> DeleteImage(Guid fileId)
         {
             var imageToDelete = Entities.FirstOrDefault(x => x.FileId == fileId);
@@ -58,14 +50,6 @@ namespace SuncoLab.Repository
 
             return false;
 
-        }
-
-        public async Task<bool> ShowImageOnHomePage(Guid imageId, bool show)
-        {
-            var image = Entities.FirstOrDefault(x => x.Id == imageId);
-            image.ShowInMosaic = show;
-
-            return await DbContext.SaveChangesAsync() > 0;
         }
     }
 }

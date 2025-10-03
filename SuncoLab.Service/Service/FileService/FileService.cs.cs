@@ -32,7 +32,7 @@ namespace SuncoLab.Service
 #endif
         }
 
-        public async Task<Guid?> SaveFile(IFormFile formFile, string? folderName)
+        public async Task<Guid?> SaveFile(IFormFile formFile, string? folderName = "")
         {
 
 #if !DEBUG

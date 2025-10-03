@@ -11,7 +11,7 @@ namespace SuncoLab.Service
         /// <param name="formFile"></param>
         /// <param name="folderName">Album or Blog name</param>
         /// <returns></returns>
-        Task<Guid?> SaveFile(IFormFile formFile, string? folderName);
+        Task<Guid?> SaveFile(IFormFile formFile, string? folderName = "");
 
         Task<bool> DeleteFile(Guid fileId);
     }
