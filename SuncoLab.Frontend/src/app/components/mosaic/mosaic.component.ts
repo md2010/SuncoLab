@@ -1,8 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Image } from '../../models/image';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ImagePreviewComponent } from '../image-preview/image-preview.component';
-import { BlogService } from '../../services/blog/blog.service';
+import { HomeService } from '../../services/home/home.service';
+import { MosaicItem } from '../../models/mosaicItem';
 
 @Component({
   selector: 'app-mosaic',
@@ -11,31 +11,34 @@ import { BlogService } from '../../services/blog/blog.service';
   styleUrl: './mosaic.component.css'
 })
 export class MosaicComponent implements OnInit {
-  images: Image[] = [];
-  chunks: number = 1;
+  items: MosaicItem[] = [];
+  chunks = 1;
 
-  constructor(private blogService: BlogService, private dialog: MatDialog) {}
+  constructor(private homeService: HomeService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.getBlogs();
   }
 
   getBlogs() {
-    this.blogService.getAll()
-    .subscribe(result => {
-      result!.forEach(blog => {
-        this.images.push(blog.coverImage!);
-      });
-    })
+    this.homeService.getMosaic()
+      .subscribe(items => {
+        this.items = items ?? [];
+      })
   }
 
   openImage(imagePath: string) {
     this.dialog.open(ImagePreviewComponent, {
-        height: '700px',
-        width: '1000px',
-        data: { 
-          path: imagePath
-        }
-      });
+      height: '700px',
+      width: '1000px',
+      data: { 
+        path: imagePath
+      }
+    });
+  }
+
+  openBlog(id: string) {
+    const url = `${window.location.origin}/blog-preview/${id}`;
+    window.open(url, "_self");
   }
 }

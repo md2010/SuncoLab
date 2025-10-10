@@ -11,3 +11,13 @@ export class MosaicItem {
         this.path = path;
     }
 }
+
+export class EditMosaicItem {
+    sortOrder: number | undefined;
+    blogId: string | undefined;
+    
+    constructor(sortOrder?: number, blogId? : string) {
+        this.blogId = blogId;
+        this.sortOrder = sortOrder;
+    }
+}

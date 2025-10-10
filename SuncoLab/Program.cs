@@ -13,6 +13,9 @@ using SuncoLab.Common;
 using System.Text.Json.Serialization;
 using Serilog;
 using Azure.Storage.Blobs;
+using SuncoLab.Service.Service.Mosaic;
+using SuncoLab.Model.Mapping;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -86,6 +89,10 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog(Log.Logger);
 
+builder.Services.AddAutoMapper((IMapperConfigurationExpression a) => {
+    a.AddProfile<ToDtoMapping>();
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -117,6 +124,7 @@ public class AutofacModule : Module
         builder.RegisterType<FileService>().As<IFileService>();
         builder.RegisterType<AlbumService>().As<IAlbumService>();
         builder.RegisterType<BlogService>().As<IBlogService>();
+        builder.RegisterType<MosaicService>().As<IMosaicService>();
       
         //repository
         builder.RegisterType<CoreUserRepository>().As<ICoreUserRepository>();

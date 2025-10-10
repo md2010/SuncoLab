@@ -1,1 +1,22 @@
+<form>
+    <div class="spc-top">
+        <div *ngFor="let item of itemsToEdit; index as i">
+            <label>Sort Order</label>
+            <input type="number" class="field" [(ngModel)]="item.sortOrder" [name]="'sort' + i" disabled>     
+            <mat-form-field class="spc-bottom">
+                <mat-label>Choose blog</mat-label>
+                <mat-select [(ngModel)]="item.blogId" [name]="'blog_' + i">
+                    @for (blog of blogs; track blog) {
+                        <mat-option [value]="blog.id">{{blog.name}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>   
+        </div>
+    </div>
+    <div class="spc-top">
+        <button class="btn green-button-sml" (click)="save()">Save</button>
+    </div>
+</form>
+
+
 

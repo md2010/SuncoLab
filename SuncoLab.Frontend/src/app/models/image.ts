@@ -26,3 +26,8 @@ export class ImageFile {
     this.fileName = fileName;
   }
 }
+
+export interface FilesChangedEvent {
+  files: File[];
+  index?: number;
+}
