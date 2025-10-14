@@ -43,7 +43,7 @@ export class MosaicEditComponent  implements OnInit {
 
     while(i > 0)
     {
-      this.itemsToEdit.push(new EditMosaicItem())
+      this.itemsToEdit.push(new EditMosaicItem(i))
       i--;
     }
   }
