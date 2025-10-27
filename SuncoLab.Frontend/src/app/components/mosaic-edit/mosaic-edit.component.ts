@@ -53,6 +53,9 @@ export class MosaicEditComponent  implements OnInit {
     .subscribe(response => {
       if (response) {
         this.toast.create('Mosaic saved.');
+        setTimeout(() => {
+           window.location.reload() 
+        8000});
       }
       else {
         this.toast.create('Error happend while saving mosaic.', 'error');

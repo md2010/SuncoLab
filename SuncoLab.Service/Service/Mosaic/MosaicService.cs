@@ -8,7 +8,7 @@ namespace SuncoLab.Service.Service.Mosaic
 {
     public class MosaicService(AppDbContext context, IMapper mapper) : IMosaicService
     {
-        public async Task<List<MosaicItemDto>> GetMosaic()
+        public async Task<List<MosaicItemDto>> GetMosaicDtos()
         {
             var items = await context.MosaicItems
                 .Include(x => x.Blog)
@@ -21,22 +21,25 @@ namespace SuncoLab.Service.Service.Mosaic
 
         public async Task<bool> EditMosaic(List<EditMosaicDto> requests)
         {
-            var existingItems = await GetMosaic();
+            var existingItems = await context.MosaicItems.ToListAsync();
 
             List<MosaicItem> itemsToAdd = [];
 
-            for (int i = 0; i < requests.Count; i++) 
+            foreach (var request in requests)
             {
-                if (existingItems.Any(x => x.SortOrder == requests[i].SortOrder))
+                var existingItem = existingItems.FirstOrDefault(x => x.SortOrder == request.SortOrder);
+
+                if (existingItem != null)
                 {
-                    existingItems[i].BlogId = requests[i].BlogId;
+                    existingItem.BlogId = request.BlogId;
+                    context.Entry(existingItem).State = EntityState.Modified;
                 }
                 else
                 {
                     itemsToAdd.Add(new MosaicItem
                     {
-                        SortOrder = requests[i].SortOrder,
-                        BlogId = requests[i].BlogId
+                        SortOrder = request.SortOrder,
+                        BlogId = request.BlogId
                     });
                 }
             }

@@ -1,11 +1,9 @@
-<div class="center">
-    <div *ngFor="let blog of blogs">
-        <div class="spc-top">
-            <p>{{blog.name}}</p>
-            <p>{{blog.description}}</p>
-            <a href="javascript:void(0)" (click)="openBlog(blog.id)">
-                <img [src]="blog.coverImage?.file?.path" widht="600px" width="700px">
-            </a>
-        </div>
+<div class="grid spc-top">
+    <div class="box" *ngFor="let blog of blogs">
+        <a href="javascript:void(0)" (click)="openBlog(blog.id)">
+            <img [src]="blog.coverImage?.file?.path" widht="600px" width="700px">
+        </a>
+        <h3>{{blog.name}}</h3>
+        <p *ngIf="blog.description">{{blog.description}}</p>
     </div>
 </div>

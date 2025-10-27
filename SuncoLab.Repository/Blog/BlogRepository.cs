@@ -34,6 +34,7 @@ namespace SuncoLab.Repository
                 .Where(a => a.Show == true)
                 .Include(a => a.CoverImage)
                     .ThenInclude(c => c.File)
+                .OrderByDescending(b => b.DateCreated)
                 .ToListAsync();
 
             return result;

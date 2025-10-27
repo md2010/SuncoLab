@@ -35,6 +35,8 @@ import { NgxEditorComponent, NgxEditorMenuComponent, NgxEditorModule } from "ngx
 import { BlogPreviewComponent } from './components/blog-preview/blog-preview.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { MosaicEditComponent } from './components/mosaic-edit/mosaic-edit.component';
+import { AboutComponent } from './components/about/about.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { MosaicEditComponent } from './components/mosaic-edit/mosaic-edit.compon
     BlogListComponent,
     CreateBlogComponent,
     BlogPreviewComponent,
-    MosaicEditComponent
+    MosaicEditComponent,
+    AboutComponent,
+    FooterComponent
   ],
   imports: [
     SpinnerComponent,

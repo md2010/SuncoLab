@@ -9,6 +9,7 @@ import { UnauthorizedComponent } from './components/unauthorized/unauthorized.co
 import { BlogListComponent } from './components/blog-list/blog-list.component';
 import { BlogPreviewComponent } from './components/blog-preview/blog-preview.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { AboutComponent } from './components/about/about.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'gallery', component: GalleryComponent },
   { path: 'blog', component: BlogListComponent },
   { path: 'blog-preview/:id', component: BlogPreviewComponent },
+  { path: 'about', component: AboutComponent },
   { path: 'admin', component: AdminComponent, canActivate: [authGuard] },
   { path: 'unauthorized', component: UnauthorizedComponent},
   { path: '**', component: PageNotFoundComponent },

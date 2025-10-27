@@ -5,7 +5,7 @@ namespace SuncoLab.Service.Service.Mosaic
 {
     public interface IMosaicService
     {
-        Task<List<MosaicItemDto>> GetMosaic();
+        Task<List<MosaicItemDto>> GetMosaicDtos();
 
         Task<bool> EditMosaic(List<EditMosaicDto> requests);
     }

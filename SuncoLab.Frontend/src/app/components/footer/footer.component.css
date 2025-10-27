@@ -1,0 +1,33 @@
+footer {
+    background-color: #2e2e2e; /* dark grey */
+    color: #ccc;
+    text-align: center;
+    padding: 40px 10px;
+    margin-top: 50px;
+}
+
+footer a {
+    color: #ccc;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1em;
+    transition: color 0.2s;
+}
+
+footer a:hover {
+    color: #fff;
+}
+
+footer p {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #888;
+}
+
+/* Optional: responsive tweak */
+@media (max-width: 600px) {
+    footer a {
+    display: block;
+    margin: 8px 0;
+    }
+}

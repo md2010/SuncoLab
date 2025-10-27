@@ -19,13 +19,7 @@ export class CreateBlogComponent implements OnDestroy {
   file!: File;
 
   constructor (private formBuilder: FormBuilder, private blogService: BlogService, private toast: ToastService) {
-     this.createBlogForm = this.formBuilder.group({
-      name: null,
-      description: null,
-      show: new FormControl(true),
-      html: '<p>Hello World!</p>'
-    });
-    this.formData = new FormData();
+    this.createEmptyForm();
   }
 
   createBlog(): void {
@@ -38,7 +32,8 @@ export class CreateBlogComponent implements OnDestroy {
     this.blogService.createBlog(this.formData)
     .subscribe((result) => {
       if (result) {
-         this.toast.create('Blog created successfully.');
+        this.toast.create('Blog created successfully.');
+        this.createEmptyForm(true);
       }
     })
   } 
@@ -49,5 +44,20 @@ export class CreateBlogComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.editor.destroy();
+  }
+
+  createEmptyForm(reset = false): void {
+    this.createBlogForm = this.formBuilder.group({
+      name: null,
+      description: null,
+      show: new FormControl(true),
+      html: '<p>Hello World!</p>'
+    });
+
+    this.formData = new FormData();
+
+    if (reset) {
+      this.fileUploader.reset();
+    }
   }
 }

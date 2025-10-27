@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SuncoLab.Model.Dto.Mosaic;
 using SuncoLab.Service.Service.Mosaic;
@@ -14,7 +13,7 @@ namespace SuncoLab.API.Controllers
         [Route("get-mosaic")]
         public async Task<IActionResult> GetMosaic()
         {
-            var mosaic = await mosaicService.GetMosaic();
+            var mosaic = await mosaicService.GetMosaicDtos();
             return Ok(mosaic);
         }
 
