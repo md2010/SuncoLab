@@ -7,7 +7,7 @@
     
             <div *ngIf="edit">
                 <mat-icon (click)="deleteFile(image.file.id)">delete_forever</mat-icon>
-                <button class="btn green-button-sml" href="javascript:void(0)" (click)="setCoverImage(image.albumId, image.id)">Set As Cover Image</button>
+                <button class="option-button-active" href="javascript:void(0)" (click)="setCoverImage(image.albumId, image.id)">Set As Cover Image</button>
             </div>
         </div>
     </div>

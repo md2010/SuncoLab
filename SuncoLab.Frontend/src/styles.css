@@ -23,6 +23,10 @@ main {
     margin-bottom: 50px;
 }
 
+.spc-right {
+  margin-right: 15px;
+}
+
 .spc-top {
     margin-top: 50px;
 }
@@ -80,6 +84,42 @@ main {
   text-decoration: none;
   font-size: 14px;
   margin: 5px;
+}
+
+/* ADMIN */
+
+.admin {
+  text-decoration: none;
+  font-family: "Rubik";
+  letter-spacing: 2px;
+}
+
+/* OPTION BUTTON */
+.option-button-active {
+  background-color: #89d8bb; 
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  font-family: "Rubik";
+  padding: 10px 20px;
+  color: #777676;
+}
+
+.options a{
+   display: block;
+   padding: 10px 20px;
+   color: #777676;
+   text-decoration: none;
+   font-family: "Rubik";
+   letter-spacing: 2px;
+}
+
+.options a:hover{
+   color: #ccc;
+   margin-left: 20px;
+   transition: 0.4s;
 }
 
 /* LAYOUT */

@@ -1,27 +1,21 @@
 .container {
   display: grid;
+  grid-template-columns: 250px 1fr;
 }
 
 .options {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  grid-column-start: 1;
-  grid-column-end: 1;
-  gap: 10px;
+  border-right: 2px solid #444;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .edit {
+  padding-left: 50px;
   grid-column-start: 2;
   grid-column-end: 4;
 }
 
-.option-button-active {
- background-color: #5aaa8d; 
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
-}
+
+
