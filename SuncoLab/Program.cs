@@ -16,6 +16,7 @@ using Azure.Storage.Blobs;
 using SuncoLab.Service.Service.Mosaic;
 using SuncoLab.Model.Mapping;
 using AutoMapper;
+using Microsoft.Extensions.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -111,6 +112,28 @@ app.MapControllers();
 
 app.MapFallbackToFile("index.html");
 app.UseStaticFiles();
+
+#if DEBUG
+using (var scope = app.Services.CreateScope())
+{
+    var userService = scope.ServiceProvider.GetRequiredService<ICoreUserService>();
+    var roleRepository = scope.ServiceProvider.GetRequiredService<IRoleRepository>();
+
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    db.Database.Migrate();
+
+    if (!db.Roles.Any(u => u.Name == "admin"))
+    {
+        await roleRepository.CreateRole("admin");
+    }       
+
+    if (!db.CoreUsers.Any(u => u.UserName == "admin"))
+    {
+        await userService.Create("admin", "admin123!");
+    }
+}
+#endif
 
 app.Run();
 

@@ -5,5 +5,7 @@ namespace SuncoLab.Repository
     public interface IRoleRepository
     {
         Task<Guid> GetAdminRoleId();
+
+        Task<bool> CreateRole(string name);
     }
 }

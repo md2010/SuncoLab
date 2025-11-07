@@ -8,12 +8,4 @@ import { CarouselItem } from '../../models/carouselItem';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit {
-    carouselBlogs : CarouselItem[] | undefined;
-
-   constructor(private blogService: BlogService) {}
-
-   ngOnInit() {
-    
-   }
-}
+export class HomeComponent {}

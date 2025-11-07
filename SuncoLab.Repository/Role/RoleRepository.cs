@@ -19,5 +19,16 @@ namespace SuncoLab.Repository
         {
             return Entities.First(a => a.Abrv == "admin").Id;
         }
+
+        public async Task<bool> CreateRole(string name)
+        {
+            Entities.Add(new Role
+            {
+                Name = name,
+                Abrv = name.ToLower()
+            });
+
+            return await DbContext.SaveChangesAsync() > 0;
+        }
     }
 }

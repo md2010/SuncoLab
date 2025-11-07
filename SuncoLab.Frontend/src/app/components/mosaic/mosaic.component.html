@@ -1,15 +1,5 @@
-<div class="gallery" unique-script-id="w-w-dm-id">
+<div class="gallery" unique-script-id="w-w-dm-id" *ngIf="items.length > 0">
   <div class="responsive-container-block bigContainer">
-    <div class="responsive-container-block headerContainer">
-      <div class="row1">
-        <p class="text-blk heading">
-          Some header
-        </p>
-      </div>
-      <p class="text-blk subHeading">
-        Some text
-        </p>
-    </div>
 
     <div class="responsive-container-block Container" *ngFor="let j of [].constructor(chunks)">
         <div class="project project1">
