@@ -20,7 +20,10 @@ export class CarouselComponent implements OnInit {
       pullDrag: true,
       dots: true,
       navSpeed: 700,
-      navText: ['Previous', 'Next'],
+      navText: [
+        '<span class="nav-arrow nav-prev">&#10094;</span>',  // ‹
+        '<span class="nav-arrow nav-next">&#10095;</span>'   // ›
+      ],
       nav: true,
       items: 1
     };

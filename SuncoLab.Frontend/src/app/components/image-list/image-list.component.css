@@ -1,22 +1,56 @@
 .center {
-    align-items: center;
-    text-align: center;
+  align-items: center;
+  text-align: center;
 }
 
 .fit-image {
-    object-fit: contain;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.fit-image:hover {
+  transform: scale(1.03);
 }
 
 .image-scroll-container {
   display: flex;
   overflow-x: auto;
   white-space: nowrap;
-  gap: 1rem; 
-  padding: 1rem 0;
+  gap: 1rem;
+  padding: 20px;
+  background: #fafafa;
+  border-radius: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+}
+
+/* Optional custom scrollbar for WebKit */
+.image-scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+.image-scroll-container::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+.image-scroll-container::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .image-item {
-  flex: 0 0 auto; 
+  flex: 0 0 auto;
   width: fit-content;
   text-align: center;
 }
+
+.image-actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+

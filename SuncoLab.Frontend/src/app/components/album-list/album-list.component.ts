@@ -38,8 +38,8 @@ export class AlbumListComponent {
   openImageModal(albumId: string) {
     if (this.edit) {
       this.dialog.open(ImageListComponent, {
-        height: '700px',
-        width: '1500px',
+        height: '600px',
+        width: '1300px',
         data: { 
           albumId: albumId,
           edit: this.edit

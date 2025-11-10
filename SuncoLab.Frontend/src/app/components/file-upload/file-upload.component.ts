@@ -18,13 +18,16 @@ export class FileUploadComponent {
       }
 
       onFileSelected(event: any) {
-        let file: File = event.target.files[0];
-
-        if (file) {
-  	        this.files.push(file);
-            this.updateFormDate();
+        if (this.multiple) {
+          for (let item of event.target.files) {
+            this.files.push(item);
+          }        
         }
+        else {
+          this.files.push(event.target.files[0]);
+        }     
 
+        this.updateFormDate();
         this.onFileChange();
       }
 
@@ -38,7 +41,6 @@ export class FileUploadComponent {
         for (const file of this.files) {
           this.formData.append('files', file, file.name);
         }
-        console.log(JSON.stringify(this.formData))
       }
 
       public getFormData(): FormData {

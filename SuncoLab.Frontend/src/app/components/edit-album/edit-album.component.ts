@@ -43,11 +43,11 @@ export class EditAlbumComponent implements OnInit {
     this.spinner.show();  
     this.galleryService.createAlbum(this.addAlbumForm.value)
     .subscribe(result => {
+      this.spinner.hide();
       if (result) {
         this.toast.create('Album created successfully.');
-        this.getAlbums();
-      }    
-      this.spinner.hide();    
+        window.location.reload();
+      }        
     })
   }
 

@@ -1,0 +1,29 @@
+<div>
+    <mat-form-field class="spc-bottom">
+        <mat-label>Choose album</mat-label>
+        <mat-select [(ngModel)]="selectedAlbum" name="album" (valueChange)="onAlbumChanged($event)">
+            @for (album of albums; track album) {
+                <mat-option [value]="album.id">{{album.name}}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+    <form (ngSubmit)="saveCarouselItems()">
+        <div *ngIf="selectedImages && selectedImages.length > 0" class="grid">
+            <div *ngFor="let item of selectedImages; let i = index" class="box spc-med-top">
+                <img [src]="item.image.file.path" width="400" height="300">
+                <div class="image-actions">
+                    <mat-form-field class="spc-right">
+                        <mat-label>Sort Order</mat-label>
+                        <input matInput [(ngModel)]="item.sortOrder">
+                    </mat-form-field> 
+                    <mat-icon (click)="removeImage(i)" class="delete-icon">delete_forever</mat-icon>
+                </div>
+            </div>
+
+            <div class="spc-top">
+                <button class="option-button-active" type="submit">Save Carousel</button>
+            </div>
+        </div>
+    </form>
+</div>

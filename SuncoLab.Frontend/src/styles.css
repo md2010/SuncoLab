@@ -86,6 +86,19 @@ main {
   margin: 5px;
 }
 
+/* ICON */
+
+.delete-icon {
+  color: #dc3545;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.delete-icon:hover {
+  color: #a71d2a;
+  transform: scale(1.1);
+}
+
 /* ADMIN */
 
 .admin {
@@ -105,6 +118,10 @@ main {
   font-family: "Rubik";
   padding: 10px 20px;
   color: #777676;
+}
+
+.option-button-active:hover{
+  background-color: #7abfa6;
 }
 
 .options a{
