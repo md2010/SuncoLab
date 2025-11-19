@@ -1,5 +1,5 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Editor, Toolbar } from 'ngx-editor';
 import { BlogService } from '../../services/blog/blog.service';
 import { ToastService } from '../../services/toast/toast.service';
@@ -17,23 +17,34 @@ export class CreateBlogComponent implements OnDestroy {
   createBlogForm!: FormGroup;
   formData!: FormData;
   file!: File;
+  showError = false;
 
   constructor (private formBuilder: FormBuilder, private blogService: BlogService, private toast: ToastService) {
     this.createEmptyForm();
   }
 
-  createBlog(): void {
+  createBlog(): void {   
+    if (this.createBlogForm.invalid || this.file == undefined) {
+        this.showError = true;
+        return;
+    } 
+
+    this.showError = false;
     this.formData.append('name', this.createBlogForm.value.name);
+    this.formData.append('author', this.createBlogForm.value.author);
     this.formData.append('show', this.createBlogForm.value.show);
-    this.formData.append('description', this.createBlogForm.value.description);
+    this.formData.append('description', this.createBlogForm.value.description ?? null);
     this.formData.append('html', this.createBlogForm.value.html);
     this.formData.append('coverImage', this.file);
-
+    
     this.blogService.createBlog(this.formData)
-    .subscribe((result) => {
-      if (result) {
+    .subscribe({
+      next: () => { 
         this.toast.create('Blog created successfully.');
         this.createEmptyForm(true);
+      },
+      error: () => {
+        this.toast.create('Something went wrong.', "error");
       }
     })
   } 
@@ -48,10 +59,11 @@ export class CreateBlogComponent implements OnDestroy {
 
   createEmptyForm(reset = false): void {
     this.createBlogForm = this.formBuilder.group({
-      name: null,
+      name: [null, Validators.required],
+      author: [null, Validators.required],
       description: null,
       show: new FormControl(true),
-      html: '<p>Hello World!</p>'
+      html: ['<p>Hello World!</p>', Validators.required]
     });
 
     this.formData = new FormData();

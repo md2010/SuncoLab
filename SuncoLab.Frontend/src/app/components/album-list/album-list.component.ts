@@ -61,7 +61,20 @@ export class AlbumListComponent {
     this.galleryService.changeAlbumVisibility(album.id, album.show)
     .subscribe((response) => {
       if (response) {
-         this.toast.create('Album visibility changed.');
+        this.toast.create('Album visibility changed.');
+      }
+    })
+  }
+
+  deleteAlbum(id: string) {
+    this.galleryService.deleteAlbum(id)
+    .subscribe({  
+      next: () => {
+        this.toast.create('Album deleted.');
+        window.location.reload();
+      },
+      error: () => {
+        this.toast.create('Error on deleting album.', 'error');
       }
     })
   }

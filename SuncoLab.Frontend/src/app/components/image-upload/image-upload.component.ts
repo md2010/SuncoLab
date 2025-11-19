@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { GalleryService } from '../../services/gallery/gallery.service';
 import { SpinnerService } from '../../services/spinner/spinner.service';
 import { ToastService } from '../../services/toast/toast.service';
-import { Album } from '../../models/album';
+import { Album, AlbumFilter } from '../../models/album';
 import { FileUploadComponent } from '../file-upload/file-upload.component';
 import { BlogService } from '../../services/blog/blog.service';
 import { Blog } from '../../models/blog';
@@ -35,7 +35,7 @@ export class ImageUploadComponent implements OnInit {
     }         
 
     getAlbums() {
-      this.galleryService.getAllAlbums(true)
+      this.galleryService.findAlbums(new AlbumFilter(false))
       .subscribe(response => {
         if (response) {
           this.albums = response;

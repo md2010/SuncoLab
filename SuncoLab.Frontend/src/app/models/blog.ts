@@ -7,13 +7,16 @@ export class Blog {
     body: string = '';
     show: boolean = true;
     coverImage?: Image;
+    author: string = ';'
 
-    constructor (id: string, name: string, html: string, show: boolean, description: string|undefined, coverImage: Image) {
+    constructor (id: string, name: string, html: string, show: boolean, 
+        description: string|undefined, coverImage: Image, author: string) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.body = html;
         this.show = show;
         this.coverImage = coverImage;
+        this.author = author;
     }
 }

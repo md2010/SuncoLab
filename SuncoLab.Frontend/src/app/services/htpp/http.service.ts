@@ -3,8 +3,6 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { PaginatedResponse, SearchRequest } from '../../models/search';
-import { AuthService } from '../auth/auth.service';
-import { Authorized } from '../../models/authorization';
 
 @Injectable({
   providedIn: 'root',

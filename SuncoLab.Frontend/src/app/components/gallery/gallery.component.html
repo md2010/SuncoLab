@@ -1,3 +1,15 @@
 <div class="spc-top">
-    <app-album-list [albums]="albums"></app-album-list>
+    <div class="row">
+        <form (ngSubmit)="getAlbums()" class="spc-right">
+            <mat-form-field class="search-field">
+                <mat-label>Pretraži po nazivu</mat-label>
+                <input matInput [(ngModel)]="searchName" name="name">
+                <button type="submit" class="icon-search" mat-icon-button matSuffix>
+                    <mat-icon>search</mat-icon>
+                </button>
+            </mat-form-field> 
+        </form>
+    </div>
 </div>
+
+<app-album-list [albums]="albums"></app-album-list>

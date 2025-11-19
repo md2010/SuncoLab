@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../htpp/http.service';
-import { Album } from '../../models/album';
+import { Album, AlbumFilter } from '../../models/album';
 import { Observable } from 'rxjs';
 import { Image } from '../../models/image';
 
@@ -20,8 +20,8 @@ export class GalleryService {
     return this.httpService.post<boolean>(this.baseUrl + 'insert-album', data);
   }
 
-  getAllAlbums(all: boolean) : Observable<Album[] | undefined> {
-    return this.httpService.getAll(this.baseUrl + 'albums/' + all)
+  findAlbums(filter: AlbumFilter) : Observable<Album[] | undefined> {
+    return this.httpService.post(this.baseUrl + 'albums/', filter)
   }
 
   getImagesForAlbum(albumId: string) : Observable<Image[] | undefined> {
@@ -42,5 +42,9 @@ export class GalleryService {
 
   deleteImage(fileId: string) : Observable<boolean> {
     return this.httpService.delete(this.baseUrl + 'delete-image/' + fileId)
+  }
+
+  deleteAlbum(id: string) : Observable<boolean> {
+    return this.httpService.delete(this.baseUrl + 'delete-album/' + id)
   }
 }

@@ -50,16 +50,16 @@ export class MosaicEditComponent  implements OnInit {
 
   save() {
     this.homeService.editMosaic({"items": this.itemsToEdit})
-    .subscribe(response => {
-      if (response) {
+    .subscribe({ 
+      next: () => { 
         this.toast.create('Mosaic saved.');
         setTimeout(() => {
            window.location.reload() 
         8000});
-      }
-      else {
+      },
+      error: () => {
         this.toast.create('Error happend while saving mosaic.', 'error');
-        }
+      }
     })
   }
 

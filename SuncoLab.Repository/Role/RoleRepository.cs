@@ -17,7 +17,7 @@ namespace SuncoLab.Repository
 
         public async Task<Guid> GetAdminRoleId()
         {
-            return Entities.First(a => a.Abrv == "admin").Id;
+            return (await Entities.FirstAsync(a => a.Abrv == "admin")).Id;
         }
 
         public async Task<bool> CreateRole(string name)

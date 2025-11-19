@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GalleryService } from '../../services/gallery/gallery.service';
-import { Album } from '../../models/album';
+import { Album, AlbumFilter } from '../../models/album';
 import { SpinnerService } from '../../services/spinner/spinner.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ToastService } from '../../services/toast/toast.service';
@@ -15,6 +15,7 @@ export class EditAlbumComponent implements OnInit {
   albums : Album[] = [];
   addAlbumForm! : FormGroup;
   addAlbumClicked: boolean = false;
+  showError = false;
 
   constructor(private galleryService: GalleryService, private spinner: SpinnerService, private formBuilder: FormBuilder, private toast: ToastService) {}
 
@@ -30,7 +31,7 @@ export class EditAlbumComponent implements OnInit {
 
   getAlbums() {
     this.spinner.show();  
-    this.galleryService.getAllAlbums(true)
+    this.galleryService.findAlbums(new AlbumFilter(false))
     .subscribe(response => {
       if (response) {
         this.albums = response;
@@ -40,14 +41,23 @@ export class EditAlbumComponent implements OnInit {
   }
 
   saveAlbum() {
+    if (this.addAlbumForm.invalid) {
+      this.showError = true;
+      return;
+    }
+
     this.spinner.show();  
     this.galleryService.createAlbum(this.addAlbumForm.value)
-    .subscribe(result => {
-      this.spinner.hide();
-      if (result) {
+    .subscribe({
+      next: () => { 
+        this.spinner.hide();
         this.toast.create('Album created successfully.');
         window.location.reload();
-      }        
+      },
+      error: () => {
+        this.spinner.hide();
+        this.toast.create('Something went wrong.', "error");
+      }
     })
   }
 

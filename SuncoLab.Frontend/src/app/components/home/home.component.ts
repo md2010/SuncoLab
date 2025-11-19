@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BlogService } from '../../services/blog/blog.service';
+import { HomeService } from '../../services/home/home.service';
 import { CarouselItem } from '../../models/carouselItem';
 
 @Component({
@@ -8,4 +8,17 @@ import { CarouselItem } from '../../models/carouselItem';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {}
+export class HomeComponent implements OnInit {
+  carouselItems: CarouselItem[] | undefined;
+
+  constructor(private homeService: HomeService) {}
+
+  ngOnInit(): void {
+    this.homeService.getCarousel()
+    .subscribe({
+      next: (result) => {
+        this.carouselItems = result;
+      }
+    })
+  }
+}

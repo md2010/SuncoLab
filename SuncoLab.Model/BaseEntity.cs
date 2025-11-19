@@ -12,7 +12,7 @@ namespace SuncoLab.Model
 
         public void Initialize()
         {
-            if (Id == null || Id == Guid.Empty)
+            if (Id == Guid.Empty)
             {
                 Id = Guid.NewGuid();
             }

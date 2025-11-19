@@ -10,12 +10,12 @@
 
     <form (ngSubmit)="saveCarouselItems()">
         <div *ngIf="selectedImages && selectedImages.length > 0" class="grid">
-            <div *ngFor="let item of selectedImages; let i = index" class="box spc-med-top">
-                <img [src]="item.image.file.path" width="400" height="300">
-                <div class="image-actions">
+            <div *ngFor="let item of selectedImages; let i = index" class="box">
+                <img [src]="item.path" width="400" height="300">
+                <div class="actions">
                     <mat-form-field class="spc-right">
                         <mat-label>Sort Order</mat-label>
-                        <input matInput [(ngModel)]="item.sortOrder">
+                        <input matInput [(ngModel)]="item.sortOrder" required  [name]="'sort' + i">
                     </mat-form-field> 
                     <mat-icon (click)="removeImage(i)" class="delete-icon">delete_forever</mat-icon>
                 </div>
@@ -24,6 +24,13 @@
             <div class="spc-top">
                 <button class="option-button-active" type="submit">Save Carousel</button>
             </div>
+            <div class="form-error" *ngIf="showError">
+                Form is invalid.
+            </div>
         </div>
     </form>
+
+    <div *ngIf="selectedImages.length == 0">
+        <p>Carousel is not set up yet.</p>
+    </div>
 </div>

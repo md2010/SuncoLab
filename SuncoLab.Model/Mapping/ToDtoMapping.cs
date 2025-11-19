@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using SuncoLab.Model.Database;
+using SuncoLab.Model.Dto;
+using SuncoLab.Model.Dto.Carousel;
 using SuncoLab.Model.Dto.Mosaic;
 
 namespace SuncoLab.Model.Mapping
@@ -10,6 +12,10 @@ namespace SuncoLab.Model.Mapping
         {
             CreateMap<MosaicItem, MosaicItemDto>()
                 .ForMember(dest => dest.Path, opt => opt.MapFrom(src => src.Blog.CoverImage.File.Path));
+
+            CreateMap<CarouselItem, CarouselItemDto>()
+                .ForMember(dest => dest.Path, opt => opt.MapFrom(src => src.Image.File.Path))
+                .ForMember(dest => dest.ImageId, opt => opt.MapFrom(src => src.Image.Id));
         }
     }
 }

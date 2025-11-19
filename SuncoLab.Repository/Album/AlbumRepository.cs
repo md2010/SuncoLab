@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SuncoLab.Common.Filters;
 using SuncoLab.DAL;
 using SuncoLab.Model;
 
@@ -30,26 +31,11 @@ namespace SuncoLab.Repository
             return album ?? null;
         }
 
-        public async Task<List<Album>> FindAlbumAsync(bool all)
+        public async Task<List<Album>> FindAlbumAsync(AlbumFilter filter)
         {
             try
             {
-                IQueryable<Album> albums;
-
-                if (!all)
-                {
-                    albums = Entities
-                        .Where(a => a.Show == true)
-                        .Include(a => a.CoverImage)
-                            .ThenInclude(c => c.File);
-                }
-                else
-                {
-                    albums = Entities
-                        .Include(a => a.CoverImage)
-                            .ThenInclude(c => c.File);
-                }
-
+                var albums = CreateAlbumQuery(filter);                
                 return await albums.ToListAsync();
             }
             catch(Exception ex)
@@ -58,6 +44,24 @@ namespace SuncoLab.Repository
                 return null;
             }
 
+        }
+
+        private IQueryable<Album> CreateAlbumQuery(AlbumFilter filter)
+        {
+            IQueryable<Album> query = Entities.Include(a => a.CoverImage)
+                                              .ThenInclude(c => c.File);
+
+            if (filter.VisibleOnly)
+            {
+                query = query.Where(a => a.Show);
+            }
+
+            if (!string.IsNullOrEmpty(filter.Name))
+            {
+                query = query.Where(a => a.Name.Contains(filter.Name));
+            }
+
+            return query;
         }
 
         public async Task<Album?> GetByNameAsync(string name)
@@ -81,6 +85,21 @@ namespace SuncoLab.Repository
             album!.Show = show;
 
             return await DbContext.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> Delete(Guid albumId)
+        {
+            var albumToDelete = Entities.FirstOrDefault(x => x.Id == albumId);
+
+            if (albumToDelete != null)
+            {
+                DbContext.Albums.Attach(albumToDelete);
+                DbContext.Albums.Remove(albumToDelete);
+
+                return await DbContext.SaveChangesAsync() > 0;
+            }
+
+            return false;
         }
     }
 }

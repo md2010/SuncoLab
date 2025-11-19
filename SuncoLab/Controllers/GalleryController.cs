@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SuncoLab.Common.Filters;
 using SuncoLab.Model;
 using SuncoLab.Service;
 
@@ -11,11 +12,11 @@ namespace SuncoLab.API.Controllers
     {
         #region Methods
 
-        [HttpGet]
-        [Route("albums/{all}")]
-        public async Task<ActionResult<List<Album>>> FindAlbum(bool all = false)
+        [HttpPost]
+        [Route("albums")]
+        public async Task<ActionResult<List<Album>>> FindAlbum([FromBody] AlbumFilter filter)
         {
-            var result = await service.FindAlbumAsync(all);
+            var result = await service.FindAlbumAsync(filter);
 
             return Ok(result);
         }
@@ -45,6 +46,14 @@ namespace SuncoLab.API.Controllers
             var result = await service.ChangeAlbumVisibility(request.AlbumId, request.Show);
 
             return result ? Ok(true) : Conflict();
+        }
+
+        [HttpDelete("delete-album/{id}")]
+        public async Task<IActionResult> DeleteAlbum([FromRoute] Guid id)
+        {
+            var result = await service.DeleteAlbum(id);
+
+            return result ? Ok(true) : NotFound();
         }
 
         [HttpDelete("delete-image/{fileId}")]

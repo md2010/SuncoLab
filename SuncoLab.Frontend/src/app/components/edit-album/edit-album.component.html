@@ -18,6 +18,10 @@
         </div>
 
         <button class="option-button-active spc-top" type="submit">Save</button>
+
+        <div class="form-error" *ngIf="showError">
+            <p>Form is invalid!</p>
+        </div>
     </form>   
 </div>
 

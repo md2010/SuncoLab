@@ -5,8 +5,9 @@
         </a>
         <h3>{{album.name}}</h3>
         <p *ngIf="album.description">{{album.description}}</p>
-         <div *ngIf="edit">
-            <p><mat-slide-toggle [(ngModel)]="album.show" (change)="changeVisibility(album)">Show Album</mat-slide-toggle></p>
+         <div *ngIf="edit" class="actions">
+            <mat-slide-toggle [(ngModel)]="album.show" (change)="changeVisibility(album)">Show Album</mat-slide-toggle>
+            <mat-icon (click)="deleteAlbum(album.id)" class="delete-icon spc-left">delete_forever</mat-icon>
         </div>
     </div>
 </div>

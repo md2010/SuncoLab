@@ -5,12 +5,12 @@
         <img [src]="image.file.path" alt="Cinque Terre" width="{{width}}" height="{{height}}" class="fit-image">
       </a>
 
-      <div *ngIf="edit || mosaicEdit" class="image-actions">
-        <div *ngIf="edit">
-          <mat-icon (click)="deleteFile(image.file.id)" class="delete-icon">delete_forever</mat-icon>
+      <div *ngIf="edit || mosaicEdit">
+        <div *ngIf="edit" class="actions">
           <button class="option-button-active" (click)="setCoverImage(image.albumId, image.id)">
             Set As Cover Image
           </button>
+          <mat-icon (click)="deleteFile(image.file.id)" class="delete-icon">delete_forever</mat-icon>
         </div>
         <div *ngIf="mosaicEdit">
           <button class="option-button-active" (click)="onImageForMosaicSelected(image)">

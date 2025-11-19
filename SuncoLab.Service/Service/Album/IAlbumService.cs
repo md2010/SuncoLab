@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using SuncoLab.Common.Filters;
 using SuncoLab.Model;
 
 namespace SuncoLab.Service
@@ -9,7 +10,7 @@ namespace SuncoLab.Service
 
         Task<bool> SetCoverImage(Guid albumId, Guid imageId);
 
-        Task<List<Album>> FindAlbumAsync(bool all);
+        Task<List<Album>> FindAlbumAsync(AlbumFilter filter);
 
         Task<bool> ChangeAlbumVisibility(Guid albumId, bool show);
 
@@ -20,5 +21,7 @@ namespace SuncoLab.Service
         Task<List<Image>> FindImagesForAlbumAsync(Guid albumId);
 
         Task<bool> DeleteImage(Guid fileId);
+
+        Task<bool> DeleteAlbum(Guid albumId);
     }
 }

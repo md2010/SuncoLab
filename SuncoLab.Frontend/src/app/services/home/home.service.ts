@@ -13,7 +13,11 @@ export class HomeService {
     constructor(private httpService: HttpService) { }
 
     getCarousel() : Observable<CarouselItem[] | undefined> {
-      return this.httpService.getAll(this.baseUrl + 'home')
+      return this.httpService.getAll(this.baseUrl + 'get-carousel')
+    }
+
+    editCarousel(carousel: any)  {
+      return this.httpService.post(this.baseUrl + 'edit-carousel', carousel)
     }
 
     getMosaic() : Observable<MosaicItem[] | undefined> {

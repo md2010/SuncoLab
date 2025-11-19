@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SuncoLab.Model.Dto;
 using SuncoLab.Service;
 
 namespace SuncoLab.Controllers
@@ -13,7 +14,7 @@ namespace SuncoLab.Controllers
         [HttpPost]
         [Authorize]
         [Route("create")]
-        public async Task<IActionResult> CreateBlog(CreateBlogModel model)
+        public async Task<IActionResult> CreateBlog(CreateBlogDto model)
         {
             if (model == null)
             {
@@ -22,7 +23,7 @@ namespace SuncoLab.Controllers
 
             try
             {
-                var result = await blogService.SaveBlog(model.Name, model.Html, model.Show, model.Description);
+                var result = await blogService.SaveBlog(model);
 
                 if (result != null)
                 {
@@ -58,17 +59,5 @@ namespace SuncoLab.Controllers
 
         #endregion
 
-        #region Classes
-
-        public class CreateBlogModel
-        {
-            public string Name { get; set; }
-            public string Html { get; set; }
-            public string? Description { get; set; }
-            public bool Show { get; set; } = true;
-            public IFormFile CoverImage { get; set; }
-        }
-
-        #endregion
     }
 }

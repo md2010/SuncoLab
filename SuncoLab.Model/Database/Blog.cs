@@ -7,8 +7,9 @@ namespace SuncoLab.Model
         [Column(TypeName = "text")]
         public string Body { get; set; }
         public string Name { get; set; }
-        public string? Description { get; set; }
+        public string? Description { get; set; } = null;
         public bool Show { get; set; } = true;
+        public string Author { get; set; }
 
         [ForeignKey("CoverImage")]
         public Guid? CoverImageId { get; set; }

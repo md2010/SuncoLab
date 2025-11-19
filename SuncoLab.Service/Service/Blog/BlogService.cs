@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using SuncoLab.Model;
+using SuncoLab.Model.Dto;
 using SuncoLab.Repository;
 
 namespace SuncoLab.Service
@@ -9,7 +11,8 @@ namespace SuncoLab.Service
         ILogger<BlogService> logger, 
         IFileService fileService, 
         IImageRepository imageRepository, 
-        IBlogRepository blogRepository) : IBlogService
+        IBlogRepository blogRepository,
+        IMapper mapper) : IBlogService
     {
         public async Task<bool> SaveBlogImage(IFormFile formFile, Guid blogId)
         {
@@ -46,14 +49,15 @@ namespace SuncoLab.Service
             }
         }
 
-        public async Task<Blog?> SaveBlog(string name, string html, bool show, string? description = "")
+        public async Task<Blog?> SaveBlog(CreateBlogDto model)
         {
             var blog = new Blog
             {
-                Name = name,
-                Body = html,
-                Description = description,
-                Show = show
+                Name = model.Name,
+                Body = model.Html,
+                Description = model.Description,
+                Show = model.Show,
+                Author = model.Author
             };
 
             return await blogRepository.InsertAsync(blog);

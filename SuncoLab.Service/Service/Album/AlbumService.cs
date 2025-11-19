@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using SuncoLab.Common.Filters;
 using SuncoLab.Model;
 using SuncoLab.Repository;
 
@@ -121,9 +122,9 @@ namespace SuncoLab.Service
             return await albumRepository.InsertAsync(entity) != null;
         }
 
-        public async Task<List<Album>> FindAlbumAsync(bool all)
+        public async Task<List<Album>> FindAlbumAsync(AlbumFilter filter)
         {
-            return await albumRepository.FindAlbumAsync(all);
+            return await albumRepository.FindAlbumAsync(filter);
         }
 
         public async Task<bool> ChangeAlbumVisibility(Guid albumId, bool show)
@@ -139,6 +140,11 @@ namespace SuncoLab.Service
             }
 
             return await albumRepository.SetCoverImage(albumId, imageId);
+        }
+
+        public async Task<bool> DeleteAlbum(Guid albumId)
+        {
+            return await albumRepository.Delete(albumId);
         }
 
         #endregion

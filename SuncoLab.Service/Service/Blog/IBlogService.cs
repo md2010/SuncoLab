@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using SuncoLab.Model;
+using SuncoLab.Model.Dto;
 
 namespace SuncoLab.Service
 {
     public interface IBlogService
     {
-        Task<Blog?> SaveBlog(string name, string html, bool show, string? description = "");
+        Task<Blog?> SaveBlog(CreateBlogDto model);
 
         Task<bool> SaveBlogImage(IFormFile formFile, Guid blogId);
 

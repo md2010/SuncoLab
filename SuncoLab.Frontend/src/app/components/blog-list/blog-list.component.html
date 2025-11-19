@@ -4,6 +4,7 @@
             <img [src]="blog.coverImage?.file?.path" widht="600px" width="700px">
         </a>
         <h3>{{blog.name}}</h3>
-        <p *ngIf="blog.description">{{blog.description}}</p>
+        <i>{{blog.author}}</i>
+        <p *ngIf="blog.description !== null">{{blog.description}}</p>
     </div>
 </div>

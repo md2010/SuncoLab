@@ -14,6 +14,7 @@ namespace SuncoLab.Service.Service.Mosaic
                 .Include(x => x.Blog)
                     .ThenInclude(y => y.CoverImage)
                         .ThenInclude(i => i.File)
+                    .OrderBy(x => x.SortOrder)
                 .ToListAsync();
 
             return mapper.Map<List<MosaicItemDto>>(items);

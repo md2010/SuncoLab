@@ -1,1 +1,13 @@
+.icon-search {
+  background: transparent;   
+  border: none;              
+  cursor: pointer;              
+}
 
+.search-field {
+  flex: 1;              
+  max-width: 400px;     
+  min-width: 200px;     
+  width: 100%;   
+  background: transparent;          
+}

@@ -1,4 +1,5 @@
-﻿using SuncoLab.Model;
+﻿using SuncoLab.Common.Filters;
+using SuncoLab.Model;
 
 namespace SuncoLab.Repository
 {
@@ -10,10 +11,12 @@ namespace SuncoLab.Repository
 
         Task<Album?> GetByNameAsync(string name);
 
-        Task<List<Album>> FindAlbumAsync(bool all);
+        Task<List<Album>> FindAlbumAsync(AlbumFilter filter);
 
         Task<bool> SetCoverImage(Guid albumId, Guid imageId);
 
         Task<bool> ChangeAlbumVisibility(Guid albumId, bool show);
+
+        Task<bool> Delete(Guid albumId);
     }
 }

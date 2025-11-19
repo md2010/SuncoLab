@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnInit, Optional } from '@angular/core';
-import { CarouselItem } from '../../models/carouselItem';
+import { CarouselItemPreview } from '../../models/carouselItem';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GalleryService } from '../../services/gallery/gallery.service';
 
@@ -10,7 +10,7 @@ import { GalleryService } from '../../services/gallery/gallery.service';
   styleUrl: './carousel.component.css'
 })
 export class CarouselComponent implements OnInit {
-    @Input() slides: CarouselItem[] | undefined;
+    @Input() slides: CarouselItemPreview[] | undefined;
     @Input() albumId?: string;
 
     customOptions = {
@@ -38,30 +38,15 @@ export class CarouselComponent implements OnInit {
       if (this.albumId) {
         this.getImages();
       }
-      else if (this.slides == undefined) { 
-        this.slides = new Array<CarouselItem>(3)         
-        this.slides[0] = {
-          id: "1",
-          path: 'https://suncolabstorage.blob.core.windows.net/images/Magic Forest/forest.jpg'
-        };
-        this.slides[1] = {
-          id: "2",
-          path: 'https://suncolabstorage.blob.core.windows.net/images/black-sand.jpg'
-        };
-        this.slides[2] = {
-          id: "3",
-          path: 'https://suncolabstorage.blob.core.windows.net/images/black-sand.jpg'
-        };
-      }
     }
 
     getImages() {
       this.galleryService.getImagesForAlbum(this.albumId!)
       .subscribe(response => {
         let images = response;
-        this.slides = new Array<CarouselItem>()
+        this.slides = new Array<CarouselItemPreview>()
         images!.forEach(image => {
-          this.slides?.push(new CarouselItem(image.id, image.file.path));
+          this.slides?.push(new CarouselItemPreview(image.id, image.file.path));
         });
       })
     }

@@ -15,3 +15,13 @@ export class Album {
     this.coverImage = coverImage;
   }
 }
+
+export class AlbumFilter {
+  visibleOnly: boolean = false;
+  name: string | undefined;
+
+  constructor(visibleOnly?: boolean, name?: string) {
+    this.visibleOnly = visibleOnly ?? false;
+    this.name = name;
+  }
+}

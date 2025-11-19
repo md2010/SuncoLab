@@ -49,7 +49,6 @@ namespace SuncoLab.Repository
             }
 
             return false;
-
         }
     }
 }
