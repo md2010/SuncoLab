@@ -38,6 +38,7 @@ import { MosaicEditComponent } from './components/mosaic-edit/mosaic-edit.compon
 import { AboutComponent } from './components/about/about.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CarouselEditComponent } from './components/carousel-edit/carousel-edit.component';
+import { EditBlogComponent } from './components/edit-blog/edit-blog.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { CarouselEditComponent } from './components/carousel-edit/carousel-edit.
     MosaicEditComponent,
     AboutComponent,
     FooterComponent,
-    CarouselEditComponent
+    CarouselEditComponent,
+    EditBlogComponent
   ],
   imports: [
     SpinnerComponent,

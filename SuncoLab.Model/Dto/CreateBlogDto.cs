@@ -7,8 +7,8 @@ namespace SuncoLab.Model.Dto
         public string Name { get; set; }
         public string Author { get; set; }
         public string Html { get; set; }
-        public string? Description { get; set; }
+        public string? Description { get; set; } = null;
         public bool Show { get; set; } = true;
-        public IFormFile CoverImage { get; set; }
+        public IFormFile? CoverImage { get; set; }
     }
 }

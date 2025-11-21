@@ -1,4 +1,4 @@
-<form>
+<form #formRef="ngForm" (ngSubmit)="save(formRef)">
     <div class="spc-top">
         <div *ngFor="let item of itemsToEdit; index as i">   
             <mat-form-field class="spc-right">
@@ -8,7 +8,11 @@
 
             <mat-form-field class="spc-bottom">
                 <mat-label>Choose blog</mat-label>
-                <mat-select [(ngModel)]="item.blogId" [name]="'blog_' + i">
+                <mat-select 
+                [(ngModel)]="item.blogId" 
+                #blogModel="ngModel"
+                [name]="'blog_' + i" 
+                required>
                     @for (blog of blogs; track blog) {
                         <mat-option [value]="blog.id">{{blog.name}}</mat-option>
                     }
@@ -16,8 +20,11 @@
             </mat-form-field>   
         </div>
     </div>
+    <div class="form-error" *ngIf="showError">
+        <p>Form is invalid.</p>
+    </div>
     <div>
-        <button class="option-button-active" (click)="save()">Save</button>
+        <button class="option-button-active" type="submit">Save</button>
     </div>
 </form>
 

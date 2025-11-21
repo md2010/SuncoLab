@@ -18,6 +18,7 @@ using SuncoLab.Model.Mapping;
 using AutoMapper;
 using Microsoft.Extensions.Azure;
 using SuncoLab.Service.Service.Carousel;
+using SuncoLab.Repository.Mosaic;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -150,13 +151,16 @@ public class AutofacModule : Module
         builder.RegisterType<BlogService>().As<IBlogService>();
         builder.RegisterType<MosaicService>().As<IMosaicService>();
         builder.RegisterType<CarouselService>().As<ICarouselService>();
-      
+
         //repository
+        builder.RegisterType<BaseRepository>().As<IBaseRepository>();
+
         builder.RegisterType<CoreUserRepository>().As<ICoreUserRepository>();
         builder.RegisterType<CoreFileRepository>().As<ICoreFileRepository>();
         builder.RegisterType<ImageRepository>().As<IImageRepository>();
         builder.RegisterType<AlbumRepository>().As<IAlbumRepository>();
         builder.RegisterType<BlogRepository>().As<IBlogRepository>();
         builder.RegisterType<RoleRepository>().As<IRoleRepository>();
+        builder.RegisterType<MosaicRepository>().As<IMosaicRepository>();
     }
 }

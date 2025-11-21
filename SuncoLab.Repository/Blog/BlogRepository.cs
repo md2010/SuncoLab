@@ -4,12 +4,12 @@ using SuncoLab.Model;
 
 namespace SuncoLab.Repository
 {
-    public class BlogRepository : IBlogRepository
+    public class BlogRepository : BaseRepository, IBlogRepository
     {
         protected AppDbContext DbContext;
         protected DbSet<Blog> Entities;
 
-        public BlogRepository(AppDbContext dbContext)
+        public BlogRepository(AppDbContext dbContext) : base(dbContext)
         {
             DbContext = dbContext;
             Entities = DbContext.Set<Blog>();
@@ -46,6 +46,12 @@ namespace SuncoLab.Repository
 
             album!.CoverImageId = imageId;
 
+            return await DbContext.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> Delete(Blog blog)
+        {
+            DbContext.Blogs.Remove(blog);
             return await DbContext.SaveChangesAsync() > 0;
         }
     }

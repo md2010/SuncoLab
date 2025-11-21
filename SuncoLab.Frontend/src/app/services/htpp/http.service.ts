@@ -21,6 +21,10 @@ export class HttpService {
     return this.http.post<T>(this.baseUrl + url, data, { headers: this.generateHttpHeaders() });
   }
 
+  put<T>(url: string, id: string, data: any): Observable<T> {
+    return this.http.put<T>(this.baseUrl + url + id, data, { headers: this.generateHttpHeaders() });
+  }
+
   get<T>(url: string, searchRequest: SearchRequest | null): Observable<PaginatedResponse<T>> { 
     if (searchRequest == null) {
       return this.http.get<PaginatedResponse<T>>(this.baseUrl + url, {

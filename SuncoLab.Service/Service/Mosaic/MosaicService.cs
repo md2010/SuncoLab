@@ -1,39 +1,31 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using SuncoLab.DAL;
 using SuncoLab.Model.Database;
 using SuncoLab.Model.Dto.Mosaic;
+using SuncoLab.Repository.Mosaic;
 
 namespace SuncoLab.Service.Service.Mosaic
 {
-    public class MosaicService(AppDbContext context, IMapper mapper) : IMosaicService
+    public class MosaicService(IMosaicRepository repository) : IMosaicService
     {
         public async Task<List<MosaicItemDto>> GetMosaicDtos()
         {
-            var items = await context.MosaicItems
-                .Include(x => x.Blog)
-                    .ThenInclude(y => y.CoverImage)
-                        .ThenInclude(i => i.File)
-                    .OrderBy(x => x.SortOrder)
-                .ToListAsync();
-
-            return mapper.Map<List<MosaicItemDto>>(items);
+            return await repository.GetMosaicDtos();
         }
 
         public async Task<bool> EditMosaic(List<EditMosaicDto> requests)
         {
-            var existingItems = await context.MosaicItems.ToListAsync();
+            var existingItems = await repository.GetAll();
 
             List<MosaicItem> itemsToAdd = [];
 
             foreach (var request in requests)
             {
-                var existingItem = existingItems.FirstOrDefault(x => x.SortOrder == request.SortOrder);
+                var existingItem = existingItems?
+                    .FirstOrDefault(x => x.SortOrder == request.SortOrder);
 
                 if (existingItem != null)
                 {
                     existingItem.BlogId = request.BlogId;
-                    context.Entry(existingItem).State = EntityState.Modified;
                 }
                 else
                 {
@@ -47,10 +39,10 @@ namespace SuncoLab.Service.Service.Mosaic
 
             if (itemsToAdd.Count > 0)
             {
-                await context.MosaicItems.AddRangeAsync(itemsToAdd);
+                await repository.InsertUow(itemsToAdd);
             }
 
-            return await context.SaveChangesAsync() > 0;
+            return await repository.SaveChanges();
         }
     }
 }

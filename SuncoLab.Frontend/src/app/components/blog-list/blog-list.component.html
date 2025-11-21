@@ -5,6 +5,6 @@
         </a>
         <h3>{{blog.name}}</h3>
         <i>{{blog.author}}</i>
-        <p *ngIf="blog.description !== null">{{blog.description}}</p>
+        <p *ngIf="blog.description != null && blog.description != ''">{{blog.description}}</p>
     </div>
 </div>

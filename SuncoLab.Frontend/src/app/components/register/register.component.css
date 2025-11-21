@@ -40,10 +40,7 @@ h1 {
     letter-spacing: 2px;
     height: 35px;
 }
-.submit_class {
-    border-style: none;
-    border-radius: 5px;
-    background-color: #ad7e5c;
+.submit_class {  
     padding: 8px 20px;
     font-family: 'system-ui';
     text-transform: uppercase;

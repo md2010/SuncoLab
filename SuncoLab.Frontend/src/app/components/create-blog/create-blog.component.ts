@@ -1,6 +1,6 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Editor, Toolbar } from 'ngx-editor';
+import { Editor } from 'ngx-editor';
 import { BlogService } from '../../services/blog/blog.service';
 import { ToastService } from '../../services/toast/toast.service';
 import { FileUploadComponent } from '../file-upload/file-upload.component';
@@ -18,9 +18,13 @@ export class CreateBlogComponent implements OnDestroy {
   formData!: FormData;
   file!: File;
   showError = false;
+  addBlogClicked = false;
 
-  constructor (private formBuilder: FormBuilder, private blogService: BlogService, private toast: ToastService) {
-    this.createEmptyForm();
+  constructor (
+    private formBuilder: FormBuilder, 
+    private blogService: BlogService, 
+    private toast: ToastService) {
+      this.createEmptyForm();
   }
 
   createBlog(): void {   
@@ -33,7 +37,7 @@ export class CreateBlogComponent implements OnDestroy {
     this.formData.append('name', this.createBlogForm.value.name);
     this.formData.append('author', this.createBlogForm.value.author);
     this.formData.append('show', this.createBlogForm.value.show);
-    this.formData.append('description', this.createBlogForm.value.description ?? null);
+    this.formData.append('description', this.createBlogForm.value.description ?? '');
     this.formData.append('html', this.createBlogForm.value.html);
     this.formData.append('coverImage', this.file);
     
@@ -72,4 +76,5 @@ export class CreateBlogComponent implements OnDestroy {
       this.fileUploader.reset();
     }
   }
+
 }

@@ -8,7 +8,7 @@
                 <input id="pass" class="field_class" name="password_txt" type="{{showPassword ? 'text' : 'password'}}" [(ngModel)]="password">
                 <span class="fa" [ngClass]="{'fa-eye-slash' : !showPassword, 'fa-eye' : showPassword}" (click)="togglePasswordVisibility()"></span>
             </div>
-            <button class="submit_class" type="submit" form="login_form" (click)="login()">Login</button>
+            <button class="option-button-active submit_class" type="submit" form="login_form" (click)="login()">Login</button>
         </div>
         <div *ngIf="loginFailed">
             <p class="error-message">Wrong username or password.</p>

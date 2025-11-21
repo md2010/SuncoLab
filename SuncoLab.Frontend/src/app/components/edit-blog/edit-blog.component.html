@@ -1,0 +1,58 @@
+<div class="admin">
+    <div class="center">
+        <h3>EDIT BLOG</h3>
+    </div>
+    <div class="center">
+        <div>
+            <form *ngIf="loaded" [formGroup]="editBlogForm" (ngSubmit)="createBlog();">
+                <div>
+                    <mat-form-field class="spc-right">
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="name" required>
+                    </mat-form-field>
+                    
+                    <mat-form-field class="spc-right">
+                        <mat-label>Author</mat-label>
+                        <input matInput formControlName="author" required>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field class="spc-right">
+                        <mat-label>Description</mat-label>
+                        <input matInput formControlName="description">
+                    </mat-form-field>
+                    <mat-slide-toggle id="show" formControlName="show">Show Blog</mat-slide-toggle>
+                </div>
+
+                <div class="NgxEditor__Wrapper spc-top">
+                    <ngx-editor-menu 
+                        [editor]="editor">
+                    </ngx-editor-menu> 
+                    <ngx-editor
+                        [editor]="editor"
+                        formControlName="html"
+                        required
+                    ></ngx-editor>
+                </div>
+
+                <div class="spc-top">
+                    <button class="option-button-active" (click)="uploadNewCoverImage = !uploadNewCoverImage" type="button">
+                        Upload new cover image
+                    </button>
+                    <div class="spc-top" *ngIf="uploadNewCoverImage">
+                        <app-file-upload (filesChanged)="onFileChanged($event)"></app-file-upload>
+                    </div>
+                </div>       
+
+                <div class="spc-top">
+                    <button class="option-button-active" type="submit">Save Blog</button>
+                    <button class="option-button-delete spc-left" type="button" (click)="delete()">Delete Blog</button>
+                </div>
+
+                <div class="form-error" *ngIf="showError">
+                    <p>Form is invalid!</p>
+                </div>
+            </form> 
+        </div>
+    </div>
+</div>

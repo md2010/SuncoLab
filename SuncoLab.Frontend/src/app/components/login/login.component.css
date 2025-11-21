@@ -1,6 +1,5 @@
 h1 {
     letter-spacing: 1.5vw;
-    font-family: 'system-ui';
     text-transform: uppercase;
     text-align: center;
 }
@@ -18,7 +17,6 @@ body {
     padding: 40px;
     border-radius: 8px;
     background-color: white;
-    font-family: 'system-ui';
     box-shadow: 5px 5px 10px rgb(0,0,0,0.3);
 }
 .form_div {
@@ -44,17 +42,12 @@ body {
     text-indent: 6px;
     margin-top: 10px;
     margin-bottom: 20px;
-    font-family: 'system-ui';
     font-size: 0.9rem;
     letter-spacing: 2px;
     height: 35px;
 }
 .submit_class {
-    border-style: none;
-    border-radius: 5px;
-    background-color: #ad7e5c;
     padding: 8px 20px;
-    font-family: 'system-ui';
     text-transform: uppercase;
     letter-spacing: .8px;
     display: block;

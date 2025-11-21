@@ -70,8 +70,10 @@ export class AlbumListComponent {
     this.galleryService.deleteAlbum(id)
     .subscribe({  
       next: () => {
-        this.toast.create('Album deleted.');
-        window.location.reload();
+        this.toast.create('Album deleted. Some of the images in the album may be connected to carousel item.');
+        setTimeout(() => {
+           window.location.reload() 
+        8000});
       },
       error: () => {
         this.toast.create('Error on deleting album.', 'error');

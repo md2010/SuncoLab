@@ -14,7 +14,7 @@ namespace SuncoLab.Repository
         {
             DbContext = dbContext;
             Entities = DbContext.Set<Album>();
-        }
+        } 
 
         public async Task<Album?> InsertAsync(Album model)
         {
@@ -43,7 +43,6 @@ namespace SuncoLab.Repository
                 Console.WriteLine(ex.Message);
                 return null;
             }
-
         }
 
         private IQueryable<Album> CreateAlbumQuery(AlbumFilter filter)

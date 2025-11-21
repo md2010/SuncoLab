@@ -44,7 +44,6 @@ main {
 }
 
 /* TOAST */
-
 .toast {
     position: fixed;
     bottom: 40px;
@@ -56,16 +55,29 @@ main {
     box-shadow: 0 2px 5px rgba(223, 161, 81, 0.2);
     transition: opacity 0.3s ease-in-out;
     color: #3c4250;
+    z-index: 2000;
 }
 
-.toast.success {
-  background-color: #47c464;
+.toast.success  {
+  background-color: #47c464 !important;
 }
 .toast.error {
-  background-color: #dc3545;
+  background-color: #dc3545 !important;
 }
 .toast.warning {
-  background-color: #ecc244;
+  background-color: #ecc244 !important;
+}
+
+/** override **/
+.mat-snack-bar-container.toast-success  {
+  background-color: #47c464 !important;
+  color:white;
+}
+.cdk-overlay-container .toast-error .mat-mdc-snack-bar {
+  background-color: #dc3545 !important;
+}
+.cdk-overlay-container .toast-warning .mat-mdc-snack-bar {
+  background-color: #ecc244 !important;
 }
 
 /* BUTTON */
@@ -112,6 +124,23 @@ main {
 }
 
 /* OPTION BUTTON */
+.option-button-delete {
+  background-color: #de5d5d; 
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  font-family: "Rubik";
+  padding: 10px 20px;
+  color: #f6f4f4;
+}
+
+.option-button-delete:hover{
+  background-color: #cf2121;
+  cursor: pointer;
+}
+
 .option-button-active {
   background-color: #89d8bb; 
   border: none;
@@ -126,6 +155,11 @@ main {
 
 .option-button-active:hover{
   background-color: #7abfa6;
+  cursor: pointer;
+}
+
+.option-button-active:disabled{
+  background-color: #a0c6b8;
 }
 
 .options a{
@@ -146,6 +180,7 @@ main {
 /* ERROR */
 .form-error {
   margin-top: 10px;
+  margin-bottom: 10px;
   color: #d32f2f;   
   font-size: 0.85rem;
 }

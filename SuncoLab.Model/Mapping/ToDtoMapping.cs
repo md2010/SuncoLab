@@ -16,6 +16,10 @@ namespace SuncoLab.Model.Mapping
             CreateMap<CarouselItem, CarouselItemDto>()
                 .ForMember(dest => dest.Path, opt => opt.MapFrom(src => src.Image.File.Path))
                 .ForMember(dest => dest.ImageId, opt => opt.MapFrom(src => src.Image.Id));
+
+            CreateMap<CreateBlogDto, Blog>()
+                .ForMember(dest => dest.CoverImage, opt => opt.Ignore())
+                .ForMember(dest => dest.Body, opt => opt.MapFrom(src => src.Html));
         }
     }
 }

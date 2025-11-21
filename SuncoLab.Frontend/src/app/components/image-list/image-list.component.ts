@@ -67,7 +67,7 @@ export class ImageListComponent {
     this.galleryService.deleteImage(fileId)
     .subscribe(result => {
       if (result) {
-        this.toast.create('Image deleted succesfully.')
+        this.toast.create('Image deleted succesfully. Image may be connected to carousel item.')
         setTimeout(() => {
            window.location.reload() 
         8000}); 

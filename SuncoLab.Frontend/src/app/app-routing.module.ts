@@ -10,6 +10,8 @@ import { BlogListComponent } from './components/blog-list/blog-list.component';
 import { BlogPreviewComponent } from './components/blog-preview/blog-preview.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AboutComponent } from './components/about/about.component';
+import { CreateBlogComponent } from './components/create-blog/create-blog.component';
+import { EditBlogComponent } from './components/edit-blog/edit-blog.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,6 +22,7 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'admin', component: AdminComponent, canActivate: [authGuard] },
   { path: 'unauthorized', component: UnauthorizedComponent},
+  { path: 'blog-edit/:id', component: EditBlogComponent },
   { path: '**', component: PageNotFoundComponent },
 ];
 

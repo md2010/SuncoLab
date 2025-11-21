@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BlogService } from '../../services/blog/blog.service';
 import { Blog } from '../../models/blog';
 
@@ -10,6 +10,7 @@ import { Blog } from '../../models/blog';
 })
 export class BlogListComponent {
     blogs: Array<Blog> | undefined;
+    @Input() edit : boolean = false;
 
     constructor(private blogService: BlogService) {}
 
@@ -21,8 +22,14 @@ export class BlogListComponent {
     }
 
     openBlog(id: string) {
-      const url = `${window.location.origin}/blog-preview/${id}`;
-      window.open(url, "_self");
+      if (this.edit) {
+        const url = `${window.location.origin}/blog-edit/${id}`;
+        window.open(url, "_blank");
+      }
+      else {
+        const url = `${window.location.origin}/blog-preview/${id}`;
+        window.open(url, "_self");
+      }
     }
 
 }

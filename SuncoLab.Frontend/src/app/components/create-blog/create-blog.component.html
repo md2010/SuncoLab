@@ -1,4 +1,10 @@
-<form [formGroup]="createBlogForm" (ngSubmit)="createBlog();">
+<button 
+    class="option-button-active spc-top spc-bottom" 
+    (click)="addBlogClicked = !addBlogClicked;">
+    Add new blog
+</button>
+
+<form *ngIf="addBlogClicked" [formGroup]="createBlogForm" (ngSubmit)="createBlog();">
     <div>
         <mat-form-field class="spc-right">
             <mat-label>Name</mat-label>
@@ -42,4 +48,6 @@
     <div class="form-error" *ngIf="showError">
         <p>Form is invalid!</p>
     </div>
-</form>   
+</form> 
+
+<app-blog-list [edit]="true"></app-blog-list>

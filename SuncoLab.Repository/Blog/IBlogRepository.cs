@@ -2,7 +2,7 @@
 
 namespace SuncoLab.Repository
 {
-    public interface IBlogRepository
+    public interface IBlogRepository : IBaseRepository
     {
         Task<Blog?> InsertAsync(Blog model);
 
@@ -11,5 +11,7 @@ namespace SuncoLab.Repository
         Task<List<Blog>> GetAll();
 
         Task<bool> SetCoverImage(Guid blogId, Guid imageId);
+
+        Task<bool> Delete(Blog blog);
     }
 }

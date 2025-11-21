@@ -49,7 +49,7 @@ namespace SuncoLab.Service
             }
         }
 
-        public async Task<Blog?> SaveBlog(CreateBlogDto model)
+        public async Task<Blog?> CreateBlog(CreateBlogDto model)
         {
             var blog = new Blog
             {
@@ -63,6 +63,21 @@ namespace SuncoLab.Service
             return await blogRepository.InsertAsync(blog);
         }
 
+        public async Task<bool> UpdateBlog(Guid id, CreateBlogDto model)
+        {
+            var existingBlog = await blogRepository.GetByIdAsync(id);
+
+            if (existingBlog == null)
+            {
+                return false;
+            }
+
+            mapper.Map(model, existingBlog);
+            existingBlog.DateModified = DateTime.UtcNow;
+
+            return await blogRepository.SaveChanges();
+        }
+
         public async Task<List<Blog>> GetAll()
         { 
             return await blogRepository.GetAll(); 
@@ -71,6 +86,21 @@ namespace SuncoLab.Service
         public async Task<Blog?> GetById(Guid blogId)
         {
             return await blogRepository.GetByIdAsync(blogId);
+        }
+
+        public async Task<bool> Delete(Guid id)
+        {
+            var blog = await blogRepository.GetByIdAsync(id);
+
+            if (blog == null)
+            {
+                return false;
+            }
+
+            // delete cover image as well
+
+            return await blogRepository.Delete(blog);
+
         }
     }
 }

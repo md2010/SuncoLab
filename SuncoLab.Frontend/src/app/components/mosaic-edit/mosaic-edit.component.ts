@@ -15,6 +15,7 @@ export class MosaicEditComponent  implements OnInit {
   mosaic: MosaicItem[] | undefined = [];  
   itemsToEdit: EditMosaicItem[] = [];
   blogs: Blog[] | undefined;
+  showError = false;
 
   constructor(private homeService: HomeService, private blogService: BlogService, private toast: ToastService) {}
 
@@ -46,9 +47,17 @@ export class MosaicEditComponent  implements OnInit {
       this.itemsToEdit.push(new EditMosaicItem(i))
       i--;
     }
+
+    this.itemsToEdit = this.itemsToEdit.sort((a,b) => a.sortOrder! - b.sortOrder!)
   }
 
-  save() {
+  save(formRef: any) {
+    if (formRef.invalid) {
+      this.showError = true;
+      return;
+    }
+    this.showError = false;
+    
     this.homeService.editMosaic({"items": this.itemsToEdit})
     .subscribe({ 
       next: () => { 
