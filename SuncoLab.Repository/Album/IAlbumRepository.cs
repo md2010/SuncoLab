@@ -17,6 +17,6 @@ namespace SuncoLab.Repository
 
         Task<bool> ChangeAlbumVisibility(Guid albumId, bool show);
 
-        Task<bool> Delete(Guid albumId);
+        Task<bool> Delete(Album album);
     }
 }

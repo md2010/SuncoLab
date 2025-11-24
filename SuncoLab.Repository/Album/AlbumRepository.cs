@@ -86,19 +86,12 @@ namespace SuncoLab.Repository
             return await DbContext.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> Delete(Guid albumId)
+        public async Task<bool> Delete(Album albumToDelete)
         {
-            var albumToDelete = Entities.FirstOrDefault(x => x.Id == albumId);
+            DbContext.Albums.Attach(albumToDelete);
+            DbContext.Albums.Remove(albumToDelete);
 
-            if (albumToDelete != null)
-            {
-                DbContext.Albums.Attach(albumToDelete);
-                DbContext.Albums.Remove(albumToDelete);
-
-                return await DbContext.SaveChangesAsync() > 0;
-            }
-
-            return false;
+            return await DbContext.SaveChangesAsync() > 0;
         }
     }
 }

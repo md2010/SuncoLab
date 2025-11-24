@@ -1,24 +1,31 @@
-<div class="spc-top spc-bottom image-scroll-container">
-  <div *ngFor="let image of images" class="spc-bottom center image-item">
-    <div>
-      <a href="javascript:void(0);" (click)="openImage(image.file.path)">
-        <img [src]="image.file.path" alt="Cinque Terre" width="{{width}}" height="{{height}}" class="fit-image">
-      </a>
+<mat-dialog-actions align="end">
+  <mat-icon mat-dialog-close>close</mat-icon>
+</mat-dialog-actions>
 
-      <div *ngIf="edit || mosaicEdit">
-        <div *ngIf="edit" class="actions">
-          <button class="option-button-active" (click)="setCoverImage(image.albumId, image.id)">
-            Set As Cover Image
-          </button>
-          <mat-icon (click)="deleteFile(image.file.id)" class="delete-icon">delete_forever</mat-icon>
+<mat-dialog-content>
+  <div class="spc-top spc-bottom image-scroll-container">
+    <div *ngFor="let image of images" class="spc-bottom center image-item">
+      <div>
+        <a href="javascript:void(0);" (click)="openImage(image.file.path)">
+          <img [src]="image.file.path" alt="Cinque Terre" width="{{width}}" height="{{height}}" class="fit-image">
+        </a>
+
+        <div *ngIf="edit || mosaicEdit">
+          <div *ngIf="edit" class="actions">
+            <button class="option-button-active" (click)="setCoverImage(image.albumId, image.id)">
+              Set As Cover Image
+            </button>
+            <mat-icon (click)="deleteFile(image.file.id)" class="delete-icon">delete_forever</mat-icon>
+          </div>
+          <div *ngIf="mosaicEdit">
+            <button class="option-button-active" (click)="onImageForMosaicSelected(image)">
+              Select for Mosaic
+            </button>
+          </div>
         </div>
-        <div *ngIf="mosaicEdit">
-          <button class="option-button-active" (click)="onImageForMosaicSelected(image)">
-            Select for Mosaic
-          </button>
-        </div>
+
       </div>
-
     </div>
   </div>
-</div>
+</mat-dialog-content>
+

@@ -14,5 +14,7 @@ namespace SuncoLab.Service
         Task<Guid?> SaveFile(IFormFile formFile, string? folderName = "");
 
         Task<bool> DeleteFile(Guid fileId);
+
+        Task<bool> DeleteBlobInAzureStorage(string relativePath);
     }
 }

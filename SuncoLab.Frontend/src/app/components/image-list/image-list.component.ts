@@ -1,9 +1,10 @@
-import { Component, EventEmitter, inject, Inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { Image } from '../../models/image';
 import { GalleryService } from '../../services/gallery/gallery.service';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogActions } from '@angular/material/dialog';
 import { ToastService } from '../../services/toast/toast.service';
 import { ImagePreviewComponent } from '../image-preview/image-preview.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-image-list',

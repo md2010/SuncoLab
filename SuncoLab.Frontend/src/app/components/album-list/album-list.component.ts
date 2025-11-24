@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Album } from '../../models/album';
 import { ImageListComponent } from '../image-list/image-list.component';
 import { MatDialog } from '@angular/material/dialog';

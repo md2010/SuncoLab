@@ -25,7 +25,10 @@ namespace SuncoLab.Repository
 
         public async Task<Blog?> GetByIdAsync(Guid id)
         {
-            return await Entities.FirstOrDefaultAsync(a => a.Id == id);
+            return await Entities
+                .Include(b => b.CoverImage)
+                .FirstOrDefaultAsync(a => a.Id == id);
+                
         }
 
         public async Task<List<Blog>> GetAll()

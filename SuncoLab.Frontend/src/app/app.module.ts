@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MatIconModule } from '@angular/material/icon';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { LoginComponent } from './components/login/login.component';
@@ -39,6 +40,7 @@ import { AboutComponent } from './components/about/about.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CarouselEditComponent } from './components/carousel-edit/carousel-edit.component';
 import { EditBlogComponent } from './components/edit-blog/edit-blog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -84,7 +86,9 @@ import { EditBlogComponent } from './components/edit-blog/edit-blog.component';
     MatSlideToggleModule,
     NgxEditorModule,
     NgxEditorMenuComponent,
-    NgxEditorComponent
+    NgxEditorComponent,
+    MatButtonModule,
+    MatDialogModule
   ],
   providers: [
     provideHttpClient()

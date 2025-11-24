@@ -118,7 +118,7 @@ namespace SuncoLab.Service
             if (file != null)
             {
 #if !DEBUG
-                return await DeleteFileInBlobStorage(file);
+                return await DeleteFileInBlobStorage(file.RelativePath);
 #else
                 return await DeleteFileFromLocalStorage(file);
 #endif
@@ -127,11 +127,11 @@ namespace SuncoLab.Service
             return false;
         }
 
-        public async Task<bool> DeleteFileInBlobStorage(CoreFile file)
+        public async Task<bool> DeleteBlobInAzureStorage(string relativePath)
         {
             try
             {
-                var blobClient = _containerClient.GetBlobClient(file.RelativePath);
+                var blobClient = _containerClient.GetBlobClient(relativePath);
                 return await blobClient.DeleteIfExistsAsync();
             }
             catch (Exception ex)
