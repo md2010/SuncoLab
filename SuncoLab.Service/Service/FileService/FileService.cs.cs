@@ -118,7 +118,7 @@ namespace SuncoLab.Service
             if (file != null)
             {
 #if !DEBUG
-                return await DeleteFileInBlobStorage(file.RelativePath);
+                return await DeleteBlobInAzureStorage(file.RelativePath);
 #else
                 return await DeleteFileFromLocalStorage(file);
 #endif
