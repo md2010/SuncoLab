@@ -65,7 +65,7 @@ export class HttpService {
     let headers = new HttpHeaders()
     .set('Accept', 'application/json');
 
-    var token = sessionStorage.getItem("token");
+    var token = localStorage.getItem("token");
     if (token) {
       headers = headers.set('Authorization', `Bearer ${token}`);
     }

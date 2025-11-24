@@ -148,17 +148,37 @@ namespace SuncoLab.Service
 
             if (album != null)
             {
-                var result = await albumRepository.Delete(album);
-#if !DEBUG
+                var result = await DeleteAlbumImages(albumId);
+
                 if (result)
                 {
-                    return await fileService.DeleteBlobInAzureStorage(album.Name);
-                }
+#if !DEBUG
+                    result = await fileService.DeleteBlobInAzureStorage(album.Name);
+
+                    if (result)
+                    {
+                        return await albumRepository.Delete(album);
+                    }
+#else
+                    return await albumRepository.Delete(album);
 #endif
-                return result;
+                }
             }
 
             return false;
+        }
+
+
+        private async Task<bool> DeleteAlbumImages(Guid albumId)
+        {
+            var images = await imageRepository.GetImageFileIdsForAlbum(albumId);
+
+            foreach (var fileId in images)
+            {
+                await DeleteImage(fileId);
+            }
+
+            return true;
         }
 
 #endregion

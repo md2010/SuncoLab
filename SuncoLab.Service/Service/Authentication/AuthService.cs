@@ -13,12 +13,14 @@ namespace SuncoLab.Service
 
         public string CreateToken(CoreUser user)
         {
-            var expiration = DateTime.UtcNow.AddMinutes(ExpirationMinutes);
+            var expiration = DateTime.Now.AddMinutes(ExpirationMinutes);
+
             var token = CreateJwtToken(
                 CreateClaims(user),
                 CreateSigningCredentials(),
                 expiration
             );
+
             var tokenHandler = new JwtSecurityTokenHandler();
             return tokenHandler.WriteToken(token);
         }
@@ -31,16 +33,14 @@ namespace SuncoLab.Service
 
             var validationParameters = new TokenValidationParameters
             {
-                ValidateIssuer = true,
-                ValidIssuer = configuration["Jwt:Issuer"],
-
-                ValidateAudience = true,
-                ValidAudience = configuration["Jwt:Audience"],
+                ValidateIssuer = false,
+                ValidateAudience = false,
 
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(key),
 
-                ValidateLifetime = true
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero
             };
 
             var result = await tokenHandler.ValidateTokenAsync(token, validationParameters);
@@ -51,10 +51,9 @@ namespace SuncoLab.Service
         private JwtSecurityToken CreateJwtToken(List<Claim> claims, SigningCredentials credentials,
             DateTime expiration) =>
             new(
-                "apiWithAuthBackend",
-                "apiWithAuthBackend",
-                claims,
+                claims: claims,
                 expires: expiration,
+                notBefore: DateTime.Now.AddMinutes(1),
                 signingCredentials: credentials
             );
 

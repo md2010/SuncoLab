@@ -17,7 +17,7 @@ export class AuthService {
   }
 
    async checkIsAuthorized() : Promise<boolean> {
-    if (sessionStorage.getItem("token") == null) {
+    if (localStorage.getItem("token") == null) {
       this.setProperties(false);
       return false; 
     } 
@@ -35,8 +35,8 @@ export class AuthService {
    }
 
    isAuthorized() : Observable<boolean>{
-    if (sessionStorage.getItem("token") !== null) {
-      return this.httpService.post<boolean>(this.baseUrl + 'is-authorized/', { "token" : sessionStorage.getItem("token") });
+    if (localStorage.getItem("token") !== null) {
+      return this.httpService.post<boolean>(this.baseUrl + 'is-authorized/', { "token" : localStorage.getItem("token") });
     }
     else {
       return of(false);
@@ -59,24 +59,24 @@ export class AuthService {
   }
 
   storeData(data: AuthResponse) {
-    sessionStorage.setItem("token", data.token);
-    sessionStorage.setItem("userId", data.userId)
-    sessionStorage.setItem('role',data.roleName);
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("userId", data.userId)
+    localStorage.setItem('role',data.roleName);
     this.setProperties(true);
   }
 
   setProperties(authorized: boolean) {
     if (authorized == false) {
-      sessionStorage.removeItem("token");
-      sessionStorage.removeItem("userId")
-      sessionStorage.removeItem('role');
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId")
+      localStorage.removeItem('role');
     }
 
     this.authorizedSubject.next({
       isAuth : authorized, 
-      userId: sessionStorage.getItem("userId"), 
-      roleName : sessionStorage.getItem("role"),
-      token: sessionStorage.getItem("token")
+      userId: localStorage.getItem("userId"), 
+      roleName : localStorage.getItem("role"),
+      token: localStorage.getItem("token")
     });    
   }
 }

@@ -9,5 +9,7 @@ namespace SuncoLab.Repository
         Task<List<Image>> GetImagesForAlbum(Guid albumId);
 
         Task<bool> DeleteImage(Guid fileId);
+
+        Task<List<Guid>> GetImageFileIdsForAlbum(Guid albumId);
     }
 }

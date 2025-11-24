@@ -97,17 +97,16 @@ namespace SuncoLab.Service
                 return false;
             }
 
-            var result = await blogRepository.Delete(blog);
 
-#if !DEBUG
-            if (result && blog.CoverImageId.HasValue)
+            if (blog.CoverImageId.HasValue)
             {
-                return await fileService.DeleteFile(blog.CoverImage.FileId);
-            }
+                await imageRepository.DeleteImage(blog.CoverImage.FileId);
+#if !DEBUG
+                await fileService.DeleteFile(blog.CoverImage.FileId);
 #endif
+            }
 
-            return result;
-
+            return await blogRepository.Delete(blog);
         }
     }
 }

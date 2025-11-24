@@ -36,6 +36,14 @@ namespace SuncoLab.Repository
                 .ToListAsync();
         }
 
+        public async Task<List<Guid>> GetImageFileIdsForAlbum(Guid albumId)
+        {
+            return await Entities
+                .Where(i => i.AlbumId == albumId)
+                .Select(i => i.FileId)
+                .ToListAsync();
+        }
+
         public async Task<bool> DeleteImage(Guid fileId)
         {
             var imageToDelete = Entities.FirstOrDefault(x => x.FileId == fileId);
