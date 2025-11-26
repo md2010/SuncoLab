@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using SuncoLab.Model;
-using SuncoLab.Model.Dto;
+using SuncoLab.Model.Dto.Blog;
 
 namespace SuncoLab.Service
 {

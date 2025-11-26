@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SuncoLab.Model.Dto;
+using SuncoLab.Model.Dto.Blog;
 using SuncoLab.Service;
 
 namespace SuncoLab.Controllers

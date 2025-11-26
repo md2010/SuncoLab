@@ -39,10 +39,6 @@ main {
     margin-top: 30px;
 }
 
-.active {
-    background-color: rgb(245, 245, 184);
-}
-
 /* TOAST */
 .toast {
     position: fixed;

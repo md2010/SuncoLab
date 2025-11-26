@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace SuncoLab.Model.Dto
+namespace SuncoLab.Model.Dto.Blog
 {
     public class CreateBlogDto
     {

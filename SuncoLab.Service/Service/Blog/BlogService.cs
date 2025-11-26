@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using SuncoLab.Model;
-using SuncoLab.Model.Dto;
+using SuncoLab.Model.Dto.Blog;
 using SuncoLab.Repository;
 
 namespace SuncoLab.Service

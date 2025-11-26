@@ -16,9 +16,9 @@ using Azure.Storage.Blobs;
 using SuncoLab.Service.Service.Mosaic;
 using SuncoLab.Model.Mapping;
 using AutoMapper;
-using Microsoft.Extensions.Azure;
 using SuncoLab.Service.Service.Carousel;
 using SuncoLab.Repository.Mosaic;
+using SuncoLab.Repository.ContactForm;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -160,5 +160,6 @@ public class AutofacModule : Module
         builder.RegisterType<BlogRepository>().As<IBlogRepository>();
         builder.RegisterType<RoleRepository>().As<IRoleRepository>();
         builder.RegisterType<MosaicRepository>().As<IMosaicRepository>();
+        builder.RegisterType<ContactFormRepository>().As<IContactFormRepository>();
     }
 }

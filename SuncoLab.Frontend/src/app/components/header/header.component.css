@@ -206,5 +206,9 @@ a {
   .navbar .navbar-header h4 {
     font-size: 1.05rem;
   }
-}                                         
+}    
+
+.active {
+    background-color: rgb(245, 245, 184);
+}
             

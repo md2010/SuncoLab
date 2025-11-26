@@ -14,5 +14,6 @@ namespace SuncoLab.DAL
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<CarouselItem> CarouselItems { get; set; }
         public DbSet<MosaicItem> MosaicItems { get; set; }
+        public DbSet<ContactForm> ContactForms { get; set; }
     }
 }

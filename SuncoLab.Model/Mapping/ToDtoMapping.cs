@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using SuncoLab.Model.Database;
-using SuncoLab.Model.Dto;
+using SuncoLab.Model.Dto.Blog;
 using SuncoLab.Model.Dto.Carousel;
 using SuncoLab.Model.Dto.Mosaic;
 

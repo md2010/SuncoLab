@@ -41,6 +41,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { CarouselEditComponent } from './components/carousel-edit/carousel-edit.component';
 import { EditBlogComponent } from './components/edit-blog/edit-blog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ContactFormComponent } from './components/contact-form/contact-form.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     AboutComponent,
     FooterComponent,
     CarouselEditComponent,
-    EditBlogComponent
+    EditBlogComponent,
+    ContactFormComponent
   ],
   imports: [
     SpinnerComponent,

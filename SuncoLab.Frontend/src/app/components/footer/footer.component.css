@@ -18,6 +18,10 @@ footer a:hover {
     color: #fff;
 }
 
+footer a.active {
+    color: #fff;
+}
+
 footer p {
     margin-top: 10px;
     font-size: 0.9em;

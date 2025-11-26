@@ -12,6 +12,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { AboutComponent } from './components/about/about.component';
 import { CreateBlogComponent } from './components/create-blog/create-blog.component';
 import { EditBlogComponent } from './components/edit-blog/edit-blog.component';
+import { ContactFormComponent } from './components/contact-form/contact-form.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'blog', component: BlogListComponent },
   { path: 'blog-preview/:id', component: BlogPreviewComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'contact', component: ContactFormComponent },
   { path: 'admin', component: AdminComponent, canActivate: [authGuard] },
   { path: 'unauthorized', component: UnauthorizedComponent},
   { path: 'blog-edit/:id', component: EditBlogComponent },

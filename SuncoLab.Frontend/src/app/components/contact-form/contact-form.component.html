@@ -1,0 +1,34 @@
+
+<div class="page-container">
+    <h2 class="form-title">Kontaktiraj nas!</h2>
+    <form [formGroup]="contactUsForm" (ngSubmit)="submit();" class="styled-form">
+        <div>
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Ime</mat-label>
+                <input matInput formControlName="firstName" required>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Prezime</mat-label>
+                <input matInput formControlName="lastName" required>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>E-mail</mat-label>
+                <input matInput formControlName="email" required>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Poruka</mat-label>
+                <textarea matInput formControlName="message" rows="4" required></textarea>
+            </mat-form-field>
+        </div>
+
+        <div class="center">
+            <button class="option-button-active" type="submit">Pošalji</button>
+        </div>
+    </form>
+</div>
