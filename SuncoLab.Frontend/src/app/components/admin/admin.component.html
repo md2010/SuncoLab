@@ -19,9 +19,13 @@
         <a (click)="showEditMosaic=true; hideCurrentEditScreen('mosaic')" [ngClass]="{ 'option-button-active' : showEditMosaic == true}">
             Manage mosaic
         </a>
+        <a (click)="showContactForms=true; hideCurrentEditScreen('contact')" [ngClass]="{ 'option-button-active' : showContactForms == true}">
+            Contact Forms
+        </a>
         <a (click)="showRegister=true; hideCurrentEditScreen('register')" [ngClass]="{ 'option-button-active' : showRegister == true}">
             Register new user
         </a>
+        
     </div>
 
     <div class="edit row" *ngIf=showUploadImages>
@@ -55,6 +59,12 @@
     <div class="edit row" *ngIf=showEditCarousel>
         <div class="spc-bottom">
             <app-carousel-edit></app-carousel-edit>
+        </div>
+    </div>
+
+    <div class="edit row" *ngIf="showContactForms">
+        <div class="spc-bottom">
+            <app-contact-form-list></app-contact-form-list>
         </div>
     </div>
 

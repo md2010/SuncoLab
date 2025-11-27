@@ -2,6 +2,7 @@
 using SuncoLab.Model.Database;
 using SuncoLab.Model.Dto.Blog;
 using SuncoLab.Model.Dto.Carousel;
+using SuncoLab.Model.Dto.Form;
 using SuncoLab.Model.Dto.Mosaic;
 
 namespace SuncoLab.Model.Mapping
@@ -20,6 +21,8 @@ namespace SuncoLab.Model.Mapping
             CreateMap<CreateBlogDto, Blog>()
                 .ForMember(dest => dest.CoverImage, opt => opt.Ignore())
                 .ForMember(dest => dest.Body, opt => opt.MapFrom(src => src.Html));
+
+            CreateMap<PostContactFormDto, ContactForm>();
         }
     }
 }

@@ -1,0 +1,9 @@
+.resolved-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+td.center {
+  white-space: nowrap;
+}

@@ -54,9 +54,15 @@ export class HttpService {
   }
 
   generateHttpParams(searchRequest: SearchRequest) : HttpParams {
-    const params = new HttpParams()
+    let params = new HttpParams()
     .set('pageNumber', searchRequest.pageNumber.toString())
     .set('pageSize', searchRequest.pageSize.toString());
+
+    Object.entries(searchRequest).forEach(([key, value]) => {
+      if (value !== null && value !== undefined && value !== '') {
+        params = params.set(key, value.toString());
+      }
+    });
 
     return params;
   }

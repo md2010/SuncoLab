@@ -1,6 +1,6 @@
 export class PaginatedResponse<T> {
     items: T[] = [];
-    total: number = 0;
+    count: number = 0;
 }
   
 export class SearchRequest {

@@ -1,4 +1,5 @@
-﻿using SuncoLab.Common.Filters;
+﻿using SuncoLab.Common;
+using SuncoLab.Common.Filters;
 
 namespace SuncoLab.Repository.ContactForm
 {
@@ -6,6 +7,6 @@ namespace SuncoLab.Repository.ContactForm
     {
         Task<bool> Create(Model.Database.ContactForm form);
 
-        Task<List<Model.Database.ContactForm>> Find(ContactFormFilter filter);
+        Task<PaginatedList<Model.Database.ContactForm>> Find(ContactFormFilter filter);
     }
 }

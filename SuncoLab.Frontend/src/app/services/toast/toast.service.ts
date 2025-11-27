@@ -7,7 +7,7 @@ export class ToastService {
 
   constructor() { }
 
-  create(message: string, type: 'success' | 'error' | 'warning' = 'success', duration: number = 20000) {
+  create(message: string, type: 'success' | 'error' | 'warning' = 'success', duration: number = 6000) {
     const toast = document.createElement('div');
     toast.classList.add('toast');
     toast.classList.add('toast', type);

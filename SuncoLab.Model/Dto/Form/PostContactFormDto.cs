@@ -1,6 +1,6 @@
 ﻿namespace SuncoLab.Model.Dto.Form
 {
-    public class PostContactFormDtoDto
+    public class PostContactFormDto
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -16,6 +16,7 @@ export class AdminComponent {
     showUploadImages = false;
     showEditCarousel = false;
     showEditMosaic = false;
+    showContactForms = false;
   
     constructor(private authService: AuthService) {
       this.authService.authorizedSubject.subscribe(user => {
@@ -32,6 +33,7 @@ export class AdminComponent {
         this.showUploadImages = false; 
         this.showEditCarousel = false;
         this.showEditMosaic = false;
+        this.showContactForms = false;
       }
       if (optionName == 'album') {
         this.showEditBlog = false;
@@ -39,6 +41,7 @@ export class AdminComponent {
         this.showUploadImages = false; 
         this.showEditCarousel = false;
         this.showEditMosaic = false;
+        this.showContactForms = false;
       }
       if (optionName == 'register') {
         this.showEditAlbum = false;
@@ -46,6 +49,7 @@ export class AdminComponent {
         this.showUploadImages = false; 
         this.showEditCarousel = false;
         this.showEditMosaic = false;
+        this.showContactForms = false;
       }
       if (optionName == 'image') {
         this.showEditAlbum = false;
@@ -53,6 +57,7 @@ export class AdminComponent {
         this.showEditBlog = false;
         this.showEditCarousel = false;
         this.showEditMosaic = false;
+        this.showContactForms = false;
       }
       if (optionName == 'mosaic') {
         this.showEditAlbum = false;
@@ -60,8 +65,18 @@ export class AdminComponent {
         this.showEditBlog = false;
         this.showEditCarousel = false;
         this.showUploadImages = false; 
+        this.showContactForms = false;
       }
       if (optionName == 'carousel') {
+        this.showEditAlbum = false;
+        this.showRegister = false;
+        this.showEditBlog = false;
+        this.showEditMosaic = false;
+        this.showUploadImages = false; 
+        this.showContactForms = false;
+      }
+      if (optionName == 'contact') {
+        this.showEditCarousel = false;
         this.showEditAlbum = false;
         this.showRegister = false;
         this.showEditBlog = false;

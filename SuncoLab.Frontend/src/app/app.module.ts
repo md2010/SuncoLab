@@ -9,6 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { LoginComponent } from './components/login/login.component';
@@ -42,6 +44,7 @@ import { CarouselEditComponent } from './components/carousel-edit/carousel-edit.
 import { EditBlogComponent } from './components/edit-blog/edit-blog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ContactFormComponent } from './components/contact-form/contact-form.component';
+import { ContactFormListComponent } from './components/contact-form-list/contact-form-list.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +70,8 @@ import { ContactFormComponent } from './components/contact-form/contact-form.com
     FooterComponent,
     CarouselEditComponent,
     EditBlogComponent,
-    ContactFormComponent
+    ContactFormComponent,
+    ContactFormListComponent
   ],
   imports: [
     SpinnerComponent,
@@ -90,7 +94,9 @@ import { ContactFormComponent } from './components/contact-form/contact-form.com
     NgxEditorMenuComponent,
     NgxEditorComponent,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatPaginatorModule,
+    MatTableModule
   ],
   providers: [
     provideHttpClient()

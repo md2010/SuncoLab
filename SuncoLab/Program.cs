@@ -19,6 +19,7 @@ using AutoMapper;
 using SuncoLab.Service.Service.Carousel;
 using SuncoLab.Repository.Mosaic;
 using SuncoLab.Repository.ContactForm;
+using SuncoLab.Service.Service.PublicForm;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -149,6 +150,7 @@ public class AutofacModule : Module
         builder.RegisterType<BlogService>().As<IBlogService>();
         builder.RegisterType<MosaicService>().As<IMosaicService>();
         builder.RegisterType<CarouselService>().As<ICarouselService>();
+        builder.RegisterType<PublicFormService>().As<IPublicFormService>();
 
         //repository
         builder.RegisterType<BaseRepository>().As<IBaseRepository>();
