@@ -132,7 +132,14 @@ namespace SuncoLab.Service
             try
             {
                 var blobClient = _containerClient.GetBlobClient(relativePath);
-                return await blobClient.DeleteIfExistsAsync();
+                var result = await blobClient.DeleteIfExistsAsync();
+
+                if (!result.Value)
+                {
+                    _logger.LogInformation($"DeleteBlobInAzureStorage - path {relativePath}");
+                }
+
+                return result.Value;
             }
             catch (Exception ex)
             {

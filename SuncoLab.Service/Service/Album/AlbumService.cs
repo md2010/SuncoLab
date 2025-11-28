@@ -153,15 +153,9 @@ namespace SuncoLab.Service
                 if (result)
                 {
 #if !DEBUG
-                    result = await fileService.DeleteBlobInAzureStorage(album.Name);
-
-                    if (result)
-                    {
-                        return await albumRepository.Delete(album);
-                    }
-#else
-                    return await albumRepository.Delete(album);
+                    await fileService.DeleteBlobInAzureStorage(album.Name);
 #endif
+                    return await albumRepository.Delete(album);
                 }
             }
 
