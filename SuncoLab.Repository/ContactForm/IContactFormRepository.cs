@@ -8,5 +8,7 @@ namespace SuncoLab.Repository.ContactForm
         Task<bool> Create(Model.Database.ContactForm form);
 
         Task<PaginatedList<Model.Database.ContactForm>> Find(ContactFormFilter filter);
+
+        Task<bool> MarkAsResolved(Guid id);
     }
 }

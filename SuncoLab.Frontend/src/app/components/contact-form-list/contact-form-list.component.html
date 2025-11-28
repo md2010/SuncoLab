@@ -1,5 +1,8 @@
-<table mat-table [dataSource]="data">
+<mat-slide-toggle [(ngModel)]="resolved" (change)="getData()" class="spc-bottom">
+  Resolved
+</mat-slide-toggle>
 
+<table mat-table [dataSource]="data">
     <ng-container matColumnDef="dateCreated">
         <th mat-header-cell *matHeaderCellDef>Date Submitted</th>
         <td mat-cell *matCellDef="let row">{{ row.dateCreated | date:'dd-MM-yyyy HH:mm' }}</td>
@@ -20,13 +23,24 @@
     <td mat-cell *matCellDef="let row">{{ row.email }}</td>
   </ng-container>
 
+  <ng-container matColumnDef="message">
+    <th mat-header-cell *matHeaderCellDef>Message</th>
+    <td mat-cell *matCellDef="let row">
+      <button mat-button color="primary" (click)="showMessage(row.message)">
+        Open message
+      </button>
+    </td>
+  </ng-container>
+
   <ng-container matColumnDef="resolved">
     <th mat-header-cell *matHeaderCellDef>Resolved</th>
     <td mat-cell *matCellDef="let row">
         <div class="resolved-cell">
             <mat-icon *ngIf="row.resolved">check</mat-icon>
             <mat-icon *ngIf="!row.resolved">close</mat-icon>
-            <button mat-button color="primary" *ngIf="!row.resolved">Mark as Resolved</button>
+            <button mat-button color="primary" *ngIf="!row.resolved" (click)="markAsResolved(row.id)">
+              Mark as Resolved
+            </button>
         </div>
     </td>
   </ng-container>

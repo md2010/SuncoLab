@@ -26,5 +26,14 @@ namespace SuncoLab.API.Controllers
 
             return Ok(list);
         }
+
+        [HttpPut]
+        [Route("contact-form-resolved/{id}")]
+        public async Task<IActionResult> MarkContactFormAsResolved(Guid id)
+        {
+            var result = await service.MarkContactFormAsResolved(id);
+
+            return result ? Ok() : BadRequest();
+        }
     }
 }

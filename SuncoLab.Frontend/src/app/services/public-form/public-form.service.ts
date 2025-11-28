@@ -18,4 +18,8 @@ export class PublicFormService {
   getContactForms(filter: ContactFormFilter) {
     return this.httpSerivce.get(this.relativeUrl + '/contact-forms', filter);
   }
+
+  markContactFormAsResolved(id: string) {
+    return this.httpSerivce.put(this.relativeUrl + '/contact-form-resolved/', id, null);
+  }
 }

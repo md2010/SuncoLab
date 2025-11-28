@@ -33,5 +33,13 @@ namespace SuncoLab.Repository.ContactForm
 
             return await context.SaveChangesAsync() > 0;
         }
+
+        public async Task<bool> MarkAsResolved(Guid id)
+        {
+            var form = await context.ContactForms.FirstAsync(x => x.Id == id);
+            form.Resolved = true;
+
+            return await context.SaveChangesAsync() > 0;
+        }
     }
 }

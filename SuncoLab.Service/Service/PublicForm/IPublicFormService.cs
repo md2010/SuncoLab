@@ -10,5 +10,7 @@ namespace SuncoLab.Service.Service.PublicForm
         Task<PaginatedList<ContactForm>> FindContactForms(ContactFormFilter filter);
 
         Task<bool> CreateContactForm(PostContactFormDto form);
+
+        Task<bool> MarkContactFormAsResolved(Guid id);
     }
 }

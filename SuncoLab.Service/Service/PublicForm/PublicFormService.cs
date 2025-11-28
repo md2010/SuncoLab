@@ -22,5 +22,10 @@ namespace SuncoLab.Service.Service.PublicForm
         {
             return await contactFormRepository.Find(filter);
         }
+
+        public async Task<bool> MarkContactFormAsResolved(Guid id)
+        {
+            return await contactFormRepository.MarkAsResolved(id);
+        }
     }
 }
