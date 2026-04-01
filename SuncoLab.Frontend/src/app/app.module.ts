@@ -46,6 +46,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ContactFormComponent } from './components/contact-form/contact-form.component';
 import { ContactFormListComponent } from './components/contact-form-list/contact-form-list.component';
 import { MessageDialogComponent } from './components/message-dialog/message-dialog.component';
+import { IconComponent } from './components/icons/icon.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { MessageDialogComponent } from './components/message-dialog/message-dial
     MatButtonModule,
     MatDialogModule,
     MatPaginatorModule,
-    MatTableModule
+    MatTableModule,
+    IconComponent
   ],
   providers: [
     provideHttpClient()

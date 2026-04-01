@@ -1,22 +1,92 @@
-<header>
-  <img src="https://suncolabstorage.blob.core.windows.net/images/banner-black.png" width="100%" height="300px">
-</header>
-
-<nav class="navbar">
-    <div class="container">
+<header #header class="fixed top-0 left-0 w-full z-40 overflow-visible transition-all duration-300" [class.header-scrolled]="headerScrolled">
+  <div class="flex relative align-center justify-between lg:justify-center px-4 py-8 gap-6 lg:px-8 transition-all duration-300" 
+    [ngClass]="{
+      'justify-between lg:justify-between': headerScrolled,
+      'justify-center lg:justify-center': !headerScrolled
+    }"
+    [class.lg:py-4]="headerScrolled">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]={exact:true} class="flex-shrink">
+      <img class="inline-flex max-w-[500px] w-full h-auto transition-all duration-300" 
+          [class.max-w-[500px]]="!headerScrolled"
+          [class.max-w-[300px]]="headerScrolled" 
+           [class.max-w-[300px]]="headerScrolled"
+           src="/images/Hazarder-logo.svg" width="100%" height="128px">
+    </a>
+    <button class="lg:hidden h-7 w-7" (click)="toggleMenu()">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" class="w-7 h-7">
+        <!-- Top bar -->
+        <rect 
+          x="0" 
+          y="0" 
+          width="28" 
+          height="7.64" 
+          fill="#AA2424"
+          [style.transform]="menuOpen ? 'translate(0, 10.18px) rotate(45deg)' : 'translate(0, 0) rotate(0)'"
+          style="transform-origin: 14px 3.82px; transition: transform 0.3s ease" />
+        
+        <!-- Middle bar -->
+        <rect 
+          x="0" 
+          y="10.18" 
+          width="28" 
+          height="7.64" 
+          fill="#AA2424"
+          [style.opacity]="menuOpen ? 0 : 1"
+          style="transition: opacity 0.2s ease" />
+        
+        <!-- Bottom bar -->
+        <rect 
+          x="0" 
+          y="20.36" 
+          width="28" 
+          height="7.64" 
+          fill="#AA2424"
+          [style.transform]="menuOpen ? 'translate(0, -10.18px) rotate(-45deg)' : 'translate(0, 0) rotate(0)'"
+          style="transform-origin: 14px 24.18px; transition: transform 0.3s ease" />
+      </svg>
+    </button>
+  </div>
   
-      <div class="navbar-header">
-      </div>
-  
-      <div class="navbar-menu" id="open-navbar1">
-        <ul class="navbar-nav admin">
-          <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]={exact:true}>Home</a></li>      
-          <li><a routerLink="/gallery" routerLinkActive="active">Galerija</a></li>
-          <li><a routerLink="/blog" routerLinkActive="active">Blog</a></li>
-          <li><a routerLink="/about" routerLinkActive="active">O nama</a></li>
-          <li *ngIf="authorized"><a routerLink="/admin" routerLinkActive="active">Admin</a></li>
-          <li *ngIf="authorized"><a href="javascript:void(0);" (click)="logout()">Log out</a></li>
+  <nav class="navbar transition-all duration-300 overflow-hidden" 
+       [class.max-h-0]="headerScrolled"
+       [class.opacity-0]="headerScrolled"
+       [class.lg:pb-8]="!headerScrolled">
+    <div class="flex w-full">
+      <div class="navbar-header"></div>
+      
+      <div class="navbar-menu hidden lg:flex w-full justify-center p-3 border-t-4 border-b-4 !border-primary" id="open-navbar1">
+        <ul class="navbar-nav admin flex justify-between w-full max-w-[1200px] !font-anton lg:text-5xl">
+          <li><a class="text-dark hover:text-primary" routerLink="/" routerLinkActive="text-primary" [routerLinkActiveOptions]={exact:true}>Home</a></li>      
+          <li><a class="text-dark hover:text-primary" routerLink="/blog" routerLinkActive="text-primary">Blog</a></li>
+          <li><a class="text-dark hover:text-primary" routerLink="/gallery" routerLinkActive="text-primary">Galerija</a></li>
+          <li><a class="text-dark hover:text-primary" routerLink="/about" routerLinkActive="text-primary">O nama</a></li>
+          <li><a class="text-dark hover:text-primary" href="javascript:void(0);" routerLink="/contact" routerLinkActive="text-primary">Kontakt</a></li>
+          <li *ngIf="authorized"><a class="text-dark hover:text-primary" routerLink="/admin" routerLinkActive="text-primary">Admin</a></li>
+          <li *ngIf="authorized"><a class="text-dark hover:text-primary" href="javascript:void(0);" (click)="logout()">Log out</a></li>
         </ul>
       </div>
     </div>
-  </nav>            
+  </nav>
+
+  <img class="absolute bottom-[-15px] left-0 w-full pointer-events-none z-40 h-7 object-cover drop-shadow-paper" 
+       alt="section-line" 
+       src="/images/section-line.svg">
+</header>  
+
+<!-- Mobile menu overlay -->
+<div
+  *ngIf="menuVisible"
+  [style.padding-top.px]="headerHeight"
+  [style.transform]="menuOpen ? 'translateY(0)' : 'translateY(-100%)'"
+  class="fixed top-0 left-0 w-full h-screen bg-primary flex px-5 justify-between overflow-auto lg:hidden z-30 mobile-menu-transition"
+>
+  <ul class="navbar-nav admin flex flex-col gap-8 !font-anton">
+    <li><a class="text-dark text-4xl" routerLink="/" routerLinkActive="!text-bone" [routerLinkActiveOptions]={exact:true} (click)="toggleMenu()">Home</a></li>      
+    <li><a class="text-dark text-4xl" routerLink="/blog" routerLinkActive="!text-bone" (click)="toggleMenu()">Blog</a></li>
+    <li><a class="text-dark text-4xl" routerLink="/gallery" routerLinkActive="!text-bone" (click)="toggleMenu()">Galerija</a></li>
+    <li><a class="text-dark text-4xl" routerLink="/about" routerLinkActive="!text-bone" (click)="toggleMenu()">O nama</a></li>
+    <li><a class="text-dark text-4xl" href="javascript:void(0);" routerLink="/contact" routerLinkActive="!text-bone" (click)="toggleMenu()">Kontakt</a></li>
+    <li *ngIf="authorized"><a class="text-dark text-4xl" routerLink="/admin" routerLinkActive="!text-bone" (click)="toggleMenu()">Admin</a></li>
+    <li *ngIf="authorized"><a class="text-dark text-4xl" href="javascript:void(0);" (click)="logout()">Log out</a></li>
+  </ul>
+</div>

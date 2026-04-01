@@ -1,9 +1,42 @@
-<footer>
-    <div class="spc-bottom">
-      <a href="#">Instagram</a>
-      <a href="#">TikTok</a>
-      <a href="#">Youtube</a>
+<footer class="flex flex-col items-center pt-20">
+  <div class="flex flex-col gap-10 max-w-[1200px] w-full px-8">
+    <img class="inline-flex max-w-[200px] w-full h-auto" src="/images/hazarder-logo-footer.svg" width="100%">
+    <div class="flex flex-col gap-10 w-full lg:flex-row lg:gap-[160px]">
+      <p class="font-karla text-base text-bone">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. </p>
+
+      <div class="flex flex-col gap-10 w-full sm:flex-row sm:justify-between">
+        <div class="flex justify-between w-full">
+          <ul class="flex flex-col gap-6 sm:w-full">
+            <li><a class="font-karla font-bold text-base text-bone lg:text-lg hover-underline" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]={exact:true}>Home</a></li>      
+            <li><a class="font-karla font-bold text-base text-bone lg:text-lg hover-underline" routerLink="/gallery" routerLinkActive="active">Galerija</a></li>
+            <li><a class="font-karla font-bold text-base text-bone lg:text-lg hover-underline" routerLink="/blog" routerLinkActive="active">Blog</a></li>
+          </ul>
+          <ul class="flex flex-col gap-6 sm:w-full">
+            <li><a class="font-karla font-bold text-base text-bone lg:text-lg hover-underline" routerLink="/about" routerLinkActive="active">O nama</a></li>
+            <li><a class="font-karla font-bold text-base text-bone lg:text-lg hover-underline" routerLink="/" routerLinkActive="active">Privacy Policy</a></li>
+            <li><a class="font-karla font-bold text-base text-bone lg:text-lg hover-underline" href="javascript:void(0);" routerLink="/contact" routerLinkActive="active">Kontakt</a></li>
+          </ul>
+        </div>
+        <div class="flex justify-between w-full sm:flex-col sm:gap-6 sm:w-auto">
+          <a class="flex gap-3 items-center hover-underline">
+            <app-icon name="email" class="inline text-bone w-7 h-7"></app-icon>
+            <span class="hidden sm:inline font-karla font-bold text-base text-bone lg:text-lg">Email</span>
+          </a>
+          <a class="flex gap-3 items-center hover-underline">
+            <app-icon name="youtube" class="inline text-bone w-7 h-7"></app-icon>
+            <span class="hidden sm:inline font-karla font-bold text-base text-bone lg:text-lg">Youtube</span>
+          </a>
+          <a class="flex gap-3 items-center hover-underline">
+            <app-icon name="tiktok" class="inline text-bone w-7 h-7"></app-icon>
+            <span class="hidden sm:inline font-karla font-bold text-base text-bone lg:text-lg">TikTok</span>
+          </a>
+          <a class="flex gap-3 items-center hover-underline">
+            <app-icon name="instagram" class="inline text-bone w-7 h-7"></app-icon>
+            <span class="hidden sm:inline font-karla font-bold text-base text-bone lg:text-lg">Instagram</span>
+          </a>
+        </div>
+      </div>
     </div>
-    <a href="javascript:void(0);" routerLink="/contact" routerLinkActive="active">Kontaktiraj nas</a>
-    <p>© 2025 Your Company Name. All rights reserved.</p>
+  </div>
+  <div class="w-full mt-20 text-bone text-center bg-black/30 font-karla text-base tracking-[0.16em]">© Hazarder 2025</div>
 </footer>

@@ -1,0 +1,23 @@
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.btn--send {
+    background-color: var(--color-triadic);
+    box-shadow: inset 2px 2px 4px rgba(238, 238, 238, 0.2);
+
+    color: var(--color-bone);
+    font-family: "Oswald", "sans-serif";
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+
+    @media (min-width: 768px) {
+        max-width: 209px;
+    }
+}

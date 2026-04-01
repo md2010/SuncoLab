@@ -1,4 +1,4 @@
-* {
+/* * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -37,16 +37,6 @@ a {
   background-color: #fff;
   padding: 1rem 1.15rem;
   border-bottom: 0px solid #eceef3;
-  /*
-  |-----------------------------------
-  | Start navbar logo or brand etc..
-  |-----------------------------------
-  */
-  /*
-  |-----------------------------------
-  | Start navbar menu
-  |-----------------------------------
-  */
 }
 @media (min-width: 576px) {
   .navbar .container {
@@ -211,4 +201,4 @@ a {
 .active {
     background-color: rgb(245, 245, 184);
 }
-            
+             */

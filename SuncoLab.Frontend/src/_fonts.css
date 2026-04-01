@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'Anton';
+    src: url('/fonts/Anton-Regular.woff2') format('woff2'),
+        url('/fonts/Anton-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Oswald';
+    src: url('/fonts/Oswald-Regular.ttf') format('truetype');
+    font-weight: 200 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Karla';
+    src: url('/fonts/Karla-Regular.ttf') format('truetype-variations');
+    font-weight: 200 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Karla';
+    src: url('/fonts/Karla-Italic.ttf') format('truetype-variations');
+    font-weight: 200 800;
+    font-style: italic;
+    font-display: swap;
+}

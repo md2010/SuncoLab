@@ -1,0 +1,15 @@
+header {
+    background-image: url("/images/background.webp");
+    background-repeat: repeat;
+    background-size: 15%;
+}
+
+.mobile-menu-transition {
+  transition: transform 0.3s ease-out;
+}
+
+.navbar-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}

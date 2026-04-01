@@ -1,4 +1,42 @@
-<div>
-    <app-mosaic></app-mosaic>
-    <app-carousel [slides]="carouselItems"></app-carousel> 
+<div class="w-full pb-20 lg:pb-[120px]">
+
+    <section class="section w-full !max-w-[1600px] !mb-20">
+        <div class="flex flex-col md:flex-row items-center justify-center w-full pt-10 px-20 lg:px-0 mb-40">
+            <a class="block w-full lg:w-[28%] max-w-[500px]" href=""><img src="/images/5808746369af4f1354143ac4f2aa29ea.jpg" alt="big-sticker" class="w-full h-auto rotate-[20deg]"></a>
+            <a class="block w-full lg:w-[28%] max-w-[500px]" href=""><img src="/images/5808746369af4f1354143ac4f2aa29ea.jpg" alt="big-sticker" class="w-full h-auto rotate-[-5deg]"></a>
+            <a class="block w-full lg:w-[28%] max-w-[500px]" href=""><img src="/images/5808746369af4f1354143ac4f2aa29ea.jpg" alt="big-sticker" class="w-full h-auto rotate-[-20deg]"></a>
+        </div>
+        <div class="flex flex-col md:flex-row items-center justify-center w-full px-20 lg:px-0 mb-10">
+            <a class="block w-full lg:w-[22%] max-w-[200px] lg:max-w-[400px]" href=""><img src="/images/5808746369af4f1354143ac4f2aa29ea.jpg" alt="big-sticker" class="w-full h-auto rotate-[10deg]"></a>
+            <a class="block w-full lg:w-[22%] max-w-[200px] lg:max-w-[400px]" href=""><img src="/images/5808746369af4f1354143ac4f2aa29ea.jpg" alt="big-sticker" class="w-full h-auto rotate-[-15deg]"></a>
+            <a class="block w-full lg:w-[22%] max-w-[200px] lg:max-w-[400px]" href=""><img src="/images/5808746369af4f1354143ac4f2aa29ea.jpg" alt="big-sticker" class="w-full h-auto rotate-[20deg]"></a>
+            <a class="block w-full lg:w-[22%] max-w-[200px] lg:max-w-[400px]" href=""><img src="/images/5808746369af4f1354143ac4f2aa29ea.jpg" alt="big-sticker" class="w-full h-auto rotate-[-20deg]"></a>
+        </div>
+        <a class="group flex items-center justify-center w-fit mx-auto" routerLink="/blog" routerLinkActive="active"><h2 class="inline text-primary">Blog</h2> <app-icon name="arrow_right_bold" class="inline text-primary w-7 h-7 ml-3 transition-transform duration-300 group-hover:translate-x-2"></app-icon></a>
+    </section>
+
+    <img class="w-full pointer-events-none h-7 object-cover drop-shadow-paper" alt="section-line" src="/images/section-line.svg">
+
+   <section class="section !mb-20">
+           <app-carousel [slides]="carouselItems"></app-carousel> 
+   </section>
+
+    <section class="section px-5">
+        <h1 class="text-primary font-anton mb-8 lg:mb-20">O Hazarderu</h1>
+        <div class="flex flex-col gap-10 w-full lg:flex-row lg:gap-20">
+            <div class="w-full">
+                <p class="mb-3 text-base text-dark lg:text-lg text-justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                <a routerLink="/about" routerLinkActive="active"
+                    class="group inline-flex items-center font-oswald font-bold text-2xl text-primary">
+                    Pročitaj više
+                    <app-icon name="arrow_right"
+                                class="inline text-primary w-7 h-7 ml-3 transition-transform duration-300 group-hover:translate-x-2">
+                    </app-icon>
+                </a>
+            </div>
+            <div class="shrink-0 w-full max-w-[578px] h-auto mx-auto p-2 bg-white rounded-md">
+                <img src="/images/5808746369af4f1354143ac4f2aa29ea.jpg" alt="about-us-image" class="w-full max-w-[578px] h-auto rounded-sm">
+            </div>
+        </div>
+    </section>
 </div>
