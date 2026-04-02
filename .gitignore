@@ -350,4 +350,4 @@ MigrationBackup/
 .ionide/
 
 # Images locally uploaded
-SuncoLab.Frontend/public
+# SuncoLab.Frontend/public
