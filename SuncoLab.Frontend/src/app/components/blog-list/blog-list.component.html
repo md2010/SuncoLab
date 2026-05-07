@@ -1,29 +1,16 @@
-<!-- <div class="grid spc-top">
-    <div class="box" *ngFor="let blog of blogs">
-        <a href="javascript:void(0)" (click)="openBlog(blog.id)">
-            <img [src]="blog.coverImage?.file?.path" widht="600px" width="700px">
-        </a>
-        <h3>{{blog.name}}</h3>
-        <i>{{blog.author}}</i>
-        <p *ngIf="blog.description != null && blog.description != ''">{{blog.description}}</p>
-    </div>
-</div> -->
-
 <div class="flex flex-col gap-[120px] w-full items-center pb-20">
-    <div class="flex flex-col lg:flex-row justify-between w-full max-w-[1200px] gap-10 px-5">
-        <div class="flex flex-col gap-3">
-            <img class="w-full h-auto md:max-w-[500px] md:max-h-[320px] object-cover" alt="Blog thumbnail" src="/images/5808746369af4f1354143ac4f2aa29ea.jpg">
-            <h2 class="text-primary">Primjer Naslova</h2>
-            <p class="font-karla text-dark text-base lg:text-xl">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-            </p>
-        </div>
 
+    <div  *ngFor="let blog of blogs" class="flex flex-col lg:flex-row justify-between w-full max-w-[1200px] gap-10 px-5">
         <div class="flex flex-col gap-3">
-            <img class="w-full h-auto md:max-w-[500px] md:max-h-[320px] object-cover" alt="Blog thumbnail" src="/images/5808746369af4f1354143ac4f2aa29ea.jpg">
-            <h2 class="text-primary">Primjer Naslova</h2>
-            <p class="font-karla text-dark text-base lg:text-xl">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            <a href="javascript:void(0)" (click)="openBlog(blog.id)">
+                <img 
+                    class="w-full h-auto md:max-w-[500px] md:max-h-[320px] object-cover" alt="Blog thumbnail" 
+                    [src]="blog.coverImage?.file?.path">
+            </a>
+            <h2 class="text-primary">{{blog.name}}</h2>
+            <i>{{blog.author}}</i>
+            <p *ngIf="blog.description != null && blog.description != ''" class="font-karla text-dark text-base lg:text-xl">
+                {{blog.description}}
             </p>
         </div>
     </div>

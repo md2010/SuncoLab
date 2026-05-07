@@ -34,7 +34,7 @@ export class ContactFormComponent {
     this.service.createContactForm(this.contactUsForm.value)
     .subscribe({
       next: () => {
-        this.toast.create("Forma uspješno poslana! Bit će te preusmjereni na početnu stranicu.");
+        this.toast.create("Forma je uspješno poslana! Preusmjeravanje na početnu stranicu...");
         setTimeout(() => {
           this.router.navigate(['/']);
         }, 4000)
