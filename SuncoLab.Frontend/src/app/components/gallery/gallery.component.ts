@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth/auth.service';
-import { Authorized } from '../../models/authorization';
-import { SpinnerService } from '../../services/spinner/spinner.service';
+import { Component, DestroyRef, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { GalleryService } from '../../services/gallery/gallery.service';
 import { Album, AlbumFilter } from '../../models/album';
 
@@ -12,31 +11,48 @@ import { Album, AlbumFilter } from '../../models/album';
   styleUrl: './gallery.component.css'
 })
 export class GalleryComponent implements OnInit {
-  authorized: Authorized | undefined;
-  albums!: Album[];
-  searchName: string | undefined;
+  /** undefined = još se učitava (prikazuje se skeleton) */
+  albums: Album[] | undefined;
+  searchName = '';
 
-  constructor(private authService: AuthService, private spinner: SpinnerService, private galleryService: GalleryService) {
-    this.authService.authorizedSubject.subscribe(user => {
-          if (user && user.isAuth) {
-            this.authorized = user;
-          }
-      });
-  } 
+  /** Pojam za koji su prikazani rezultati (za poruku "Nema albuma za ...") */
+  searchedFor = '';
+
+  private search$ = new Subject<string>();
+
+  constructor(private galleryService: GalleryService, private destroyRef: DestroyRef) {}
 
   ngOnInit(): void {
-    this.spinner.show();
+    // Pretraga dok korisnik tipka, bez slanja zahtjeva za svako slovo
+    this.search$
+      .pipe(debounceTime(300), distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.getAlbums());
+
     this.getAlbums();
-    this.spinner.hide();
   }
 
-  getAlbums() {  
-    this.galleryService.findAlbums(new AlbumFilter(true, this.searchName))
-    .subscribe(response => {
-      if (response) {
-        this.albums = response;
-      }  
-    })
+  onSearchInput(value: string): void {
+    this.search$.next(value.trim());
   }
-  
+
+  clearSearch(): void {
+    this.searchName = '';
+    this.search$.next('');
+  }
+
+  getAlbums() {
+    const name = this.searchName.trim();
+
+    this.galleryService.findAlbums(new AlbumFilter(true, name || undefined))
+      .subscribe({
+        next: response => {
+          this.albums = response ?? [];
+          this.searchedFor = name;
+        },
+        error: () => {
+          this.albums = [];
+          this.searchedFor = name;
+        }
+      });
+  }
 }

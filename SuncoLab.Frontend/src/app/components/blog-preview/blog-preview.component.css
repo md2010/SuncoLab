@@ -1,0 +1,85 @@
+/* Slike u bijelom okviru kao na Figmi */
+.blog-frame,
+.blog-body ::ng-deep img {
+  display: block;
+  width: 100%;
+  padding: 6px;
+  border-radius: 8px;
+  background: var(--color-white);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+}
+
+.blog-frame img {
+  display: block;
+  width: 100%;
+  max-height: 600px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.blog-body ::ng-deep img {
+  height: auto;
+  margin-block: 32px;
+}
+
+/* Sadržaj iz ngx-editora */
+.blog-body {
+  font-family: 'Karla', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-dark);
+  overflow-wrap: anywhere;
+}
+
+.blog-body ::ng-deep p {
+  margin: 0;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.blog-body ::ng-deep h1,
+.blog-body ::ng-deep h2,
+.blog-body ::ng-deep h3 {
+  margin: 40px 0 16px;
+  color: var(--color-primary);
+}
+
+.blog-body ::ng-deep ul,
+.blog-body ::ng-deep ol {
+  margin: 16px 0;
+  padding-left: 24px;
+}
+
+.blog-body ::ng-deep ul { list-style: disc; }
+.blog-body ::ng-deep ol { list-style: decimal; }
+
+.blog-body ::ng-deep blockquote {
+  margin: 24px 0;
+  padding-left: 16px;
+  border-left: 3px solid var(--color-primary);
+  font-style: italic;
+}
+
+.blog-body ::ng-deep a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+/* Mobitel: obostrano poravnanje stvara rupe u uskom stupcu */
+@media (max-width: 640px) {
+  .blog-body ::ng-deep p {
+    text-align: left;
+  }
+
+  .blog-body ::ng-deep img {
+    padding: 4px;
+    margin-block: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .blog-body {
+    font-size: 18px;
+  }
+}

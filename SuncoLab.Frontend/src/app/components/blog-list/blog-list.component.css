@@ -1,0 +1,297 @@
+/* ---------- Mreže ---------- */
+
+.featured-grid,
+.rest-grid {
+  display: grid;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.featured-grid {
+  gap: 56px;
+}
+
+.rest-grid {
+  gap: 32px;
+}
+
+@media (min-width: 640px) {
+  .rest-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 48px 32px;
+  }
+}
+
+@media (min-width: 768px) {
+  .featured-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 60px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .featured-grid {
+    gap: 96px;
+  }
+
+  .rest-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 64px 56px;
+  }
+}
+
+/* ---------- Kartica ---------- */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6E6A66;
+}
+
+.card__title {
+  margin: 0;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 24px !important;
+  line-height: 1.15;
+  color: var(--color-primary);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.card:hover .card__title,
+.card:focus-visible .card__title {
+  text-decoration-line: underline;
+}
+
+.card__lead {
+  margin: 0;
+  font-family: 'Karla', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-dark);
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card__author {
+  margin: 4px 0 0;
+  font-family: 'Karla', system-ui, sans-serif;
+  font-style: italic;
+  font-size: 14px;
+  color: #6E6A66;
+}
+
+.card--featured .card__title {
+  font-size: 30px !important;
+}
+
+@media (min-width: 1024px) {
+  .card--featured .card__title {
+    font-size: 40px !important;
+  }
+
+  .card--featured .card__lead {
+    font-size: 18px;
+    -webkit-line-clamp: 5;
+  }
+}
+
+/* Mobitel: sporedni članci kao kompaktan red - kvadratna sličica lijevo, tekst desno */
+@media (max-width: 639px) {
+  .card--small {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .card--small .torn {
+    --tear-h: 11px;
+    --tear-tile: 150px;
+
+    flex: 0 0 112px;
+  }
+
+  .card--small .torn__img {
+    aspect-ratio: 1;
+  }
+
+  .card--small .card__body {
+    gap: 4px;
+  }
+
+  .card--small .card__title {
+    font-size: 18px !important;
+  }
+
+  .card--small .card__lead {
+    font-size: 14px;
+    -webkit-line-clamp: 3;
+  }
+
+  .card--small .card__author {
+    display: none;
+  }
+}
+
+/*
+  ---------- Slika s poderanim donjim rubom ----------
+  Isti obris kao poderani rubovi na naslovnici (tear-edge.svg). Maska = pravokutnik do vrha poderanog pojasa
+  + poderani obris u donjem pojasu (--tear-h). Tri sloja:
+  - .torn__shadow  zamućena kopija obrisa (tear-shadow.svg) malo niže - sjena prati poder
+  - .torn__fibre   bijela vlakna papira koja vire 2px ispod slike
+  - .torn__img     fotografija
+  --tear-x pomiče obris po kartici, da svaka slika ima drugačiji poder.
+*/
+.torn {
+  --tear-h: 22px;
+  --tear-tile: 300px;
+
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .torn,
+.card:focus-visible .torn {
+  transform: translateY(-4px);
+}
+
+.card--featured .torn {
+  --tear-h: 30px;
+  --tear-tile: 420px;
+}
+
+.torn__img,
+.torn__fibre {
+  --mask-x: var(--tear-x, 0px);
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) top / 100% calc(100% - var(--tear-h) + 1px) no-repeat,
+    url('/images/tear-edge.svg') var(--mask-x) 100% / var(--tear-tile) var(--tear-h) repeat-x;
+  mask:
+    linear-gradient(#000 0 0) top / 100% calc(100% - var(--tear-h) + 1px) no-repeat,
+    url('/images/tear-edge.svg') var(--mask-x) 100% / var(--tear-tile) var(--tear-h) repeat-x;
+}
+
+.torn__img {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background: #948888;
+}
+
+.torn__img--empty {
+  background: #948888 url('/images/background.webp') repeat;
+  background-size: 200px;
+  background-blend-mode: multiply;
+}
+
+/* Vlakna: isti obris, ali pomaknut i vodoravno - bijeli rub je mjestimično širi, mjestimično ga nema */
+.torn__fibre {
+  --mask-x: calc(var(--tear-x, 0px) + 9px);
+
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transform: translateY(3px);
+  background: #F7F3EA;
+}
+
+/* Sjena: maska tear-shadow.svg je 40 jedinica visoka (obris 30 + mjesto za zamućenje), pa sloj viri 1/3 pojasa ispod kartice */
+.torn__shadow {
+  position: absolute;
+  inset: 0 0 calc(var(--tear-h) / -3) 0;
+  z-index: 0;
+  transform: translateY(3px);
+  background: rgba(0, 0, 0, 0.3);
+  -webkit-mask:
+    linear-gradient(#000 0 0) top / 100% calc(100% - var(--tear-h) * 4 / 3 + 1px) no-repeat,
+    url('/images/tear-shadow.svg') var(--tear-x, 0) 100% / var(--tear-tile) calc(var(--tear-h) * 4 / 3) repeat-x;
+  mask:
+    linear-gradient(#000 0 0) top / 100% calc(100% - var(--tear-h) * 4 / 3 + 1px) no-repeat,
+    url('/images/tear-shadow.svg') var(--tear-x, 0) 100% / var(--tear-tile) calc(var(--tear-h) * 4 / 3) repeat-x;
+}
+
+/* ---------- Učitavanje i prazno stanje ---------- */
+
+.torn--skeleton .torn__img,
+.skeleton-line {
+  background: linear-gradient(90deg, #DDD6CE 0%, #E9E3DB 50%, #DDD6CE 100%);
+  background-size: 200% 100%;
+  animation: skeleton 1.4s ease-in-out infinite;
+}
+
+.skeleton-line {
+  display: block;
+  height: 14px;
+  border-radius: 2px;
+}
+
+.skeleton-line--title {
+  height: 32px;
+  width: 85%;
+}
+
+@keyframes skeleton {
+  from { background-position: 100% 0; }
+  to { background-position: -100% 0; }
+}
+
+.empty {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.empty__title {
+  margin: 0;
+  font-family: 'Anton', system-ui, sans-serif;
+  font-size: 32px;
+  color: var(--color-dark);
+}
+
+.empty__text {
+  margin: 8px 0 0;
+  font-family: 'Karla', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #6E6A66;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .torn,
+  .torn--skeleton .torn__img,
+  .skeleton-line {
+    animation: none;
+    transition: none;
+  }
+}

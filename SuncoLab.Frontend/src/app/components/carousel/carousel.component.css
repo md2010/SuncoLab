@@ -1,32 +1,251 @@
-.item {
-  text-align: center;
-  width: 70%;
-  height: 500px;
-  object-fit: contain;
+:host {
+  --placeholder: #c5bfbf;
+  --red: #b01e23;
+  --muted: #8b7a7a;
+  --side: 80px;
+  --pad-y: 80px;
+  --title-size: 56px;
+  --gallery-h: clamp(240px, calc(100vh - 380px), 800px);
+
+  display: block;
 }
 
-.carousel .owl-theme .owl-nav {
-    margin-top: 0px;
-    position: absolute;
-    top: -50px;
-    width: 100%;
+.popup {
+  padding: var(--pad-y) var(--side);
+  overflow: hidden;
+  background: url('/images/Paper%202.png') center / 100% 100% no-repeat;
 }
 
-.carousel {
-  width: 70%;
-  margin-top:50px;
+/* Homepage: isti carousel, bez papira i naslova */
+.popup--embedded {
+  --gallery-h: clamp(200px, 50vw, 640px);
+
+  padding-block: 0;
+  background: none;
+  /* vrpca viri iznad fotografije; vodoravno reže clip-path na .popup__gallery */
+  overflow: visible;
 }
 
-.center {
+.popup--embedded .popup__gallery {
+  clip-path: inset(-40px 0 -40px 0);
+}
+
+/* Ljepljiva vrpca preko vrha fotografije - samo na naslovnici (u popupu je papir već "okvir") */
+.tape {
+  display: none;
+}
+
+.popup--embedded .popup__gallery ::ng-deep .owl-item,
+.popup--embedded .popup__gallery {
+  position: relative;
+}
+
+/* Ista vrpca kao .tape u home.component.css */
+.popup--embedded .tape {
+  display: block;
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  z-index: 2;
+  width: clamp(96px, 12vw, 150px);
+  height: 34px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 40%, rgba(0, 0, 0, 0.05)),
+    var(--color-tape);
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.18));
+  transform: translateX(-50%) rotate(-3deg);
+  clip-path: polygon(
+    1% 6%, 5% 0, 9% 7%, 14% 1%, 50% 0, 86% 2%, 91% 0, 95% 8%, 100% 3%,
+    98% 50%, 100% 96%, 95% 91%, 90% 100%, 85% 95%, 50% 100%, 13% 97%, 8% 100%, 4% 92%, 0 98%,
+    2% 50%
+  );
+}
+
+/* Header */
+.popup__header {
   display: flex;
-  justify-content: center;  
+  justify-content: space-between;
   align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  background: none;
 }
 
-.scroll-container {
+.popup__title {
+  min-width: 0;
+  margin: 0;
+  font-family: 'Anton', 'Bebas Neue', Impact, sans-serif;
+  font-size: var(--title-size);
+  font-weight: 400;
+  line-height: 1.1;
+  color: #000;
+  overflow-wrap: anywhere;
+}
+
+.popup__close {
   display: flex;
-  overflow-x: auto;
-  white-space: nowrap;
-  gap: 1rem; 
-  padding: 1rem 0;
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--red);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.popup__close:hover {
+  transform: scale(1.1);
+}
+
+/* Carousel preko cijele širine popupa, ali odrezan malo unutar papira */
+.popup__gallery {
+  margin: 0 calc(-1 * var(--side));
+  height: var(--gallery-h);
+  clip-path: inset(-40px 2% -40px 2%);   /* gore/dolje minus da se ne reže sjena */
+}
+
+.popup__gallery owl-carousel-o {
+  display: block;
+  height: 100%;
+}
+
+/* Owl generira vlastiti DOM, zato ::ng-deep */
+.popup__gallery ::ng-deep .owl-carousel,
+.popup__gallery ::ng-deep .owl-stage,
+.popup__gallery ::ng-deep .owl-item {
+  height: 100%;
+}
+
+.popup__gallery ::ng-deep .owl-stage-outer {
+  height: 100%;
+  overflow: visible;
+}
+
+/* Sivi kvadrat je dio slajda pa klizi zajedno sa slikom */
+.slide-card {
+  box-sizing: border-box;
+  margin: 0 var(--side);
+  height: var(--gallery-h);
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--placeholder);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.slide-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Kontrole */
+.popup__controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 22px;
+  margin-top: 36px;
+}
+
+.arrow {
+  display: flex;
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.arrow:hover {
+  color: var(--red);
+}
+
+.arrow mat-icon {
+  width: 36px;
+  height: 36px;
+  font-size: 36px;
+}
+
+.dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 60%;
+}
+
+.dot {
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--muted);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dot--active {
+  background: var(--red);
+}
+
+/* Tablet i manji ekrani */
+@media (max-width: 900px) {
+  :host {
+    --side: 40px;
+    --pad-y: 56px;
+    --title-size: 40px;
+    --gallery-h: clamp(220px, calc(100dvh - 300px), 560px);
+  }
+
+  /* cover: papir uvijek popuni popup bez praznina */
+  .popup {
+    background-size: cover;
+  }
+}
+
+/* Mobitel */
+@media (max-width: 600px) {
+  :host {
+    --side: 20px;
+    --pad-y: 44px;
+    --title-size: 30px;
+    --gallery-h: clamp(200px, calc(100dvh - 260px), 480px);
+  }
+
+  .popup__header {
+    margin-bottom: 16px;
+  }
+
+  .popup__close svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .slide-card {
+    border-radius: 8px;
+  }
+
+  .popup__controls {
+    margin-top: 20px;
+    gap: 12px;
+  }
+
+  .arrow mat-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+  }
+
+  .dots {
+    gap: 8px;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+  }
 }

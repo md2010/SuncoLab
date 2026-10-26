@@ -15,6 +15,12 @@ export class BlogPreviewComponent implements OnInit {
 
   constructor(private blogService: BlogService, private route: ActivatedRoute) {}
 
+  /** Backend sprema UTC, ali ga serijalizira bez 'Z' */
+  get date(): string | undefined {
+    const d = this.blog?.dateCreated;
+    return d && !/Z|[+-]\d\d:\d\d$/.test(d) ? d + 'Z' : d;
+  }
+
   ngOnInit(): void {
     this.blogId = this.route.snapshot.paramMap.get('id')!;
 

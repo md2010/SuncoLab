@@ -1,13 +1,79 @@
-<div class="flex flex-col gap-10 px-5 pb-20 mx-auto w-full max-w-[1200px] lg:gap-20">
-    <div class="flex flex-col gap-10 w-full lg:flex-row lg:gap-11">
-        <div>
-            <h1 class="text-primary font-anton mb-8 lg:mb-11">O Hazarderu</h1>
-            <p class="text-base text-dark lg:text-lg">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+<!--
+  O nama kao novinski članak: zaglavlje, uvodni članak (veliko slovo, citat, fotografija s vrpcom),
+  "Što radimo" u tri stupca, priča o počecima i poziv na suradnju na kraft papiru.
+  TODO: sav tekst, citati i potpisi slika su placeholderi - zamijeniti tekstom od klijenta.
+-->
+<div class="w-full">
+    <app-page-masthead kicker="Hazarder · Impressum" title="O nama"
+        lead="Mala redakcija s velikim zvučnicima: pišemo o domaćoj i stranoj glazbi, koncertima i ljudima koji ih stvaraju.">
+    </app-page-masthead>
+
+    <!-- Uvodni članak -->
+    <section class="page-section">
+        <div class="feature-article">
+            <div class="feature-article__text">
+                <p class="drop-cap">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                <blockquote class="pull-quote">„Pišemo o glazbi koju slušamo naglas.“</blockquote>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+            </div>
+
+            <figure class="photo-print">
+                <span class="tape" aria-hidden="true"></span>
+                <img src="/images/5808746369af4f1354143ac4f2aa29ea.jpg" alt="Hazarder ekipa na koncertu">
+                <figcaption>Redakcija u prvom redu, 2026.</figcaption>
+            </figure>
         </div>
-        <div class="shrink-0 w-full max-w-[578px] h-auto mx-auto p-2 bg-white rounded-md"><img src="/images/5808746369af4f1354143ac4f2aa29ea.jpg" alt="about-us-image" class="w-full max-w-[578px] h-auto rounded-sm"></div>
-    </div>
-    <div class="flex flex-col gap-10 w-full lg:flex-row-reverse lg:gap-11">
-        <p class="text-base text-dark lg:text-lg">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-        <div class="shrink-0 w-full max-w-[578px] h-auto mx-auto p-2 bg-white rounded-md"><img src="/images/5808746369af4f1354143ac4f2aa29ea.jpg" alt="about-us-image" class="w-full max-w-[578px] h-auto rounded-sm"></div>
-    </div>
+    </section>
+
+    <!-- Što radimo -->
+    <section class="page-section">
+        <header class="about-heading">
+            <p class="about-heading__kicker">Strana A</p>
+            <h2 class="about-heading__title">Što radimo</h2>
+        </header>
+
+        <ol class="pillars">
+            @for (pillar of pillars; track pillar.title; let i = $index) {
+                <li class="pillar">
+                    <span class="pillar__num" aria-hidden="true">0{{ i + 1 }}</span>
+                    <h3 class="pillar__title">{{ pillar.title }}</h3>
+                    <p class="pillar__text">{{ pillar.text }}</p>
+                    @if (pillar.link) {
+                        <a class="pillar__link" [routerLink]="pillar.link">{{ pillar.linkText }}</a>
+                    }
+                </li>
+            }
+        </ol>
+    </section>
+
+    <!-- Kako je počelo -->
+    <section class="page-section">
+        <header class="about-heading">
+            <p class="about-heading__kicker">Strana B</p>
+            <h2 class="about-heading__title">Kako je počelo</h2>
+        </header>
+
+        <div class="feature-article feature-article--reverse story">
+            <div class="feature-article__text">
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+            </div>
+
+            <figure class="photo-print photo-print--left">
+                <span class="tape" aria-hidden="true"></span>
+                <img src="/images/5808746369af4f1354143ac4f2aa29ea.jpg" alt="Prvi broj Hazardera">
+                <figcaption>Prvi broj, fotokopiran u 50 primjeraka.</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <!-- Poziv na suradnju -->
+    <section class="cta">
+        <div class="cta__inner">
+            <p class="cta__kicker">Bonus</p>
+            <h2 class="cta__title">Želiš pisati za Hazarder?</h2>
+            <p class="cta__text">Tražimo ljude koji idu na koncerte, slušaju ploče do kraja i znaju o tome napisati nešto više od „bilo je dobro“.</p>
+            <a class="cta__btn" routerLink="/contact">Javi nam se</a>
+        </div>
+    </section>
 </div>

@@ -35,11 +35,14 @@ export class AlbumListComponent {
     });
   }
 
-  openImageModal(albumId: string) {
+  /** Blago različit kut za svaki polaroid (ponavlja se), da album izgleda ručno složen */
+  readonly rotations = ['-2deg', '1.5deg', '-1deg', '2.5deg', '-2.5deg', '1deg'];
+
+  openImageModal(albumId: string, title?: string) {
     if (this.edit) {
       this.dialog.open(ImageListComponent, {
         height: '600px',
-        width: '1300px',
+        width: '1360px',
         data: { 
           albumId: albumId,
           edit: this.edit
@@ -48,10 +51,12 @@ export class AlbumListComponent {
     }
     else {
       this.dialog.open(CarouselComponent, {
-        height: '700px',
-        width: '1000px',
-        data: { 
-          albumId: albumId
+        panelClass: 'gallery-dialog',
+        width: '1360px',
+        maxWidth: '95vw',
+        data: {
+          albumId: albumId,
+          title: title
         }
       });
     }

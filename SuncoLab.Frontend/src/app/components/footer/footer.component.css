@@ -1,24 +1,65 @@
-footer{
-    background-image: url("/images/footer-bg.png");
-    background-repeat: repeat;
+footer {
+  background-image: url("/images/footer-bg.png");
+  background-repeat: repeat;
 }
 
-.hover-underline {
-  position: relative;
+/* Linkovi: 44px visoki redovi na mobitelu (dodirna površina), gušće na desktopu */
+.footer-link {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: 'Karla', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--color-bone);
+  transition: color 0.2s;
+}
+
+.footer-link:hover {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Društvene mreže: okrugli gumbi s ikonom na mobitelu, ikona + naziv na desktopu */
+.footer-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(238, 238, 238, 0.08);
+  font-family: 'Karla', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--color-bone);
   cursor: pointer;
+  transition: background 0.2s;
 }
 
-.hover-underline::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--color-bone); /* Uses the text color */
-  transition: width 0.3s ease-in-out;
+.footer-social:hover {
+  background: rgba(238, 238, 238, 0.18);
 }
 
-.hover-underline:hover::after {
-  width: 100%;
+@media (min-width: 1024px) {
+  .footer-link {
+    min-height: 36px;
+    font-size: 17px;
+  }
+
+  .footer-social {
+    justify-content: flex-start;
+    width: auto;
+    height: 36px;
+    border-radius: 0;
+    background: none;
+  }
+
+  .footer-social:hover {
+    background: none;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
 }

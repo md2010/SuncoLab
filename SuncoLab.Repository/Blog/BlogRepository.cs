@@ -27,6 +27,7 @@ namespace SuncoLab.Repository
         {
             return await Entities
                 .Include(b => b.CoverImage)
+                    .ThenInclude(c => c.File)
                 .FirstOrDefaultAsync(a => a.Id == id);
                 
         }

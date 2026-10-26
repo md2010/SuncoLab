@@ -1,42 +1,92 @@
-<div class="w-full pb-20 lg:pb-[120px]">
+<!--
+  Naslovnica glazbenog portala kao kolaž različitih papira: svijetli novinski (uvod + blog), tamni (galerija), kraft (o nama).
+  Svaki papir ima poderani donji rub (.paper__tear) koji visi preko papira ispod.
+  Nadnaslovi rubrika su strane ploče: Strana A, Strana B, Bonus.
+-->
+<div #papers class="papers w-full">
 
-    <section class="section w-full !max-w-[1600px] !mb-20">
-        <div class="flex flex-col md:flex-row items-center justify-center w-full pt-10 px-20 lg:px-0 mb-40">
-            <a class="block w-full lg:w-[28%] max-w-[500px]" href=""><img src="/images/5808746369af4f1354143ac4f2aa29ea.jpg" alt="big-sticker" class="w-full h-auto rotate-[20deg]"></a>
-            <a class="block w-full lg:w-[28%] max-w-[500px]" href=""><img src="/images/5808746369af4f1354143ac4f2aa29ea.jpg" alt="big-sticker" class="w-full h-auto rotate-[-5deg]"></a>
-            <a class="block w-full lg:w-[28%] max-w-[500px]" href=""><img src="/images/5808746369af4f1354143ac4f2aa29ea.jpg" alt="big-sticker" class="w-full h-auto rotate-[-20deg]"></a>
+    <!-- SVIJETLI PAPIR: uvod u stilu naslovnice novina + naljepnice -->
+    <section class="paper paper--light">
+        <div class="section px-5">
+            <div class="dateline">
+                <span>{{ today }}</span>
+                @if (issueNumber) {
+                    <span>Broj {{ issueNumber }}</span>
+                }
+                <span class="dateline__extra">Domaća i strana scena</span>
+            </div>
+
+            <!-- TODO: tekst od klijenta -->
+            <h1 class="intro-title">Glazba, koncerti i scena koje vrijedi <mark class="marker">izrezati</mark> i zalijepiti na zid.</h1>
         </div>
-        <div class="flex flex-col md:flex-row items-center justify-center w-full px-20 lg:px-0 mb-10">
-            <a class="block w-full lg:w-[22%] max-w-[200px] lg:max-w-[400px]" href=""><img src="/images/5808746369af4f1354143ac4f2aa29ea.jpg" alt="big-sticker" class="w-full h-auto rotate-[10deg]"></a>
-            <a class="block w-full lg:w-[22%] max-w-[200px] lg:max-w-[400px]" href=""><img src="/images/5808746369af4f1354143ac4f2aa29ea.jpg" alt="big-sticker" class="w-full h-auto rotate-[-15deg]"></a>
-            <a class="block w-full lg:w-[22%] max-w-[200px] lg:max-w-[400px]" href=""><img src="/images/5808746369af4f1354143ac4f2aa29ea.jpg" alt="big-sticker" class="w-full h-auto rotate-[20deg]"></a>
-            <a class="block w-full lg:w-[22%] max-w-[200px] lg:max-w-[400px]" href=""><img src="/images/5808746369af4f1354143ac4f2aa29ea.jpg" alt="big-sticker" class="w-full h-auto rotate-[-20deg]"></a>
+
+        <div class="section w-full !max-w-[1600px] pt-16 lg:pt-24">
+            <app-section-heading class="block max-w-[1200px] mx-auto px-5 mb-10 lg:mb-16" kicker="Strana A" title="Iz bloga" linkText="Svi članci" link="/blog"></app-section-heading>
+
+            <!-- Naljepnice: svaka vodi na članak. Bez teksta, pa klikabilnost pokazuje hover/tap efekt "podizanja" (home.component.css) -->
+            <!-- Mobitel: svi u jednoj mreži 2 u redu, svaka druga spuštena i preklopljena (home.component.css) -->
+            <div #stickers class="stickers">
+                <div class="stickers__row flex flex-row items-center justify-center w-full pt-10 px-5 lg:px-0 mb-8 lg:mb-12">
+                    @for (sticker of bigStickers; track $index) {
+                        <a class="sticker block w-full lg:w-[28%] max-w-[500px]"
+                            [class.sticker--offset]="$index % 2 === 1"
+                            [class.sticker--new]="sticker.isNew"
+                            [style.--r]="sticker.rotate" [routerLink]="sticker.link" [attr.aria-label]="sticker.label">
+                            <img [src]="sticker.src" alt="" class="w-full h-auto" loading="lazy">
+                        </a>
+                    }
+                </div>
+                <div class="stickers__row flex flex-row items-center justify-center w-full px-5 lg:px-0">
+                    @for (sticker of smallStickers; track $index) {
+                        <a class="sticker block w-full lg:w-[22%] max-w-[400px]"
+                            [class.sticker--offset]="(bigStickers.length + $index) % 2 === 1"
+                            [class.sticker--last]="$last && (bigStickers.length + smallStickers.length) % 2 === 1"
+                            [class.sticker--new]="sticker.isNew"
+                            [style.--r]="sticker.rotate" [routerLink]="sticker.link" [attr.aria-label]="sticker.label">
+                            <img [src]="sticker.src" alt="" class="w-full h-auto" loading="lazy">
+                        </a>
+                    }
+                </div>
+            </div>
+            <a class="section-more" routerLink="/blog">Svi članci</a>
         </div>
-        <a class="group flex items-center justify-center w-fit mx-auto" routerLink="/blog" routerLinkActive="active"><h2 class="inline text-primary">Blog</h2> <app-icon name="arrow_right_bold" class="inline text-primary w-7 h-7 ml-3 transition-transform duration-300 group-hover:translate-x-2"></app-icon></a>
+
+        <div class="paper__tear" aria-hidden="true"><span class="paper__tear-fibre"></span></div>
     </section>
 
-    <img class="w-full pointer-events-none h-7 object-cover drop-shadow-paper" alt="section-line" src="/images/section-line.svg">
-
-   <section class="section !mb-20">
-           <app-carousel [slides]="carouselItems"></app-carousel> 
-   </section>
-
-    <section class="section px-5">
-        <h1 class="text-primary font-anton mb-8 lg:mb-20">O Hazarderu</h1>
-        <div class="flex flex-col gap-10 w-full lg:flex-row lg:gap-20">
-            <div class="w-full">
-                <p class="mb-3 text-base text-dark lg:text-lg text-justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                <a routerLink="/about" routerLinkActive="active"
-                    class="group inline-flex items-center font-oswald font-bold text-2xl text-primary">
-                    Pročitaj više
-                    <app-icon name="arrow_right"
-                                class="inline text-primary w-7 h-7 ml-3 transition-transform duration-300 group-hover:translate-x-2">
-                    </app-icon>
-                </a>
-            </div>
-            <div class="shrink-0 w-full max-w-[578px] h-auto mx-auto p-2 bg-white rounded-md">
-                <img src="/images/5808746369af4f1354143ac4f2aa29ea.jpg" alt="about-us-image" class="w-full max-w-[578px] h-auto rounded-sm">
-            </div>
+    <!-- TAMNI PAPIR: galerija - fotografije jače "iskoče" na tamnom -->
+    <section class="paper paper--dark paper--reveal">
+        <div class="section">
+            <app-section-heading class="block px-5 mb-12 lg:mb-16" kicker="Strana B" title="Galerija" linkText="Cijela galerija" link="/gallery"></app-section-heading>
+            <app-carousel [slides]="carouselItems"></app-carousel>
+            <a class="section-more" routerLink="/gallery">Cijela galerija</a>
         </div>
+
+        <div class="paper__tear" aria-hidden="true"><span class="paper__tear-fibre"></span></div>
+    </section>
+
+    <!-- KRAFT PAPIR: o nama kao novinski članak -->
+    <section class="paper paper--kraft paper--reveal">
+        <div class="section px-5">
+            <app-section-heading class="block mb-10 lg:mb-14" kicker="Bonus" title="O Hazarderu" linkText="Više o nama" link="/about"></app-section-heading>
+
+            <!-- TODO: tekst, citat i potpis slike od klijenta -->
+            <div class="feature-article">
+                <div class="feature-article__text">
+                    <p class="drop-cap">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                    <blockquote class="pull-quote">„Pišemo o glazbi koju slušamo naglas.“</blockquote>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                </div>
+
+                <figure class="photo-print">
+                    <span class="tape" aria-hidden="true"></span>
+                    <img src="/images/5808746369af4f1354143ac4f2aa29ea.jpg" alt="Hazarder ekipa na koncertu">
+                    <figcaption>Hazarder ekipa ispred pozornice, 2026.</figcaption>
+                </figure>
+            </div>
+            <a class="section-more !mx-0" routerLink="/about">Više o nama</a>
+        </div>
+
+        <div class="paper__tear" aria-hidden="true"><span class="paper__tear-fibre"></span></div>
     </section>
 </div>

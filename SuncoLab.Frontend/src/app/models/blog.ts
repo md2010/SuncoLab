@@ -8,6 +8,7 @@ export class Blog {
     show: boolean = true;
     coverImage?: Image;
     author: string = ';'
+    dateCreated?: string;
 
     constructor (id: string, name: string, html: string, show: boolean, 
         description: string|undefined, coverImage: Image, author: string) {

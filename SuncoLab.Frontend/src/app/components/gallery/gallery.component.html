@@ -1,18 +1,52 @@
-<div class="spc-top">
-    <div class="row">
-        <form (ngSubmit)="getAlbums()" class="spc-right">
-            <mat-form-field class="search-field">
-                <mat-label>Pretraži po nazivu</mat-label>
-                <input matInput [(ngModel)]="searchName" name="name">
-                <button type="submit" class="icon-search" mat-icon-button matSuffix>
-                    <mat-icon>search</mat-icon>
-                </button>
-            </mat-form-field> 
-        </form>
-    </div>
-</div> 
+<div class="w-full pb-20 lg:pb-[120px]">
+    <!-- TODO: tekst od klijenta -->
+    <app-page-masthead kicker="Hazarder · Rubrika" title="Galerija"
+        lead="Fotografije s koncerata, festivala i iza pozornice - izrezane s filma i zalijepljene u album.">
+    </app-page-masthead>
 
-<div class="w-full max-w-[1200px] px-5 pb-20 mx-auto lg:pb-[120px]">
-    <h1 class="text-primary font-anton text-3xl mb-6 sm:mb-11 sm:text-6xl">Galerija</h1>
-    <app-album-list [albums]="albums"></app-album-list>
+    <div class="w-full max-w-[1200px] px-5 mx-auto">
+        <!-- Tražilica + broj rezultata -->
+        <div class="toolbar">
+            <form (ngSubmit)="getAlbums()" role="search" class="w-full max-w-[400px]">
+                <mat-form-field class="input search-field" subscriptSizing="dynamic">
+                    <mat-label>Pretraži albume</mat-label>
+                    <input matInput type="search" [(ngModel)]="searchName" (ngModelChange)="onSearchInput($event)" name="name" autocomplete="off">
+                    <button type="submit" class="search-btn" matSuffix aria-label="Pretraži">
+                        <svg viewBox="0 0 28 28" width="24" height="24" fill="none" aria-hidden="true">
+                            <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="2"/>
+                            <path d="M18.2 18.2L26 26" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </mat-form-field>
+            </form>
+
+            @if (albums?.length) {
+                <p class="toolbar__count" aria-live="polite">
+                    {{ albums!.length }} {{ albums!.length % 10 === 1 && albums!.length % 100 !== 11 ? 'album' : 'albuma' }}
+                </p>
+            }
+        </div>
+
+        @if (albums === undefined) {
+            <!-- Učitavanje: prazni polaroidi -->
+            <div class="skeleton-grid" aria-busy="true" aria-label="Učitavanje albuma">
+                @for (i of [0, 1, 2]; track i) {
+                    <div class="skeleton-polaroid"><span></span><span></span></div>
+                }
+            </div>
+        } @else if (!albums.length) {
+            <div class="empty" aria-live="polite">
+                @if (searchedFor) {
+                    <p class="empty__title">Nema albuma za „{{ searchedFor }}“.</p>
+                    <p class="empty__text">Provjeri naziv ili pogledaj sve albume.</p>
+                    <button type="button" class="empty__btn" (click)="clearSearch()">Prikaži sve albume</button>
+                } @else {
+                    <p class="empty__title">Album je još prazan.</p>
+                    <p class="empty__text">Prve fotografije s koncerata uskoro stižu.</p>
+                }
+            </div>
+        } @else {
+            <app-album-list [albums]="albums"></app-album-list>
+        }
+    </div>
 </div>

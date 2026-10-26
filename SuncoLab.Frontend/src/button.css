@@ -3,21 +3,38 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 8px 12px;
-    border-radius: 8px;
+    padding: 12px 24px;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
+/* Primarni gumb: crvena kao ostatak stranice (prije plava, koja nije bila dio palete) */
 .btn--send {
-    background-color: var(--color-triadic);
-    box-shadow: inset 2px 2px 4px rgba(238, 238, 238, 0.2);
+    background-color: var(--color-primary);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
 
     color: var(--color-bone);
-    font-family: "Oswald", "sans-serif";
-    font-weight: 700;
+    font-family: "Oswald", sans-serif;
+    font-weight: 600;
     font-size: 16px;
     line-height: 24px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
 
     @media (min-width: 768px) {
-        max-width: 209px;
+        width: auto;
+        min-width: 220px;
     }
+}
+
+.btn--send:hover:not(:disabled),
+.btn--send:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.btn--send:disabled {
+    opacity: 0.6;
+    cursor: wait;
 }

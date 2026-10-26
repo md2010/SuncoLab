@@ -22,6 +22,12 @@ namespace SuncoLab.Model
         {
             get
             {
+                // Datoteke uploadane na Azure imaju URL bloba u FullPath, bez obzira na build
+                // (lokalni DEBUG API koristi istu Azure bazu kao produkcija)
+                if (FullPath.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                {
+                    return FullPath;
+                }
 #if DEBUG
                 return RelativePath;
 #else

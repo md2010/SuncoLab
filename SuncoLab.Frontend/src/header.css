@@ -1,15 +1,29 @@
+:root {
+    --header-h: 76px;
+    /* 0 u običnom browseru; > 0 kad stranica ide ispod notcha / status bara (PWA, viewport-fit=cover) */
+    --safe-top: env(safe-area-inset-top, 0px);
+}
+
+@media (min-width: 1024px) {
+    :root {
+        --header-h: 160px;
+    }
+}
+
 header {
+    background-color: var(--color-bone);
     background-image: url("/images/background.webp");
     background-repeat: repeat;
     background-size: 15%;
 }
 
-.mobile-menu-transition {
-  transition: transform 0.3s ease-out;
+/* Sadržaj počinje ispod fiksnog headera (+ poderani rub) */
+main {
+    padding-top: calc(var(--header-h) + var(--safe-top) + 40px);
 }
 
-.navbar-hidden {
-  transform: translateY(-100%);
-  opacity: 0;
-  pointer-events: none;
+@media (min-width: 1024px) {
+    main {
+        padding-top: calc(var(--header-h) + var(--safe-top) + 56px);
+    }
 }

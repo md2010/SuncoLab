@@ -47,6 +47,8 @@ import { ContactFormComponent } from './components/contact-form/contact-form.com
 import { ContactFormListComponent } from './components/contact-form-list/contact-form-list.component';
 import { MessageDialogComponent } from './components/message-dialog/message-dialog.component';
 import { IconComponent } from './components/icons/icon.component';
+import { SectionHeadingComponent } from './components/section-heading/section-heading.component';
+import { PageMastheadComponent } from './components/page-masthead/page-masthead.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +102,9 @@ import { IconComponent } from './components/icons/icon.component';
     MatDialogModule,
     MatPaginatorModule,
     MatTableModule,
-    IconComponent
+    IconComponent,
+    SectionHeadingComponent,
+    PageMastheadComponent
   ],
   providers: [
     provideHttpClient()

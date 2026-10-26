@@ -1,1 +1,120 @@
+.contact {
+  display: grid;
+  gap: 64px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
+@media (min-width: 1024px) {
+  .contact {
+    grid-template-columns: 7fr 5fr;
+    gap: 96px;
+    align-items: start;
+  }
+}
+
+/* Poruke o greškama ispod polja: primarna crvena i font stranice */
+.contact__form ::ng-deep .mat-mdc-form-field-error {
+  font-family: 'Karla', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--color-primary);
+}
+
+/* ---------- Zahvala nakon slanja ---------- */
+
+.thanks {
+  position: relative;
+  padding: 8px 0;
+}
+
+/* Pečat kao na pošti */
+.thanks__stamp {
+  display: inline-block;
+  margin: 0 0 24px;
+  padding: 6px 16px;
+  border: 3px solid var(--color-primary);
+  border-radius: 6px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  transform: rotate(-6deg);
+}
+
+.thanks__title {
+  max-width: 18ch;
+  margin: 0;
+  font-size: clamp(32px, 4vw, 48px) !important;
+  line-height: 1.05 !important;
+  color: var(--color-dark);
+}
+
+.thanks__text {
+  margin: 16px 0 32px;
+  font-family: 'Karla', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--color-dark);
+}
+
+/* ---------- Uz formu ---------- */
+
+.contact__aside {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.contact__photo {
+  max-width: 380px;
+}
+
+/* Mobitel: savjeti prije slike - korisniku su korisniji odmah ispod forme */
+@media (max-width: 1023px) {
+  .contact__aside {
+    gap: 40px;
+  }
+
+  .contact__photo {
+    order: 1;
+    max-width: 240px;
+  }
+}
+
+.tips {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tip {
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(170, 36, 36, 0.25);
+}
+
+.tip:first-child {
+  border-top: 1px solid rgba(170, 36, 36, 0.25);
+}
+
+.tip__title {
+  margin: 0 0 4px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--color-primary);
+}
+
+.tip__text {
+  margin: 0;
+  font-family: 'Karla', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--color-dark);
+}

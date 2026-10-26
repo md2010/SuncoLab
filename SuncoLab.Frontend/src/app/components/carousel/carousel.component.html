@@ -1,18 +1,56 @@
-<mat-dialog-actions align="end" *ngIf="albumId">
-  <mat-icon mat-dialog-close>close</mat-icon>
-</mat-dialog-actions>
+<div class="popup" [class.popup--embedded]="embedded">
+  @if (!embedded) {
+    <header class="popup__header">
+      <h2 class="popup__title">{{ title }}</h2>
 
-<div class="spc-top scroll-container center">
-  <div class="carousel">
-      <owl-carousel-o [options]="customOptions" class="owl-theme">
-          @for (slide of slides; track slide.id) {
-          <ng-template carouselSlide [id]="slide.id">
-              <div> 
-                <img [src]="slide.path" class="item"/>
-              </div>
+      <button class="popup__close" mat-dialog-close aria-label="Zatvori">
+        <svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true">
+          <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="4" fill="none"/>
+        </svg>
+      </button>
+    </header>
+  }
+
+  <div class="popup__gallery">
+    @if (ready && slides?.length) {
+      <owl-carousel-o #owl [options]="customOptions" (translated)="onChange($event)">
+        @for (slide of slides; track slide.id) {
+          <ng-template carouselSlide [id]="slide.id.toString()">
+            <span class="tape" aria-hidden="true"></span>
+            <div class="slide-card">
+              <img [src]="slide.path" class="slide-img" alt="" />
+            </div>
           </ng-template>
         }
       </owl-carousel-o>
+    } @else {
+      <span class="tape" aria-hidden="true"></span>
+      <div class="slide-card"></div>
+    }
+  </div>
+
+  <div class="popup__controls">
+    <button class="arrow" (click)="owl?.prev()" aria-label="Prethodna">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+
+    <div class="dots">
+      @for (slide of slides; track slide.id; let i = $index) {
+        <button
+          class="dot"
+          [class.dot--active]="i === activeIndex"
+          (click)="owl?.to(slide.id.toString())"
+          [attr.aria-label]="'Slika ' + (i + 1)"
+        ></button>
+      }
+      <!-- Dok se slike učitavaju: barem dvije točkice da kontrole ne skaču -->
+      @for (dot of placeholderDots; track $index) {
+        <span class="dot" [class.dot--active]="!slides?.length && $first" aria-hidden="true"></span>
+      }
+    </div>
+
+    <button class="arrow" (click)="owl?.next()" aria-label="Sljedeća">
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
   </div>
 </div>
-

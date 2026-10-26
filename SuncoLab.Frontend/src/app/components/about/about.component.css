@@ -1,0 +1,197 @@
+.page-section {
+  max-width: 1200px;
+  margin: 0 auto 88px;
+  padding: 0 20px;
+}
+
+@media (min-width: 1024px) {
+  .page-section {
+    margin-bottom: 128px;
+  }
+}
+
+/*
+  Naslovi rubrika bez linija: dvostruka crvena linija od ruba do ruba ostaje samo ispod zaglavlja stranice,
+  inače se stranica raspada na previše vodoravnih crta.
+*/
+.about-heading {
+  margin-bottom: 32px;
+}
+
+.about-heading__kicker {
+  margin: 0 0 4px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.about-heading__title {
+  margin: 0;
+  line-height: 1.1;
+  color: var(--color-dark);
+}
+
+@media (min-width: 1024px) {
+  .about-heading {
+    margin-bottom: 48px;
+  }
+}
+
+/* ---------- Što radimo: tri kartice ---------- */
+
+.pillars {
+  display: grid;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 768px) {
+  .pillars {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+}
+
+.pillar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 28px 24px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.pillar__num {
+  font-family: 'Anton', system-ui, sans-serif;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--color-primary);
+}
+
+.pillar__title {
+  margin: 0;
+  font-family: 'Oswald', sans-serif !important;
+  font-weight: 700;
+  font-size: 26px !important;
+  line-height: 1.15;
+  color: var(--color-dark);
+}
+
+.pillar__text {
+  margin: 0;
+  font-family: 'Karla', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--color-dark);
+}
+
+/* Link uvijek na dnu kartice, poravnat u sve tri */
+.pillar__link {
+  align-self: flex-start;
+  margin-top: auto;
+  padding-top: 8px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  transition: color 0.2s;
+}
+
+.pillar__link:hover,
+.pillar__link:focus-visible {
+  color: var(--color-dark);
+}
+
+/* ---------- Kako je počelo: tekst u jednom stupcu (dva uska stupca uz fotografiju su bila pretrpana) ---------- */
+
+.story .feature-article__text {
+  max-width: 62ch;
+  columns: auto;
+}
+
+@media (min-width: 1024px) {
+  .story {
+    align-items: center;
+  }
+}
+
+/* ---------- Poziv na suradnju: kraft papir, od ruba do ruba ---------- */
+
+.cta {
+  padding: 72px 20px 88px;
+  background-color: var(--color-kraft);
+  background-image: url('/images/background.webp');
+  background-size: 15%;
+  background-blend-mode: multiply;
+}
+
+.cta__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Anton ima visoka slova koja izlaze iz retka, pa nadnaslov treba više mjesta */
+.cta__kicker {
+  margin: 0 0 14px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.cta__title {
+  max-width: 16ch;
+  margin: 0;
+  font-size: clamp(36px, 5vw, 64px) !important;
+  line-height: 1.05 !important;
+  color: var(--color-dark);
+}
+
+.cta__text {
+  max-width: 52ch;
+  margin: 20px 0 0;
+  font-family: 'Karla', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--color-dark);
+}
+
+.cta__btn {
+  display: inline-block;
+  margin-top: 32px;
+  padding: 14px 32px;
+  border-radius: 4px;
+  background: var(--color-primary);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-bone);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cta__btn:hover,
+.cta__btn:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+@media (min-width: 1024px) {
+  .cta {
+    padding: 112px 20px 128px;
+  }
+}

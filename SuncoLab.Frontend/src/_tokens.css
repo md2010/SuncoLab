@@ -12,6 +12,12 @@
   --color-white: #FFFFFF;
   --color-triadic: #2424AA;
 
+  /* Papiri i "predmeti" na stolu */
+  --color-kraft: #C2B6A2;      /* smeđi papir (O Hazarderu) - neutralniji, da crvena ne "svađa" s narančastom */  --color-on-dark: #E6DCC3;    /* naglasak na tamnom papiru: boja novinskog papira umjesto svijetlocrvene */
+  --color-ink: #424147;        /* tamni papir (Galerija, footer) */
+  --color-marker: #F5CF4A;     /* žuti marker - rijetko, samo za naglasak */
+  --color-tape: rgba(236, 226, 196, 0.78); /* ljepljiva vrpca */
+
   /* SPACING */
   /* --space-xs: 4px;
   --space-sm: 8px;

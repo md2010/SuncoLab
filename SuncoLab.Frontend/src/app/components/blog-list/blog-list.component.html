@@ -1,88 +1,92 @@
-<div class="flex flex-col gap-[120px] w-full items-center pb-20">
+<!--
+  Kartica članka. Slika ima poderani donji rub (3 sloja: sjena, bijela vlakna, slika - blog-list.component.css).
+  Sporedni članci su na mobitelu kompaktni red (sličica + tekst), od sm naviše kartica kao na Figmi.
+-->
+<ng-template #cardTpl let-card let-featured="featured">
+    <a class="card group"
+        [class]="featured ? 'card--featured' : 'card--small'"
+        [routerLink]="link(card.blog)"
+        [attr.target]="edit ? '_blank' : null">
+        <div class="torn" [style.--tear-x]="card.tearOffset">
+            <span class="torn__shadow" aria-hidden="true"></span>
+            <span class="torn__fibre" aria-hidden="true"></span>
+            @if (card.blog.coverImage?.file?.path) {
+                <img class="torn__img" [src]="card.blog.coverImage.file.path" alt="" loading="lazy">
+            } @else {
+                <span class="torn__img torn__img--empty"></span>
+            }
+        </div>
 
-    <div  *ngFor="let blog of blogs" class="flex flex-col lg:flex-row justify-between w-full max-w-[1200px] gap-10 px-5">
-        <div class="flex flex-col gap-3">
-            <a href="javascript:void(0)" (click)="openBlog(blog.id)">
-                <img 
-                    class="w-full h-auto md:max-w-[500px] md:max-h-[320px] object-cover" alt="Blog thumbnail" 
-                    [src]="blog.coverImage?.file?.path">
-            </a>
-            <h2 class="text-primary">{{blog.name}}</h2>
-            <i>{{blog.author}}</i>
-            <p *ngIf="blog.description != null && blog.description != ''" class="font-karla text-dark text-base lg:text-xl">
-                {{blog.description}}
+        <div class="card__body">
+            <p class="card__meta">
+                @if (card.date) {
+                    <time [attr.datetime]="card.date">{{ card.date | date: 'd. M. yyyy.' }}</time>
+                    <span aria-hidden="true">·</span>
+                }
+                <span>{{ card.minutes }} min čitanja</span>
             </p>
+            <h2 class="card__title">{{ card.blog.name }}</h2>
+            @if (card.blog.description) {
+                <p class="card__lead">{{ card.blog.description }}</p>
+            }
+            @if (card.blog.author) {
+                <p class="card__author">{{ card.blog.author }}</p>
+            }
+        </div>
+    </a>
+</ng-template>
+
+<!-- Skeleton kartica dok se članci učitavaju -->
+<ng-template #skeletonTpl let-featured="featured">
+    <div class="card" [class]="featured ? 'card--featured' : 'card--small'" aria-hidden="true">
+        <div class="torn torn--skeleton">
+            <span class="torn__img"></span>
+        </div>
+        <div class="card__body">
+            <span class="skeleton-line w-24"></span>
+            <span class="skeleton-line skeleton-line--title"></span>
+            <span class="skeleton-line"></span>
+            <span class="skeleton-line w-2/3"></span>
         </div>
     </div>
+</ng-template>
 
-    <img class="w-full pointer-events-none h-7 object-cover drop-shadow-paper" alt="section-line" src="/images/section-line.svg">
+<div class="w-full pb-20 lg:pb-[120px]">
+    @if (!edit) {
+        <!-- TODO: tekst od klijenta -->
+        <app-page-masthead kicker="Hazarder · Rubrika" title="Blog"
+            lead="Recenzije, intervjui, najave i izvještaji s koncerata - domaća i strana scena, izrezana i zalijepljena na jedno mjesto.">
+        </app-page-masthead>
+    }
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:justify-between gap-y-8 md:gap-y-20 gap-x-[60px] max-w-[1200px] px-5">
-        <!-- Card 1 -->
-        <div class="flex flex-row md:flex-col gap-3 items-center">
-            <img class="w-full h-auto max-w-[100px] md:max-w-[350px] md:max-h-[230px] object-cover" alt="Blog thumbnail" src="/images/5808746369af4f1354143ac4f2aa29ea.jpg">
-            <div class="flex flex-col gap-3">
-                <h2 class="text-primary">Primjer malo dužeg naslova</h2>
-                <p class="text-dark text-sm md:text-lg">
-                    Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum...
-                </p>
-            </div>
+    @if (cards === undefined) {
+        <section class="featured-grid" aria-busy="true" aria-label="Učitavanje članaka">
+            @for (i of [0, 1]; track i) {
+                <ng-container *ngTemplateOutlet="skeletonTpl; context: { featured: true }"></ng-container>
+            }
+        </section>
+    } @else if (!cards.length) {
+        <div class="empty">
+            <p class="empty__title">Tiskara još radi.</p>
+            <p class="empty__text">Još nema objavljenih članaka - prvi broj uskoro izlazi.</p>
         </div>
+    }
 
-        <!-- Card 2 -->
-        <div class="flex flex-row md:flex-col gap-3 items-center">
-            <img class="w-full h-auto max-w-[100px] md:max-w-[350px] md:max-h-[230px] object-cover" alt="Blog thumbnail" src="/images/5808746369af4f1354143ac4f2aa29ea.jpg">
-            <div class="flex flex-col gap-3">
-                <h2 class="text-primary">Primjer malo dužeg naslova</h2>
-                <p class="text-dark text-sm md:text-lg">
-                    Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum...
-                </p>
-            </div>
-        </div>
+    @if (featured.length) {
+        <section class="featured-grid">
+            @for (card of featured; track card.blog.id) {
+                <ng-container *ngTemplateOutlet="cardTpl; context: { $implicit: card, featured: true }"></ng-container>
+            }
+        </section>
+    }
 
-        <!-- Card 3 -->
-        <div class="flex flex-row md:flex-col gap-3 items-center">
-            <img class="w-full h-auto max-w-[100px] md:max-w-[350px] md:max-h-[230px] object-cover" alt="Blog thumbnail" src="/images/5808746369af4f1354143ac4f2aa29ea.jpg">
-            <div class="flex flex-col gap-3">
-                <h2 class="text-primary">Primjer malo dužeg naslova</h2>
-                <p class="text-dark text-sm md:text-lg">
-                    Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum...
-                </p>
-            </div>
-        </div>
+    @if (rest.length) {
+        <app-section-heading class="block max-w-[1200px] mx-auto px-5 mt-20 mb-12 lg:mt-28 lg:mb-16" kicker="Arhiva" title="Starije objave"></app-section-heading>
 
-        <!-- Card 4 -->
-        <div class="flex flex-row md:flex-col gap-3 items-center">
-            <img class="w-full h-auto max-w-[100px] md:max-w-[350px] md:max-h-[230px] object-cover" alt="Blog thumbnail" src="/images/5808746369af4f1354143ac4f2aa29ea.jpg">
-            <div class="flex flex-col gap-3">
-                <h2 class="text-primary">Primjer malo dužeg naslova</h2>
-                <p class="text-dark text-sm md:text-lg">
-                    Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum...
-                </p>
-            </div>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="flex flex-row md:flex-col gap-3 items-center">
-            <img class="w-full h-auto max-w-[100px] md:max-w-[350px] md:max-h-[230px] object-cover" alt="Blog thumbnail" src="/images/5808746369af4f1354143ac4f2aa29ea.jpg">
-            <div class="flex flex-col gap-3">
-                <h2 class="text-primary">Primjer malo dužeg naslova</h2>
-                <p class="text-dark text-sm md:text-lg">
-                    Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum...
-                </p>
-            </div>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="flex flex-row md:flex-col gap-3 items-center">
-            <img class="w-full h-auto max-w-[100px] md:max-w-[350px] md:max-h-[230px] object-cover" alt="Blog thumbnail" src="/images/5808746369af4f1354143ac4f2aa29ea.jpg">
-            <div class="flex flex-col gap-3">
-                <h2 class="text-primary">Primjer malo dužeg naslova</h2>
-                <p class="text-dark text-sm md:text-lg">
-                    Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum...
-                </p>
-            </div>
-        </div>
-    </div>
-
+        <section class="rest-grid">
+            @for (card of rest; track card.blog.id) {
+                <ng-container *ngTemplateOutlet="cardTpl; context: { $implicit: card, featured: false }"></ng-container>
+            }
+        </section>
+    }
 </div>

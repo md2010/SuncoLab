@@ -1,10 +1,32 @@
+@if (blog) {
+    <article class="w-full max-w-[1200px] mx-auto px-5 pt-4 pb-20 lg:pt-10 lg:pb-[120px]">
+        <header class="mb-8 lg:mb-12">
+            <h1 class="text-dark break-words">{{ blog.name }}</h1>
+            <div class="w-full max-w-[300px] h-0.5 mt-3 mb-4 bg-primary"></div>
+            <div class="flex flex-col font-karla font-semibold text-dark text-sm lg:text-base">
+                @if (blog.dateCreated) {
+                    <time [attr.datetime]="blog.dateCreated">{{ date | date: 'd.M.yyyy. HH:mm' }}</time>
+                }
+                @if (blog.author) {
+                    <span>{{ blog.author }}</span>
+                }
+            </div>
+        </header>
 
-<div class="center">
-    <h1>{{blog?.name}}</h1>
-</div>
-<div class="center">
-    <h3>{{blog?.author}}</h3>
-</div>
+        @if (blog.coverImage?.file?.path) {
+            <div class="blog-frame mb-8 lg:mb-12">
+                <img [src]="blog.coverImage!.file.path" [alt]="blog.name">
+            </div>
+        }
 
-<div [innerHTML]="blog?.body"></div>
+        <div class="blog-body" [innerHTML]="blog.body"></div>
 
+        <a routerLink="/blog"
+            class="group inline-flex items-center mt-12 lg:mt-16 font-oswald font-bold text-xl lg:text-2xl text-primary">
+            <app-icon name="arrow_right"
+                class="inline w-7 h-7 mr-3 rotate-180 transition-transform duration-300 group-hover:-translate-x-2">
+            </app-icon>
+            Svi članci
+        </a>
+    </article>
+}

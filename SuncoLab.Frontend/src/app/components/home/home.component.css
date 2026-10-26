@@ -3,3 +3,452 @@
     max-width: 1200px;
     margin: auto;
 }
+
+/* ---------- Papiri ---------- */
+
+/*
+  Zakrenuti papiri (prije "ispadanja", .paper--reveal) i naljepnice u animaciji izlaze kutovima preko ruba ekrana.
+  clip (za razliku od hidden) reže samo vodoravno - poderani rub zadnjeg papira i dalje visi ispod.
+*/
+.papers {
+    overflow-x: clip;
+}
+
+/*
+  Svaki papir je neprozirna ploha; gornji leži iznad donjeg (z-index pada prema dolje),
+  pa donji može "ispasti" ispod gornjeg (vidi .paper--reveal).
+*/
+.paper {
+    position: relative;
+    padding-block: 88px;
+}
+
+.paper:nth-child(1) { z-index: 3; }
+.paper:nth-child(2) { z-index: 2; }
+.paper:nth-child(3) { z-index: 1; }
+
+/*
+  Pozadina papira je u varijablama (--paper-*) da je poderani rub (.paper__tear) može ponoviti
+  - rub je komad istog papira, a ne zasebna bijela traka.
+*/
+.paper {
+    background-color: var(--paper-color);
+    background-image: var(--paper-image);
+    background-size: var(--paper-size, auto);
+    background-blend-mode: var(--paper-blend, normal);
+}
+
+/* Svijetli papir: ista tekstura kao body, ali neprozirna da donja sekcija ne prosijava */
+.paper--light {
+    --paper-color: var(--color-bone);
+    --paper-image: url('/images/background.webp');
+    --paper-size: 15%;
+
+    padding-top: 8px;
+}
+
+/* Tamni papir: ista tekstura kao footer */
+.paper--dark {
+    --paper-color: var(--color-ink);
+    --paper-image: url('/images/footer-bg.png');
+
+    color: var(--color-bone);
+
+    /*
+      Linije ostaju primarna crvena (kao svugdje), a tekstualni naglasak je boja novinskog papira -
+      svijetlocrvena se "svađala" s primarnom, a primarna crvena kao tekst na tamnom nije čitljiva.
+    */
+    --heading-color: var(--color-bone);
+    --heading-accent: var(--color-primary);
+    --heading-text-accent: var(--color-on-dark);
+}
+
+.paper--dark app-carousel {
+    --muted: #A9A2A6;
+    --placeholder: #5A585F;
+}
+
+/* Kraft papir: novinska tekstura pomnožena s neutralnom smeđom */
+.paper--kraft {
+    --paper-color: var(--color-kraft);
+    --paper-image: url('/images/background.webp');
+    --paper-size: 15%;
+    --paper-blend: multiply;
+
+    padding-bottom: 104px;
+}
+
+@media (min-width: 1024px) {
+    .paper { padding-block: 128px; }
+    .paper--light { padding-top: 8px; }
+    .paper--kraft { padding-bottom: 144px; }
+}
+
+/*
+  Poderani donji rub papira: komad ISTOG papira (iste --paper-* varijable) izrezan maskom tear-edge.svg,
+  koji visi preko papira ispod. Pripada gornjem papiru, pa ostaje na mjestu dok donji "ispada" ispod njega.
+
+  Tri sloja (odozdo prema gore):
+  - ::before  sjena - zamućena kopija obrisa (tear-shadow.svg), malo niže, pa prati poderani rub
+  - span      vlakna - svjetliji rub koji se vidi na stvarno poderanom papiru
+  - ::after   lice papira
+  Sjena namjerno NIJE CSS filter (drop-shadow): filter iscrtava komad u zasebnom sloju čiji je gornji red
+  polu-proziran, pa se na spoju sa sekcijom vidjela tanka ravna crta.
+*/
+.paper__tear {
+    --tear-h: 26px;
+    --tear-tile: 480px;
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 2;
+    height: var(--tear-h);
+    /* preklop sa sekcijom, da između nje i komada ne ostane pukotina manja od piksela */
+    margin-top: -4px;
+    pointer-events: none;
+}
+
+.paper__tear::before,
+.paper__tear::after,
+.paper__tear-fibre {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-mask: url('/images/tear-edge.svg') repeat-x 0 0 / var(--tear-tile) 100%;
+    mask: url('/images/tear-edge.svg') repeat-x 0 0 / var(--tear-tile) 100%;
+}
+
+/* Sjena: maska je 40 jedinica visoka (obris 30 + mjesto za zamućenje), pa je sloj 4/3 visine komada */
+.paper__tear::before {
+    top: 3px;
+    height: calc(var(--tear-h) * 4 / 3);
+    background: rgba(0, 0, 0, 0.3);
+    -webkit-mask-image: url('/images/tear-shadow.svg');
+    mask-image: url('/images/tear-shadow.svg');
+}
+
+/* Vlakna: svjetliji sloj, 2px niže od lica papira */
+.paper__tear-fibre {
+    top: 2px;
+    height: var(--tear-h);
+    background: #F3EEE4;
+}
+
+/*
+  Lice papira. Tekstura se mora NASTAVITI na teksturu sekcije, inače se na spoju vidi ravna crta
+  (tekstura bi krenula ispočetka). Pomak = visina sekcije (--paper-h, postavlja home.component.ts) - 4px preklopa.
+*/
+.paper__tear::after {
+    top: 0;
+    height: var(--tear-h);
+    background-color: var(--paper-color);
+    background-image: var(--paper-image);
+    background-position: 0 calc(4px - var(--paper-h, 0px));
+    background-size: var(--paper-size, auto);
+    background-blend-mode: var(--paper-blend, normal);
+}
+
+@media (min-width: 1024px) {
+    .paper__tear {
+        --tear-h: 32px;
+        --tear-tile: 600px;
+    }
+}
+
+/*
+  "Ispadanje ispod gornjeg papira": sekcija kreće malo više (skrivena ispod gornje, koja je iznad po z-indexu),
+  blago zakrenuta, pa klizne dolje na mjesto s malim odskokom. Klasu is-revealed dodaje home.component.ts;
+  skrivanje vrijedi tek kad JS doda papers--animate (bez JS-a / uz reduced motion sve je odmah vidljivo).
+*/
+.papers--animate .paper--reveal {
+    transition:
+        transform 0.9s cubic-bezier(0.22, 1.2, 0.36, 1),
+        opacity 0.5s ease;
+    transform-origin: 50% 0;
+}
+
+.papers--animate .paper--reveal:not(.is-revealed) {
+    opacity: 0;
+    transform: translateY(-120px) rotate(-0.8deg);
+}
+
+/* Sadržaj stigne malo za papirom */
+.papers--animate .paper--reveal > .section {
+    transition: opacity 0.5s ease 0.35s, transform 0.6s ease 0.35s;
+}
+
+.papers--animate .paper--reveal:not(.is-revealed) > .section {
+    opacity: 0;
+    transform: translateY(16px);
+}
+
+/* ---------- Uvod: naslovnica novina ---------- */
+
+/* Tanke crne linije od ruba do ruba ekrana (isti full-bleed trik kao u app-section-heading) */
+.dateline {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 8px 0;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-dark);
+}
+
+.dateline::before,
+.dateline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--color-dark);
+    box-shadow: 0 0 0 100vmax var(--color-dark);
+    clip-path: inset(0 -100vmax);
+}
+
+.dateline::before { top: 0; }
+.dateline::after { bottom: 0; }
+
+.dateline__extra {
+    display: none;
+}
+
+.intro-title {
+    max-width: 22ch;
+    margin: 32px 0 0;
+    font-size: clamp(36px, 6.2vw, 84px) !important;
+    line-height: 1 !important;
+    color: var(--color-dark);
+}
+
+/* Žuti marker preko donjeg dijela riječi, kao rukom povučen */
+.marker {
+    padding: 0 0.08em;
+    background: linear-gradient(transparent 52%, var(--color-marker) 52%, var(--color-marker) 88%, transparent 88%);
+    color: inherit;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
+@media (min-width: 640px) {
+    .dateline {
+        font-size: 13px;
+    }
+
+    .dateline__extra {
+        display: inline;
+    }
+}
+
+@media (min-width: 1024px) {
+    .intro-title {
+        margin-top: 48px;
+    }
+}
+
+/* ---------- Pečat "NOVO" na najnovijem članku ---------- */
+
+/* Najnovija naljepnica leži iznad susjednih da se pečat ne sakrije */
+.sticker--new {
+    z-index: 1;
+}
+
+.sticker--new::after {
+    content: 'Novo';
+    position: absolute;
+    top: 4%;
+    left: 4%;
+    padding: 4px 12px;
+    border: 3px solid var(--color-primary);
+    border-radius: 6px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: clamp(14px, 1.6vw, 22px);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.55);
+    transform: rotate(-12deg);
+    pointer-events: none;
+}
+
+/*
+  Mobitel: "vidi sve" kao gumb na kraju sekcije - tu je korisnik nakon skrolanja kroz sadržaj
+  (link u zaglavlju sekcije je tada daleko iznad). Od 640px link je u zaglavlju (app-section-heading).
+*/
+.section-more {
+    display: block;
+    margin: 32px 20px 0;
+    padding: 12px 16px;
+    border: 2px solid var(--color-primary);
+    border-radius: 4px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    transition: background 0.2s, color 0.2s;
+}
+
+.section-more:active,
+.section-more:hover {
+    background: var(--color-primary);
+    color: var(--color-bone);
+}
+
+.paper--dark .section-more {
+    border-color: var(--color-bone);
+    color: var(--color-bone);
+}
+
+.paper--dark .section-more:active,
+.paper--dark .section-more:hover {
+    background: var(--color-bone);
+    color: var(--color-ink);
+}
+
+@media (min-width: 640px) {
+    .section-more {
+        display: none;
+    }
+}
+
+/*
+  Naljepnice: na hover/focus se "podignu s papira" - malo se izravnaju, odignu i dobiju dublju sjenu.
+  Ostale naljepnice lagano izblijede da je jasno koja je odabrana.
+*/
+.sticker {
+    --r: 0deg;
+
+    position: relative;
+    transform: rotate(var(--r));
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.15));
+    transition:
+        transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+        filter 0.35s ease,
+        opacity 0.25s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.sticker:focus-visible {
+    outline: none;
+}
+
+.sticker:focus-visible,
+.sticker:active {
+    z-index: 1;
+    transform: rotate(calc(var(--r) * 0.5)) translateY(-8px) scale(1.04);
+    filter: drop-shadow(0 16px 14px rgba(0, 0, 0, 0.28));
+}
+
+/* Hover samo na uređajima s mišem - na touchu bi efekt "zapeo" nakon tapa */
+@media (hover: hover) {
+    .sticker:hover {
+        z-index: 1;
+        transform: rotate(calc(var(--r) * 0.5)) translateY(-8px) scale(1.04);
+        filter: drop-shadow(0 16px 14px rgba(0, 0, 0, 0.28));
+    }
+
+    .stickers:has(.sticker:hover) .sticker:not(:hover) {
+        opacity: 0.75;
+    }
+}
+
+/* Tipkovnica: crveni obrub prati oblik naljepnice */
+.sticker:focus-visible {
+    filter:
+        drop-shadow(0 16px 14px rgba(0, 0, 0, 0.28))
+        drop-shadow(0 0 2px var(--color-primary))
+        drop-shadow(0 0 2px var(--color-primary));
+}
+
+/*
+  "Lijepljenje" pri učitavanju: naljepnica padne odozgo, malo zakrenutija i veća,
+  pa se uz odskok smjesti na svoje mjesto. Klasu sticker--in dodaje IntersectionObserver (home.component.ts).
+  fill-mode backwards: nakon animacije transform opet kontrolira hover.
+*/
+.stickers--animate .sticker:not(.sticker--in) {
+    opacity: 0;
+}
+
+.sticker--in {
+    animation: sticker-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+    animation-delay: var(--delay, 0ms);
+}
+
+@keyframes sticker-in {
+    from {
+        opacity: 0;
+        transform: rotate(calc(var(--r) - 14deg)) translateY(-36px) scale(1.15);
+        filter: drop-shadow(0 26px 20px rgba(0, 0, 0, 0.3));
+    }
+
+    40% {
+        opacity: 1;
+    }
+}
+
+/*
+  Mobitel: umjesto 7 naljepnica jedna ispod druge (više ekrana skrolanja)
+  mreža 2 u redu - svaka druga spuštena i preklopljena kao hrpa naljepnica.
+  Redovi postaju display: contents pa sve naljepnice dijele istu mrežu.
+*/
+@media (max-width: 767px) {
+    .stickers {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        max-width: 480px;
+        margin: 0 auto 56px;
+        padding: 24px 28px 0;
+        /* Zakrenuti kutovi ne smiju izazvati vodoravni scroll; clip (za razliku od hidden) ne reže okomito */
+        overflow-x: clip;
+    }
+
+    .stickers__row {
+        display: contents;
+    }
+
+    .sticker {
+        width: auto;
+        max-width: none;
+        margin: -6% -8%;
+    }
+
+    .sticker--offset {
+        margin-top: 22%;
+    }
+
+    /* Neparan broj: zadnja naljepnica sama u redu, centrirana */
+    .sticker--last {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: 55%;
+        margin-top: -2%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sticker {
+        transition: filter 0.2s ease, opacity 0.2s ease;
+    }
+
+    .sticker--in {
+        animation: none;
+    }
+
+    .sticker:hover,
+    .sticker:focus-visible,
+    .sticker:active {
+        transform: rotate(var(--r));
+    }
+}

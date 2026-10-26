@@ -11,6 +11,7 @@
 @import "./input.css";
 @import "./button.css";
 @import "./typography.css";
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
 html, body {
   height: 100%;
@@ -23,6 +24,137 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+/*
+  Novinska dvostruka linija (debela + tanka), od ruba do ruba ekrana - isti potpis kao dno headera.
+  Poderani rubovi postoje samo na naslovnici, gdje se stvarno mijenja papir (.paper__tear).
+*/
+.double-rule {
+  height: 6px;
+  margin-inline: 0;
+  border: 0;
+  border-top: 2px solid var(--color-primary);
+  border-bottom: 1px solid var(--color-primary);
+}
+
+/* ---------- Novinski članak: tekst u stupcima, veliko prvo slovo, izvučeni citat, fotografija s vrpcom ---------- */
+/* Koriste ga naslovnica (O Hazarderu) i stranica O nama */
+
+.feature-article {
+  display: grid;
+  gap: 40px;
+}
+
+.feature-article__text {
+  font-family: 'Karla', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-dark);
+}
+
+/* Lijevo poravnanje: obostrano u uskim stupcima pravi rupe između riječi */
+.feature-article__text p {
+  margin: 0 0 16px;
+  hyphens: auto;
+}
+
+/* Veliko prvo slovo */
+.drop-cap::first-letter {
+  float: left;
+  margin: 6px 6px 0 0;
+  font-family: 'Anton', system-ui, sans-serif;
+  font-size: 64px;
+  line-height: 0.8;
+  color: var(--color-primary);
+}
+
+/* Izvučeni citat */
+.pull-quote {
+  margin: 24px 0;
+  font-family: 'Anton', system-ui, sans-serif;
+  font-size: 26px;
+  line-height: 1.15;
+  color: var(--color-primary);
+  break-inside: avoid;
+}
+
+/* Fotografija zalijepljena vrpcom, s potpisom */
+.photo-print {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 10px 10px 0;
+  background: var(--color-white);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+  transform: rotate(2deg);
+}
+
+.photo-print img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.photo-print figcaption {
+  padding: 10px 2px 12px;
+  font-family: 'Karla', system-ui, sans-serif;
+  font-style: italic;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Zakrenuta na drugu stranu - kad je više fotografija na stranici */
+.photo-print--left {
+  transform: rotate(-2.5deg);
+}
+
+/* Ljepljiva vrpca: poluprozirna, s blagim sjajem i nepravilno otrgnutim krajevima */
+.tape {
+  position: absolute;
+  top: -17px;
+  left: 50%;
+  z-index: 1;
+  width: 130px;
+  height: 34px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 40%, rgba(0, 0, 0, 0.05)),
+    var(--color-tape);
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.18));
+  transform: translateX(-50%) rotate(-4deg);
+  clip-path: polygon(
+    1% 6%, 5% 0, 9% 7%, 14% 1%, 50% 0, 86% 2%, 91% 0, 95% 8%, 100% 3%,
+    98% 50%, 100% 96%, 95% 91%, 90% 100%, 85% 95%, 50% 100%, 13% 97%, 8% 100%, 4% 92%, 0 98%,
+    2% 50%
+  );
+}
+
+@media (min-width: 1024px) {
+  .feature-article {
+    grid-template-columns: 7fr 5fr;
+    gap: 72px;
+    align-items: start;
+  }
+
+  .feature-article__text {
+    columns: 2;
+    column-gap: 32px;
+    font-size: 17px;
+  }
+
+  .photo-print {
+    margin-top: 16px;
+  }
+
+  /* Fotografija lijevo, tekst desno */
+  .feature-article--reverse {
+    grid-template-columns: 5fr 7fr;
+  }
+
+  .feature-article--reverse .photo-print {
+    order: -1;
+  }
 }
 
 /* TOAST */
@@ -233,4 +365,19 @@ textarea.ng-invalid.ng-touched {
   padding: 0 10px 15px;
   font-size: 1.2em;
   color: #333;
+}
+
+.gallery-dialog .mat-mdc-dialog-container {
+  --mdc-dialog-container-color: transparent;
+  --mat-dialog-container-color: transparent;
+  --mdc-dialog-container-elevation-shadow: none;
+  --mat-dialog-container-elevation-shadow: none;
+  overflow: visible;
+}
+
+.gallery-dialog .mat-mdc-dialog-inner-container,
+.gallery-dialog .mat-mdc-dialog-surface {
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;   /* uklanja scroll */
 }
