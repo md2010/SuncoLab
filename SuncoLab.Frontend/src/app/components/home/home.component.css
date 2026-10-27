@@ -402,38 +402,55 @@
   Mobitel: umjesto 7 naljepnica jedna ispod druge (više ekrana skrolanja)
   mreža 2 u redu - svaka druga spuštena i preklopljena kao hrpa naljepnica.
   Redovi postaju display: contents pa sve naljepnice dijele istu mrežu.
+
+  Naljepnica zakrenuta do 20° viri ~14% svoje širine preko svakog ruba (rotacija ne mijenja layout).
+  Zato vanjska margina (prema rubu ekrana) uvijek ostavlja mjesto za taj višak, a preklapaju se samo
+  prema unutra - ništa ne smije biti odrezano, pa nema ni overflow: clip.
+  Postoci margina računaju se od širine stupca mreže.
 */
 @media (max-width: 767px) {
     .stickers {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        max-width: 480px;
-        margin: 0 auto 56px;
-        padding: 24px 28px 0;
-        /* Zakrenuti kutovi ne smiju izazvati vodoravni scroll; clip (za razliku od hidden) ne reže okomito */
-        overflow-x: clip;
+        max-width: 520px;
+        margin: 0 auto;
+        /* dno: višak zakrenute naljepnice u zadnjem redu + razmak do gumba */
+        padding: 24px 20px calc(12% + 24px);
     }
 
     .stickers__row {
         display: contents;
     }
 
+    /* Lijevi stupac: mjesto za višak lijevo, preklop udesno */
     .sticker {
-        width: auto;
+        width: 86%;
         max-width: none;
-        margin: -6% -8%;
+        margin: -6% 0 -6% 12%;
     }
 
+    /* Desni stupac: spušten, mjesto za višak desno, preklop ulijevo */
     .sticker--offset {
-        margin-top: 22%;
+        margin: 22% 12% -6% 2%;
     }
 
-    /* Neparan broj: zadnja naljepnica sama u redu, centrirana */
+    /* Neparan broj: zadnja naljepnica sama u redu, centrirana (postoci od cijele širine mreže) */
     .sticker--last {
         grid-column: 1 / -1;
         justify-self: center;
-        width: 55%;
-        margin-top: -2%;
+        width: 50%;
+        margin: -2% 0 0;
+    }
+
+    .section-more {
+        margin-top: 0;
+    }
+}
+
+/* Od 640px gumba nema (link je u zaglavlju) - dno treba samo mjesto za višak zakrenute naljepnice */
+@media (min-width: 640px) and (max-width: 767px) {
+    .stickers {
+        padding-bottom: 12%;
     }
 }
 

@@ -28,7 +28,7 @@
             <div #stickers class="stickers">
                 <div class="stickers__row flex flex-row items-center justify-center w-full pt-10 px-5 lg:px-0 mb-8 lg:mb-12">
                     @for (sticker of bigStickers; track $index) {
-                        <a class="sticker block w-full lg:w-[28%] max-w-[500px]"
+                        <a class="sticker block w-full md:w-[28%] max-w-[500px]"
                             [class.sticker--offset]="$index % 2 === 1"
                             [class.sticker--new]="sticker.isNew"
                             [style.--r]="sticker.rotate" [routerLink]="sticker.link" [attr.aria-label]="sticker.label">
@@ -38,7 +38,7 @@
                 </div>
                 <div class="stickers__row flex flex-row items-center justify-center w-full px-5 lg:px-0">
                     @for (sticker of smallStickers; track $index) {
-                        <a class="sticker block w-full lg:w-[22%] max-w-[400px]"
+                        <a class="sticker block w-full md:w-[22%] max-w-[400px]"
                             [class.sticker--offset]="(bigStickers.length + $index) % 2 === 1"
                             [class.sticker--last]="$last && (bigStickers.length + smallStickers.length) % 2 === 1"
                             [class.sticker--new]="sticker.isNew"
