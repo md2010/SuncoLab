@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,ts}"],
+  // relative: putanje se razrješavaju od ove datoteke, a ne od direktorija iz kojeg se pokreće build
+  content: {
+    relative: true,
+    files: ["./src/**/*.{html,ts}"],
+  },
   theme: {
     extend: {
       colors: {
