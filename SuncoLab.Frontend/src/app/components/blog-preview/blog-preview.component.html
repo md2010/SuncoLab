@@ -21,11 +21,10 @@
 
         <div class="blog-body" [innerHTML]="blog.body"></div>
 
-        <a routerLink="/blog"
-            class="group inline-flex items-center mt-12 lg:mt-16 font-oswald font-bold text-xl lg:text-2xl text-primary">
-            <app-icon name="arrow_right"
-                class="inline w-7 h-7 mr-3 rotate-180 transition-transform duration-300 group-hover:-translate-x-2">
-            </app-icon>
+        <a routerLink="/blog" class="back-link mt-12 lg:mt-16">
+            <svg class="back-link__arrow" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19 12H5M11 6l-6 6 6 6" />
+            </svg>
             Svi članci
         </a>
     </article>

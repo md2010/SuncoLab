@@ -66,6 +66,55 @@
   text-decoration: underline;
 }
 
+/* Povratak na listu: tipografija kao ostali linkovi na stranici, strelica prati boju i veličinu teksta */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  transition: color 0.2s;
+}
+
+.back-link__arrow {
+  width: 1.25em;
+  height: 1.25em;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.2s ease-out;
+}
+
+.back-link:hover,
+.back-link:focus-visible {
+  color: var(--color-dark);
+}
+
+.back-link:hover .back-link__arrow,
+.back-link:focus-visible .back-link__arrow {
+  transform: translateX(-4px);
+}
+
+.back-link:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back-link__arrow {
+    transition: none;
+  }
+}
+
 /* Mobitel: obostrano poravnanje stvara rupe u uskom stupcu */
 @media (max-width: 640px) {
   .blog-body ::ng-deep p {
@@ -80,6 +129,10 @@
 
 @media (min-width: 1024px) {
   .blog-body {
+    font-size: 18px;
+  }
+
+  .back-link {
     font-size: 18px;
   }
 }
